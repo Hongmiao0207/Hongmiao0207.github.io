@@ -1,0 +1,17 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>nlp - Category - HongSpell</title>
+        <link>http://hongspell.github.io/categories/nlp/</link>
+        <description>nlp - Category - HongSpell</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>threewater027@gmail.com (Hong)</managingEditor>
+            <webMaster>threewater027@gmail.com (Hong)</webMaster><lastBuildDate>Tue, 11 Oct 2022 16:19:14 &#43;0800</lastBuildDate><atom:link href="http://hongspell.github.io/categories/nlp/" rel="self" type="application/rss+xml" /><item>
+    <title>Feedback Prize</title>
+    <link>http://hongspell.github.io/feedback-prize-evaluating-student-writing/</link>
+    <pubDate>Tue, 11 Oct 2022 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>http://hongspell.github.io/feedback-prize-evaluating-student-writing/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/posts/cover/Feedback%20Prize.png" referrerpolicy="no-referrer">
+            </div>Feedback Prize - Evaluating Student Writing | Kaggle 1 比赛介绍在这次竞赛中，将识别学生写作中的元素。更具体地说，将自动分割文本，并对6-12年级学生所写的文章中的论证和修辞元素]]></description>
+</item></channel>
+</rss>

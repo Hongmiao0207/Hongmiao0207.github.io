@@ -1,0 +1,1043 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title>Feedback Prize - HongSpell</title><meta name="Description" content=""><meta property="og:title" content="Feedback Prize" />
+<meta property="og:description" content="Feedback Prize - Evaluating Student Writing | Kaggle 1 比赛介绍在这次竞赛中，将识别学生写作中的元素。更具体地说，将自动分割文本，并对6-12年级学生所写的文章中的论证和修辞元素" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://hongspell.github.io/feedback-prize-evaluating-student-writing/" /><meta property="og:image" content="http://hongspell.github.io/globalImage/avatar.png" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-10-11T16:19:14+08:00" />
+<meta property="article:modified_time" content="2022-10-11T16:19:14+08:00" /><meta property="og:site_name" content="HongSpell" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="http://hongspell.github.io/globalImage/avatar.png" /><meta name="twitter:title" content="Feedback Prize"/>
+<meta name="twitter:description" content="Feedback Prize - Evaluating Student Writing | Kaggle 1 比赛介绍在这次竞赛中，将识别学生写作中的元素。更具体地说，将自动分割文本，并对6-12年级学生所写的文章中的论证和修辞元素"/>
+<meta name="twitter:site" content="@ssdlaohu9527"/>
+<meta name="application-name" content="HongSpell">
+<meta name="apple-mobile-web-app-title" content="HongSpell">
+
+<meta name="theme-color" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><meta name="twitter:creator" content="@ssdlaohu9527" /><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="http://hongspell.github.io/feedback-prize-evaluating-student-writing/" />
+<link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/color.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Feedback Prize",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http://hongspell.github.io/feedback-prize-evaluating-student-writing/"
+        },"genre": "posts","wordcount":  11884 ,
+        "url": "http://hongspell.github.io/feedback-prize-evaluating-student-writing/","datePublished": "2022-10-11T16:19:14+08:00","dateModified": "2022-10-11T16:19:14+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Hong"
+            },"description": ""
+    }
+    </script></head>
+
+<body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme); document.documentElement.style.setProperty('color-scheme', theme === 'light' ? 'light' : 'dark'); window.theme = theme;   window.isDark = window.theme !== 'light' }
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('auto' === 'light' || 'auto' === 'dark' || 'auto' === 'black') setTheme('auto'), saveTheme('auto'); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+        window.switchThemeEventSet = new Set()
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="HongSpell"><span id="desktop-header-typeit" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/projects/"> 项目 </a><a class="menu-item" href="/life/"> 生活 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-select" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw"></i>
+                    <select class="color-theme-select" id="theme-select-desktop" title="Switch Theme">
+                        <option value="light">Light</option>
+                        <option value="dark">Dark</option>
+                        <option value="black">Black</option>
+                        <option value="auto">Auto</option>
+                    </select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="HongSpell"><span id="mobile-header-typeit" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/projects/" title="">项目</a><a class="menu-item" href="/life/" title="">生活</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-select" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw"></i>
+                <select class="color-theme-select" id="theme-select-mobile" title="Switch Theme">
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                    <option value="black">Black</option>
+                    <option value="auto">Auto</option>
+                </select>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "false")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Feedback Prize</h1><div class="post-meta">
+            <div class="post-meta-line">
+                <span class="post-author"><span class="author fas fa-user-circle fa-fw"></span><a href="/" title="Author" rel=" author" class="author">Hong</a>
+                </span>&nbsp;<span class="post-category">included in </span>&nbsp;<span class="post-category">categories <a href="/categories/kaggle/"><i class="far fa-folder fa-fw"></i>kaggle</a>&nbsp;<a href="/categories/nlp/"><i class="far fa-folder fa-fw"></i>nlp</a>&nbsp;<a href="/categories/python/"><i class="far fa-folder fa-fw"></i>python</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-10-11">2022-10-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;11884 words&nbsp;<i class="far fa-clock fa-fw"></i>&nbsp;24 minutes&nbsp;</div>
+        </div><div class="featured-image"><img
+        
+        loading="eager"
+        src="/posts/cover/Feedback%20Prize.png"
+        srcset="/posts/cover/Feedback%20Prize.png, /posts/cover/Feedback%20Prize.png 1.5x, /posts/cover/Feedback%20Prize.png 2x"
+        sizes="auto"
+        alt="/posts/cover/Feedback%20Prize.png"
+        title="/posts/cover/Feedback%20Prize.png" height="auto"   width="auto" ></div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-比赛介绍">1 比赛介绍</a>
+      <ul>
+        <li><a href="#11-数据说明">1.1 数据说明</a></li>
+        <li><a href="#12-评价标准">1.2 评价标准</a>
+          <ul>
+            <li><a href="#121-举例">1.2.1 举例</a></li>
+          </ul>
+        </li>
+        <li><a href="#13-推荐baseline">1.3 推荐Baseline</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-ner-命名实体识别">2 NER 命名实体识别</a>
+      <ul>
+        <li><a href="#21-什么是-ner命名实体识别">2.1 什么是 NER命名实体识别？</a></li>
+        <li><a href="#22-ner通常的难点">2.2 NER通常的难点</a></li>
+        <li><a href="#23-ner模型演化路径">2.3 NER模型演化路径</a></li>
+        <li><a href="#231-传统机器学习法crf">2.3.1 传统机器学习⽅法：CRF</a></li>
+        <li><a href="#232-lstm--crf">2.3.2 LSTM + CRF</a></li>
+        <li><a href="#233-bert--lstm--crf">2.3.3 BERT + (LSTM) + CRF</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-nlp数据增强">3 NLP数据增强</a>
+      <ul>
+        <li><a href="#31-为什么数据增强很重要">3.1 为什么数据增强很重要？</a></li>
+        <li><a href="#32-sentence-shuffling">3.2 Sentence Shuffling</a></li>
+        <li><a href="#33-remove-duplicate-sentences">3.3 Remove Duplicate Sentences</a></li>
+        <li><a href="#34-remove-numbers">3.4 Remove Numbers</a></li>
+        <li><a href="#35-remove-hashtags">3.5 Remove Hashtags</a></li>
+        <li><a href="#36-remove-mentions">3.6 Remove Mentions</a></li>
+        <li><a href="#37-remove-urls">3.7 Remove URLs</a></li>
+        <li><a href="#38-cut-out-words">3.8 Cut Out Words</a></li>
+        <li><a href="#39-keyboardaug">3.9 KeyboardAug</a></li>
+        <li><a href="#310-spellingaug">3.10 SpellingAug</a></li>
+        <li><a href="#311-synonymaug">3.11 SynonymAug</a></li>
+        <li><a href="#312-wordembsaug">3.12 WordEmbsAug</a></li>
+        <li><a href="#313-contextualwordembsaug">3.13 ContextualWordEmbsAug</a></li>
+        <li><a href="#314-结论">3.14 结论</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-模型选择">4 模型选择</a>
+      <ul>
+        <li><a href="#41-transformer">4.1 Transformer</a></li>
+        <li><a href="#42-bert">4.2 Bert</a></li>
+        <li><a href="#43-longformer">4.3 Longformer</a></li>
+        <li><a href="#431-滑窗机制-sliding-window-attention">4.3.1 滑窗机制 (SLIDING WINDOW ATTENTION)</a></li>
+        <li><a href="#432-空洞滑窗机制-dilated-sliding-window">4.3.2 空洞滑窗机制 (DILATED SLIDING WINDOW)</a></li>
+        <li><a href="#433-融合全局信息的滑窗机制-globalsliding-window">4.3.3 融合全局信息的滑窗机制 (GLOBAL+SLIDING WINDOW)</a></li>
+        <li><a href="#434-结论">4.3.4 结论</a></li>
+      </ul>
+    </li>
+    <li><a href="#5-huggingface">5 HuggingFace</a>
+      <ul>
+        <li><a href="#511-pipeline">5.1.1 Pipeline</a></li>
+        <li><a href="#512-tokenizer">5.1.2 Tokenizer</a></li>
+        <li><a href="#513-model">5.1.3 Model</a></li>
+        <li><a href="#514-config">5.1.4 Config</a></li>
+        <li><a href="#515-ner-命名实体识别">5.1.5 NER 命名实体识别</a></li>
+        <li><a href="#516-训练">5.1.6 训练</a></li>
+      </ul>
+    </li>
+    <li><a href="#6-模型融合">6 模型融合</a>
+      <ul>
+        <li><a href="#61-融合方法介绍">6.1 融合方法介绍</a>
+          <ul>
+            <li><a href="#611-voting">6.1.1 Voting</a></li>
+            <li><a href="#612-bagging">6.1.2 Bagging</a></li>
+            <li><a href="#613-boosting">6.1.3 Boosting</a></li>
+            <li><a href="#614-blending">6.1.4 Blending</a></li>
+          </ul>
+        </li>
+        <li><a href="#62-模型融合-stacking">6.2 模型融合 Stacking</a></li>
+      </ul>
+    </li>
+    <li><a href="#7-总的解决方案思路">7 总的解决方案思路</a>
+      <ul>
+        <li><a href="#模型代码">模型代码</a></li>
+        <li><a href="#后处理参数">后处理参数</a></li>
+      </ul>
+    </li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="feedback-prize---evaluating-student-writing--kaggle" class="headerLink">
+    <a href="#feedback-prize---evaluating-student-writing--kaggle" class="header-mark"></a>Feedback Prize - Evaluating Student Writing | Kaggle</h1><h2 id="1-比赛介绍" class="headerLink">
+    <a href="#1-%e6%af%94%e8%b5%9b%e4%bb%8b%e7%bb%8d" class="header-mark"></a>1 比赛介绍</h2><p>在这次竞赛中，将识别学生写作中的元素。更具体地说，将自动分割文本，并对6-12年级学生所写的文章中的论证和修辞元素进行分类。帮助学生提高写作水平的一个方法是通过自动反馈工具，评估学生的写作并提供个性化的反馈。</p>
+<ul>
+<li>竞赛类型：本次竞赛属于深度学习/自然语言处理，所以推荐使用的模型或者库：Roberta/Deberta/Longformer</li>
+<li>赛题数据：官方提供的训练集大约有15000篇文章，测试集大约有10000篇文章。然后将分割的每个元素分类为以下内容之一：引子/立场/主张/反诉/反驳/证据/结论性声明，值得注意的是，文章的某些部分将是未加注释的（即它们不适合上述的分类）。</li>
+<li>评估标准：标签和预测的单词之间的重合度。通过计算每个类别的TP/FP/FN，然后取所有类别的 macro F1 score 分数得出。详见：<a href="https://www.kaggle.com/competitions/feedback-prize-2021/overview/evaluation" target="_blank" rel="noopener noreferrer">Feedback Prize - Evaluating Student Writing | Kaggle</a>。</li>
+<li>推荐阅读 Kaggle 内的一篇 EDA（探索数据分析）来获取一些预备知识：<a href="https://www.kaggle.com/code/erikbruin/nlp-on-student-writing-eda" target="_blank" rel="noopener noreferrer">NLP on Student Writing: EDA | Kaggle</a>。</li>
+</ul>
+<h3 id="11-数据说明" class="headerLink">
+    <a href="#11-%e6%95%b0%e6%8d%ae%e8%af%b4%e6%98%8e" class="header-mark"></a>1.1 数据说明</h3><p>官方提供的训练集大约有15000篇文章，测试集大约有10000篇文章。然后将分割的每个元素分类为以下内容之一：引子/立场/主张/反诉/反驳/证据/结论性声明，值得注意的是，文章的某些部分将是未加注释的（即它们不适合上述的分类）。</p>
+<p>官方数据页面：<a href="https://www.kaggle.com/competitions/feedback-prize-2021/data" target="_blank" rel="noopener noreferrer">Feedback Prize - Evaluating Student Writing | Kaggle</a>。</p>
+<p>将分割的每个元素分类为以下内容之一：</p>
+<ul>
+<li><strong>引子</strong>–以统计数字、引文、描述或其他一些手段开始的介绍，以吸引读者的注意力并指向论题。</li>
+<li><strong>立场</strong>–对主要问题的看法或结论。</li>
+<li><strong>主张</strong>–支持该立场的主张。</li>
+<li><strong>反诉</strong>–反驳另一个诉求的诉求，或提出与立场相反的理由。</li>
+<li><strong>反驳</strong>–驳斥反诉的主张。</li>
+<li><strong>证据</strong>–支持主张、反主张或反驳的观点或例子。</li>
+<li><strong>结论性声明</strong>–重申主张的结论性声明。</li>
+</ul>
+<p>值得注意的是，文章的某些部分将是未加注释的（即它们不适合上述的分类）。</p>
+<p>train.csv - 一个包含训练集中所有论文注释版本的.csv文件：</p>
+<ul>
+<li><strong>id</strong> - 作文的ID。</li>
+<li><strong>discourse_id</strong> - 话语元素的ID。</li>
+<li><strong>discourse_start</strong> - 话语元素在文章中开始的字符位置。</li>
+<li><strong>discourse_end</strong> - 话语元素在文章中结束的位置。</li>
+<li><strong>discourse_text</strong> - 话语元素的文本。</li>
+<li><strong>discourse_type</strong> - 话语元素的分类。</li>
+<li><strong>discourse_type_num</strong> - 话语元素的列举式分类标签（带序号）。</li>
+<li><strong>predictionstring</strong> - 训练样本的词索引，为预测所需。</li>
+</ul>
+<h3 id="12-评价标准" class="headerLink">
+    <a href="#12-%e8%af%84%e4%bb%b7%e6%a0%87%e5%87%86" class="header-mark"></a>1.2 评价标准</h3><p>评估依据是：<strong>标签</strong> 和 <strong>预测</strong> 的单词之间的重合度。</p>
+<p>对于每个样本，所有的标签和对某一特定类别的预测都要进行比较。</p>
+<ul>
+<li>如果标签和预测之间的重合度&gt;=0.5，而预测和标签之间的重合度&gt;=0.5，则预测是一个匹配，被认为是一个真阳性。</li>
+<li>如果存在多个匹配，则取重叠度最高的一对匹配。</li>
+<li>任何没有匹配的标签是假阴性，任何没有匹配的预测是假阳性。</li>
+</ul>
+<h4 id="121-举例" class="headerLink">
+    <a href="#121-%e4%b8%be%e4%be%8b" class="header-mark"></a>1.2.1 举例</h4><p>标签：</p>
+<p><figure><a class="lightgallery" href="/posts/feedPrize/label01.png" title="label01" data-thumbnail="/posts/feedPrize/label01.png">
+        <img
+            
+            loading="lazy"
+            src="/posts/feedPrize/label01.png"
+            srcset="/posts/feedPrize/label01.png, /posts/feedPrize/label01.png 1.5x, /posts/feedPrize/label01.png 2x"
+            sizes="auto"
+            alt="label01" height="130"  width="545" >
+    </a></figure></p>
+<p>预测：</p>
+<p><figure><a class="lightgallery" href="/posts/feedPrize/prediction01.png" title="prediction01" data-thumbnail="/posts/feedPrize/prediction01.png">
+        <img
+            
+            loading="lazy"
+            src="/posts/feedPrize/prediction01.png"
+            srcset="/posts/feedPrize/prediction01.png, /posts/feedPrize/prediction01.png 1.5x, /posts/feedPrize/prediction01.png 2x"
+            sizes="auto"
+            alt="prediction01" height="108"  width="304" >
+    </a></figure></p>
+<ul>
+<li>第一个预测与任何一个标签都没有&gt;=0.5的重叠，是一个假阳性。</li>
+<li>第二个预测将与第二个标签完全重叠，是一个真阳性。</li>
+<li>第三个标签将是不匹配的，是一个假阴性。</li>
+</ul>
+<p>最后的分数是通过计算每个类别的TP/FP/FN，然后取所有类别的 <a href="https://en.wikipedia.org/wiki/F-score" target="_blank" rel="noopener noreferrer">macro F1 score</a> 分数得出的。</p>
+<p>词的索引是通过使用Python的.split()函数计算的，并在得到的列表中获取索引。</p>
+<p>两个重叠部分的计算方法是：取标签/预测对中的每个指数列表的set()，并计算两个集合的交点除以每个集合的长度。</p>
+<p><strong>F1-score</strong>：</p>
+<p>$$ F_1 = \frac{2}{recall^{-1} + precision^{-1}} = 2 \cdot \frac{precision \cdot recall}{precision + recall} = \frac{tp}{tp + \frac{1}{2}(fp + fn)} $$</p>
+<p><strong>macor-F1</strong>：</p>
+<p>适用环境：多分类问题，不受数据不平衡影响，容易受到识别性高（高recall、高precision）的类别影响。</p>
+<p>计算每个类别的：$F_1-score_i=2\frac{Recall_i \cdot Precision_i}{Recall_i + Precision_i}$</p>
+<p>计算 $macro-F_1=\frac{F_1-score_1+F_1-socre_2+F_1-score_3}{3}$</p>
+<h3 id="13-推荐baseline" class="headerLink">
+    <a href="#13-%e6%8e%a8%e8%8d%90baseline" class="header-mark"></a>1.3 推荐Baseline</h3><p>TensorFlow - LongFormer - Baseline: <a href="https://www.kaggle.com/code/cdeotte/tensorflow-longformer-ner-cv-0-633/notebook" target="_blank" rel="noopener noreferrer">TensorFlow - LongFormer - NER - [CV 0.633] | Kaggle</a></p>
+<p>PyTorch - BigBird - Baseline: <a href="https://www.kaggle.com/code/cdeotte/pytorch-bigbird-ner-cv-0-615/notebook" target="_blank" rel="noopener noreferrer">PyTorch - BigBird - NER - [CV 0.615] | Kaggle</a></p>
+<p>HuggingFace baseline：<a href="https://www.kaggle.com/code/thedrcat/feedback-prize-huggingface-baseline-training/notebook" target="_blank" rel="noopener noreferrer">Feedback Prize HuggingFace Baseline: Training | Kaggle</a></p>
+<h2 id="2-ner-命名实体识别" class="headerLink">
+    <a href="#2-ner-%e5%91%bd%e5%90%8d%e5%ae%9e%e4%bd%93%e8%af%86%e5%88%ab" class="header-mark"></a>2 NER 命名实体识别</h2><h3 id="21-什么是-ner命名实体识别" class="headerLink">
+    <a href="#21-%e4%bb%80%e4%b9%88%e6%98%af-ner%e5%91%bd%e5%90%8d%e5%ae%9e%e4%bd%93%e8%af%86%e5%88%ab" class="header-mark"></a>2.1 什么是 NER命名实体识别？</h3><p>命名实体识别（Named Entity Recognition，简称NER），又称作“专名识别”，是指识别文
+本中具有特定意义的实体，主要包括人名、地名、机构名、专有名词等。简单的讲，就是
+识别自然文本中的实体指称的边界和类别（本次比赛的类型就是 NER 命名实体识别）。</p>
+<p>NER是NLP中一项基础性关键任务。从自然语言处理的流程来看，NER可以看作词法分析中
+未登录词识别的一种，是未登录词中数量最多、识别难度最大、对分词效果影响最大问题。
+同时NER也是关系抽取、事件抽取、知识图谱、机器翻译、问答系统等诸多NLP任务的基础。</p>
+<h3 id="22-ner通常的难点" class="headerLink">
+    <a href="#22-ner%e9%80%9a%e5%b8%b8%e7%9a%84%e9%9a%be%e7%82%b9" class="header-mark"></a>2.2 NER通常的难点</h3><p>实体命名识别语料较小，容易产生过拟合；命名实体识别更侧重高召回率，但在信息检索
+领域，高准确率更重要；通用的识别多种类型的命名实体的系统性能很差。</p>
+<h3 id="23-ner模型演化路径" class="headerLink">
+    <a href="#23-ner%e6%a8%a1%e5%9e%8b%e6%bc%94%e5%8c%96%e8%b7%af%e5%be%84" class="header-mark"></a>2.3 NER模型演化路径</h3><h3 id="231-传统机器学习法crf" class="headerLink">
+    <a href="#231-%e4%bc%a0%e7%bb%9f%e6%9c%ba%e5%99%a8%e5%ad%a6%e4%b9%a0%e6%b3%95crf" class="header-mark"></a>2.3.1 传统机器学习⽅法：CRF</h3><p>条件随机场（Conditional Random Field，CRF）是NER⽬前的主流模型。它的⽬标函数不仅考虑输⼊的状态特征函数，⽽且还包含了标签转移特征函数。在已知模型时，给输⼊序列求预测输出序列即求使⽬标函数最⼤化的最优序列，是⼀个动态规划问题，可以使⽤Viterbi算法解码来得到最优标签序列。</p>
+<p>其优点在于其为⼀个位置进⾏标注的过程中可以利⽤丰富的内部及上下⽂特征信息。</p>
+<p><figure><a class="lightgallery" href="/posts/feedPrize/crf%20model.png" title="crf模型" data-thumbnail="/posts/feedPrize/crf%20model.png">
+        <img
+            
+            loading="lazy"
+            src="/posts/feedPrize/crf%20model.png"
+            srcset="/posts/feedPrize/crf%20model.png, /posts/feedPrize/crf%20model.png 1.5x, /posts/feedPrize/crf%20model.png 2x"
+            sizes="auto"
+            alt="crf模型" height="260"  width="855" >
+    </a></figure></p>
+<h3 id="232-lstm--crf" class="headerLink">
+    <a href="#232-lstm--crf" class="header-mark"></a>2.3.2 LSTM + CRF</h3><p>随着深度学习的发展，学术界提出了Deep Learning + CRF模型做序列标注。在神经⽹络的输出层接⼊CRF层（重点是利⽤标签转移概率）来做句⼦级别的标签预测，使得标注过程不再是对各个token独⽴分类。</p>
+<p><figure><a class="lightgallery" href="/posts/feedPrize/LSTM&#43;CRF%20model.png" title="LSTM&#43;CRF模型" data-thumbnail="/posts/feedPrize/LSTM&#43;CRF%20model.png">
+        <img
+            
+            loading="lazy"
+            src="/posts/feedPrize/LSTM&#43;CRF%20model.png"
+            srcset="/posts/feedPrize/LSTM&#43;CRF%20model.png, /posts/feedPrize/LSTM&#43;CRF%20model.png 1.5x, /posts/feedPrize/LSTM&#43;CRF%20model.png 2x"
+            sizes="auto"
+            alt="LSTM&#43;CRF模型" height="200"  width="1086" >
+    </a></figure></p>
+<h3 id="233-bert--lstm--crf" class="headerLink">
+    <a href="#233-bert--lstm--crf" class="header-mark"></a>2.3.3 BERT + (LSTM) + CRF</h3><p>BERT中蕴含了大量的通用知识，利用预训练好的BERT模型，再用少量的标注数据进行FINETUNE是一种快速的获得效果不错的NER的方法。</p>
+<p><figure><a class="lightgallery" href="/posts/feedPrize/BERT&#43;LSTM&#43;CRF%20model.png" title="BERT&#43;LSTM&#43;CRF模型" data-thumbnail="/posts/feedPrize/BERT&#43;LSTM&#43;CRF%20model.png">
+        <img
+            
+            loading="lazy"
+            src="/posts/feedPrize/BERT&#43;LSTM&#43;CRF%20model.png"
+            srcset="/posts/feedPrize/BERT&#43;LSTM&#43;CRF%20model.png, /posts/feedPrize/BERT&#43;LSTM&#43;CRF%20model.png 1.5x, /posts/feedPrize/BERT&#43;LSTM&#43;CRF%20model.png 2x"
+            sizes="auto"
+            alt="BERT&#43;LSTM&#43;CRF模型" height="1057"  width="1367" >
+    </a></figure></p>
+<h2 id="3-nlp数据增强" class="headerLink">
+    <a href="#3-nlp%e6%95%b0%e6%8d%ae%e5%a2%9e%e5%bc%ba" class="header-mark"></a>3 NLP数据增强</h2><h3 id="31-为什么数据增强很重要" class="headerLink">
+    <a href="#31-%e4%b8%ba%e4%bb%80%e4%b9%88%e6%95%b0%e6%8d%ae%e5%a2%9e%e5%bc%ba%e5%be%88%e9%87%8d%e8%a6%81" class="header-mark"></a>3.1 为什么数据增强很重要？</h3><p>数据增强时通过形成新的和不同的样本来训练数据集，数据增强对于提高机器学习模型的性能和结果是有用的。因为如果机器学习模型中的数据集是丰富和充分的，那么该模型的表现会更好，更准确。</p>
+<p>对于机器学习模型来说，收集和标记数据可能是一个耗费精力和成本的过程。通过使用数据增强技术对数据集进行扩增，对于公司/组织可以使减少这些运营成本。</p>
+<h3 id="32-sentence-shuffling" class="headerLink">
+    <a href="#32-sentence-shuffling" class="header-mark"></a>3.2 Sentence Shuffling</h3><p>在 Sentence Shuffling 中，我们将随机洗牌文本中的句子。</p>
+<p><strong>Original Text</strong>：</p>
+<ul>
+<li>Modern humans today are always on their phone. They are always on their phone more than 5 hours a day no stop. All they do is text back and forward and just have group Chats on social media. They even do it while driving.</li>
+</ul>
+<p><strong>Augmented Text</strong>：</p>
+<ul>
+<li>They even do it while driving. They are always on their phone more than 5 hours a day no stop. All they do is text back and forward and just have group Chats on social media. Modern humans today are always on their phone</li>
+</ul>
+<h3 id="33-remove-duplicate-sentences" class="headerLink">
+    <a href="#33-remove-duplicate-sentences" class="header-mark"></a>3.3 Remove Duplicate Sentences</h3><p>在Remove Duplicates中，我们将删除文本中的重复句子。</p>
+<p>为了证明这一点，我们把一个句子与它本身连接起来，输出的应该只是原始文本。</p>
+<p><strong>Original Text</strong>：</p>
+<ul>
+<li>Modern humans today are always on their phone. Modern humans today are always on their phone.</li>
+</ul>
+<p><strong>Augmented Text</strong>：</p>
+<ul>
+<li>Modern humans today are always on their phone.</li>
+</ul>
+<h3 id="34-remove-numbers" class="headerLink">
+    <a href="#34-remove-numbers" class="header-mark"></a>3.4 Remove Numbers</h3><p>在Remove Numbers中，我们将从文本中移除任何数字。我们可以简单地使用正则表达式实现这一点。</p>
+<p><strong>Original Text</strong>：</p>
+<ul>
+<li>There are 15594 samples of training data.</li>
+</ul>
+<p><strong>Augmented Text</strong>：</p>
+<ul>
+<li>There are samples of training data.</li>
+</ul>
+<h3 id="35-remove-hashtags" class="headerLink">
+    <a href="#35-remove-hashtags" class="header-mark"></a>3.5 Remove Hashtags</h3><p>在Remove Hashtags中，我们将删除文本中的任何hashtag。</p>
+<p><strong>Original Text</strong>：</p>
+<ul>
+<li>Kaggle Competitions are fun. #MachineLearning</li>
+</ul>
+<p><strong>Augmented Text</strong>：</p>
+<ul>
+<li>Kaggle Competitions are fun.</li>
+</ul>
+<h3 id="36-remove-mentions" class="headerLink">
+    <a href="#36-remove-mentions" class="header-mark"></a>3.6 Remove Mentions</h3><p>在这个转换中，我们删除了文本中的任何提及（以&rsquo;@&lsquo;开头的词）。</p>
+<p><strong>Original Text</strong>：</p>
+<ul>
+<li>@AnthonyGoldbloom is the founder of Kaggle.</li>
+</ul>
+<p><strong>Augmented Text</strong>：</p>
+<ul>
+<li>is the founder of Kaggle.</li>
+</ul>
+<h3 id="37-remove-urls" class="headerLink">
+    <a href="#37-remove-urls" class="header-mark"></a>3.7 Remove URLs</h3><p>在这种转换中，我们从文本中删除任何URL。</p>
+<p><strong>Original Text</strong>：</p>
+<ul>
+<li><a href="https://www.kaggle.com" target="_blank" rel="noopener noreferrer">https://www.kaggle.com</a> hosts the world&rsquo;s best Machine Learning Hackathons.</li>
+</ul>
+<p><strong>Augmented Text</strong>：</p>
+<ul>
+<li>hosts the world&rsquo;s best Machine Learning Hackathons</li>
+</ul>
+<h3 id="38-cut-out-words" class="headerLink">
+    <a href="#38-cut-out-words" class="header-mark"></a>3.8 Cut Out Words</h3><p>在这种转换中，我们从文本中删除一些词。</p>
+<p><strong>Original Text</strong>：</p>
+<ul>
+<li>Competition objective is to analyze argumentative writing elements from students grade 6-12.</li>
+</ul>
+<p><strong>Augmented Text</strong>：</p>
+<ul>
+<li>Competition objective is to analyze argumentative elements from grade.</li>
+</ul>
+<h3 id="39-keyboardaug" class="headerLink">
+    <a href="#39-keyboardaug" class="header-mark"></a>3.9 KeyboardAug</h3><p>KeyboardAug，它使用键盘上的键的相邻性来模拟打错。</p>
+<p><strong>Original Text</strong>：</p>
+<ul>
+<li>Dear Senator, I favor keeping the Electoral College in the arguement. <strong>One of the reasons I feel that way is that it is harder for someone who is runnig for president to win.</strong> To win they would need to win over the votes of most of the <strong>small</strong> states. Or win over the votes over some of the small states and some of the big states. So it would need someone who is smart or at least somewhat smart.</li>
+</ul>
+<p><strong>Keyboard augmentation</strong>：</p>
+<ul>
+<li>Dear Senator, I favor keeping the Electoral College in the arguement. <strong>One of the reasons I Vee? that way is that it is harder for soJdoJe who is runnig for president to win</strong>. To win they would need to win over the votes of most of the <strong>s,apl</strong> states. Or win over the votes over some of the small states and some of the big states. So it would need someone who is smart or at least somewhat smart.</li>
+</ul>
+<h3 id="310-spellingaug" class="headerLink">
+    <a href="#310-spellingaug" class="header-mark"></a>3.10 SpellingAug</h3><p>KeyboardAug创造的错别字太不自然，接着尝试SpellingAug，它使用一个常见的拼写错误数据库。</p>
+<p><strong>Original Text</strong>：</p>
+<ul>
+<li>Dear Senator, I favor keeping the Electoral College in the arguement. One of the reasons I feel that way is that it is harder for someone who is runnig for president to win. To win they would need to win over the votes of most of the small states. Or win over the votes over some of the small states and some of the big states. So it would need someone who is smart or at least somewhat smart.</li>
+</ul>
+<p><strong>SpellingAug augmentation</strong>：</p>
+<ul>
+<li>Dear Senator, I favor keeping the Electoral College in the arguement. One of the reasons I feel that way is that it is harder for someone who is runnig for president to win. To win they would need to win <strong>overt</strong> the votes of most of the <strong>smol</strong> states. Or win over the votes over some of the small states and some of the big states. <strong>To</strong> it would need someone who is smart <strong>onr</strong> at least somewhat smart.</li>
+</ul>
+<h3 id="311-synonymaug" class="headerLink">
+    <a href="#311-synonymaug" class="header-mark"></a>3.11 SynonymAug</h3><p>SynonymAug，它用同义词替换了一些单词。</p>
+<p><strong>Original Text</strong>：</p>
+<ul>
+<li>Dear Senator, I favor keeping the Electoral College in the arguement. One of the reasons I feel that way is that it is harder for someone who is runnig for president to win. To win they would need to win over the votes of most of the small states. Or win over the votes over some of the small states and some of the big states. So it would need someone who is smart or at least somewhat smart.</li>
+</ul>
+<p><strong>SynonymAug augmentation</strong>：</p>
+<ul>
+<li>Dear Senator, I favor keeping the Electoral College in the arguement. One of the reasons I feel that way is that it is harder for someone who is runnig for president to win. To win they would need to win over the votes of most of the small states. Or win over the <strong>ballot</strong> over some of the small states and some of the big <strong>res publica. So it would need someone who is
+smart or at least somewhat smart</strong>.</li>
+</ul>
+<h3 id="312-wordembsaug" class="headerLink">
+    <a href="#312-wordembsaug" class="header-mark"></a>3.12 WordEmbsAug</h3><p>使用单词嵌入来寻找类似的单词进行扩增，这里使用的是GloVe模型的本地副本。</p>
+<p><strong>Original Text</strong>：</p>
+<ul>
+<li>Dear Senator, I favor keeping the Electoral College in the arguement. One of the reasons I feel that way is that it is harder for someone who is runnig for president to win. To win they would need to win over the votes of most of the small states. Or win over the votes over some of the small states and some of the big states. So it would need someone who is smart or at least somewhat smart.</li>
+</ul>
+<p><strong>WordEmbsAug augmentation</strong>：</p>
+<ul>
+<li>Dear Senator, I favor keeping the Electoral College in the arguement. One of the reasons I feel that way is that it is harder for someone who is runnig for <strong>mubarak</strong> to win. To win they would need to win over the votes of most of the small states. Or win over the votes over some of the small states and some of the <strong>bigger</strong> states. So it would need someone who is smart or at least somewhat smart.</li>
+</ul>
+<h3 id="313-contextualwordembsaug" class="headerLink">
+    <a href="#313-contextualwordembsaug" class="header-mark"></a>3.13 ContextualWordEmbsAug</h3><p>与WordEmbsAug相似，但使用更强大的上下文词嵌入。这里与BERT一起使用。</p>
+<p><strong>Original Text</strong>：</p>
+<ul>
+<li>Dear Senator, I favor keeping the Electoral College in the arguement. One of the reasons I feel that way is that it is harder for someone who is runnig for president to win. To win they would need to win over the votes of most of the small states. Or win over the votes over some of the small states and some of the big states. So it would need someone who is smart or at least somewhat smart.</li>
+</ul>
+<p><strong>ContextualWordEmbsAug augmentation</strong>：</p>
+<ul>
+<li>Dear Senator, I favor keeping the Electoral College in the arguement. <strong>Part</strong> of the reasons I feel that way is that it is harder for someone who is runnig for president <strong>so</strong> win. To win they would need to win over the votes of most of the small <strong>counties</strong>. Or win over the votes over some <strong>among</strong> the small states and some of the big states. So it would need <strong>loser</strong> who is smart or at least somewhat smart.</li>
+</ul>
+<h3 id="314-结论" class="headerLink">
+    <a href="#314-%e7%bb%93%e8%ae%ba" class="header-mark"></a>3.14 结论</h3><p>SpellingAug 和 Contextual WordEmbsAug 看起来产生了很好的结果，可以在不
+调整训练时给出的话语注释的情况下使用。</p>
+<h2 id="4-模型选择" class="headerLink">
+    <a href="#4-%e6%a8%a1%e5%9e%8b%e9%80%89%e6%8b%a9" class="header-mark"></a>4 模型选择</h2><h3 id="41-transformer" class="headerLink">
+    <a href="#41-transformer" class="header-mark"></a>4.1 Transformer</h3><p>Transformer是2017年提出的一种模型架构（《Attention is All You Need》），其优点除了效果好之外，由于encoder端是并行计算的，训练的时间也被大大缩短了。其开创性的思想，颠覆了以往序列建模和RNN划等号的思路，被广泛应用于NLP的各个领域。目前在NLP各业务全面开花的语言模型如GPT, BERT等，都是基于Transformer模型。</p>
+<p>Transformer 模型使用了 Self-Attention 机制， Self-Attention 也是 Transformer 最核心的思想，不采用RNN顺序结构，使得模型可以并行化训练，而且能够拥有全局信息。</p>
+<p>其中，attention的计算方式有多种，加性attention、点积attention，还有带参数的计算方式。具体可以去看相关文章。</p>
+<p>对self-attention来说，它跟每一个input vector都做attention，所以没有考虑到input sequence的顺序。</p>
+<h3 id="42-bert" class="headerLink">
+    <a href="#42-bert" class="header-mark"></a>4.2 Bert</h3><p>BERT是基于transformer的双向编码表示，它是一个预训练模型，模型训练时的两个任务是预测句子中被掩盖的词以及判断输入的两个句子是不是上下句。在预训练好的BERT模型后面根据特定任务加上相应的网络，可以完成NLP的下游任务，比如文本分类、机器翻译等。</p>
+<p>虽然BERT是基于transformer的，但是它只使用了transformer的encoder部分，它的整体框架是由多层transformer的encoder堆叠而成的。</p>
+<p>每一层的encoder则是由一层muti-head-attention和一层feed-forword组成，大的模型有24层，每层16个attention，小的模型12层，每层12个attention。每个attention的主要作用是通过目标词与句子中的所有词汇的相关度，对目标词重新编码。所以每个attention的计算包括三个步骤：计算词之间的相关度，对相关度归一化，通过相关度和所有词的编码进行加权求和获取目标词的编码。</p>
+<p>在BERT中，输入的向量是由三种不同的embedding求和而成，分别是：</p>
+<ol>
+<li>
+<p>wordpiece embedding：单词本身的向量表示。WordPiece是指将单词划分成一组有限的公共子词单元，能在单词的有效性和字符的灵活性之间取得一个折中的平衡。</p>
+</li>
+<li>
+<p>position embedding：将单词的位置信息编码成特征向量。因为我们的网络结构没有RNN 或者LSTM，因此我们无法得到序列的位置信息，所以需要构建一个position embedding。构建position embedding有两种方法：BERT是初始化一个position embedding，然后通过训练将其学出来；而Transformer是通过制定规则来构建一个position embedding。</p>
+</li>
+<li>
+<p>segment embedding：BERT 能够处理对输入句子对的分类任务。这类任务就像判断两个文本是否是语义相似的。句子对中的两个句子被简单的拼接在一起后送入到模型中。那BERT如何去区分一个句子对中的两个句子呢？答案就是segment embeddings。</p>
+</li>
+</ol>
+<p>BERT的优点是只有BERT表征会基于所有层中的左右两侧语境。BERT能做到这一点得益于Transformer中Attention机制将任意位置的两个单词的距离转换成了1。</p>
+<h3 id="43-longformer" class="headerLink">
+    <a href="#43-longformer" class="header-mark"></a>4.3 Longformer</h3><p>Longformer 是一种可高效处理长文本的模型，出自 AllenAI 2020年。目前已开源，而且可以通过 huggingface 快速使用。</p>
+<p>传统Transformer-based模型在处理长文本时存在一些问题，因为它们均采用“我全都要看”型的attention机制，即每一个token都要与其他所有token进行交互，无论是空间还是时间复杂度都高达O(n^2) 。为了解决这个问题，之前有些工作是将长文本切分为若干个较短的Text Segment，然后逐个处理，例如Transformer-XL。但这会导致不同的Text Segment之间无法进行交互，因而必然存在大量的information loss（信息丢失）。</p>
+<p>本文提出的 Longformer，改进了Transformer传统的self-attention机制。具体来说，每一个token只对固定窗口大小附近的token进行 local attention（局部注意力）。并且 Longformer 针对具体任务，在原有 local attention 的基础上增加了一种 global attention（全局注意力）。</p>
+<p>Longformer 在两个字符级语言建模任务上都取得了SOTA的效果。并且作者用 Longformer 的attention方法继续预训练 RoBERTa，训练得到的语言模型在多个长文档任务上进行fine-tune后，性能全面超越 RoBERTa</p>
+<p>作者共提出了三种新的attention机制，这三种方法都很好的降低了传统self-attention的复杂度，它们分别是滑窗机制、空洞滑窗机制、融合全局信息的滑窗机制。</p>
+<h3 id="431-滑窗机制-sliding-window-attention" class="headerLink">
+    <a href="#431-%e6%bb%91%e7%aa%97%e6%9c%ba%e5%88%b6-sliding-window-attention" class="header-mark"></a>4.3.1 滑窗机制 (SLIDING WINDOW ATTENTION)</h3><p>对于每一个token，只对其附近的w个token计算attention，复杂度为O(n×w) ，其中n为文本的长度。作者认为，根据应用任务的不同，可以对Transformer每一层施以不同的窗口大小w。</p>
+<p>作者在具体实现的时候，设置的窗口大小=512，与BERT的input限制完全一样，所以大家不要存有“ Longformer 比 BERT 更轻量”的错觉。</p>
+<h3 id="432-空洞滑窗机制-dilated-sliding-window" class="headerLink">
+    <a href="#432-%e7%a9%ba%e6%b4%9e%e6%bb%91%e7%aa%97%e6%9c%ba%e5%88%b6-dilated-sliding-window" class="header-mark"></a>4.3.2 空洞滑窗机制 (DILATED SLIDING WINDOW)</h3><p>对每一个token进行编码时，普通的滑窗机制只能考虑到长度为w的上下文。作者进一步提出空洞滑窗机制（实际上空洞滑窗是CV领域中很早就有的一项技术），在不增加计算负荷的前提下，拓宽视野范围。在滑动窗口中，被attented到的两个相邻token之间会存在大小为d的间隙，因此每个token的视野范围可达到d×w。实验表明，由于考虑了更加全面的上下文信息，空洞滑窗机制比普通的滑窗机制表现更佳。</p>
+<h3 id="433-融合全局信息的滑窗机制-globalsliding-window" class="headerLink">
+    <a href="#433-%e8%9e%8d%e5%90%88%e5%85%a8%e5%b1%80%e4%bf%a1%e6%81%af%e7%9a%84%e6%bb%91%e7%aa%97%e6%9c%ba%e5%88%b6-globalsliding-window" class="header-mark"></a>4.3.3 融合全局信息的滑窗机制 (GLOBAL+SLIDING WINDOW)</h3><p>我们知道BERT类的语言模型在fine-tune时，实现方式略有不同。比如，对于文本分类任务，我们会在整个输入的前面加上[CLS]这个token；而对于QA任务，我们则会将问题与文本进行拼接后进行输入。在Longformer中，作者也希望能够根据具体任务的不同，在原本local attention的基础上添加少量的global attention。例如，在分类任务中会在[CLS]初添加一个global attention（对应下图第一行第一列全绿）；而在QA任务上会对question中的所有token添加global attention。如下图所示，对于添加了global attention的token，我们对其编码时要对整个序列做attention，并且编码其它token时，也都要attend到它。</p>
+<h3 id="434-结论" class="headerLink">
+    <a href="#434-%e7%bb%93%e8%ae%ba" class="header-mark"></a>4.3.4 结论</h3><p>作者在text8和enwiki8两个字符级任务上对 Longformer 进行了实验。实验中每一层采用了不同的窗口大小，具体来说：底层使用较小的滑窗，以构建局部信息；越上层滑窗越大，以扩大感受野。</p>
+<p>训练时，理想状况当时是希望使用GPU所能承受最大的w和sequence length，但为了加快训练速度，作者采用的是多阶段训练法：从较短的序列长度和窗口大小开始，后续每个阶段将窗口大小和训练长度增加一倍，并将学习率减半。</p>
+<p>作者一共训练了5个阶段，第一个阶段sequence length是2048，最后一个阶段是23040。</p>
+<p>实验结果，Longformer在这两个数据集上皆达到了SOTA。</p>
+<h2 id="5-huggingface" class="headerLink">
+    <a href="#5-huggingface" class="header-mark"></a>5 HuggingFace</h2><p>Huggingface Transformer 能够帮我们跟踪流⾏的新模型，并且提供统⼀的代码⻛格来使⽤BERT、XLNet和GPT等等各种不同的模型。⽽且它有⼀个模型仓库，所有常⻅的预训练模型和不同任务上fine-tuning的模型都可以在这⾥⽅便的下载（解决了各种Pretraining的Transformer模型实现不同、对比麻烦的问题）。</p>
+<p>设计原则：</p>
+<ul>
+<li>简洁，只有configuration，models和tokenizer三个主要类。</li>
+<li>所有的模型都可以通过统一的from_pretrained()函数来实现加载，transformers会处理下载、缓存和其它所有加载模型相关的细节。而所有这些模型都统一在Hugging Face Models管理。</li>
+<li>基于上面的三个类，提供更上层的pipeline和Trainer/TFTrainer，从而用更少的代码实现模型的预测和微调。</li>
+<li>它不是一个基础的神经网络库来一步一步构造Transformer，而是把常见的Transformer模型封装成一个building block，我们可以方便的在PyTorch或者TensorFlow里使用它。</li>
+</ul>
+<p>主要概念：</p>
+<ul>
+<li>Model类（如 BertModel）：包括30+的PyTorch模型(torch.nn.Module)和对应的TensorFlow模型(tf.keras.Model)。</li>
+<li>Congif类（如 BertConfig）：它保存了模型的相关(超)参数。我们通常不需要自己来构造它。如果我们不需要进行模型的修改，那么创建模型时会自动使用对于的配置。</li>
+<li>Tokenizer类（如 BertTokenizer）：它保存了词典等信息并且实现了把字符串变成ID序列的功能。</li>
+</ul>
+<h3 id="511-pipeline" class="headerLink">
+    <a href="#511-pipeline" class="header-mark"></a>5.1.1 Pipeline</h3><p>Pipeline（使用预训练模型的函数），支持如下任务：</p>
+<ul>
+<li>情感分析(Sentiment analysis)：一段文本是正面还是负面的情感倾向</li>
+<li>文本生成(Text generation)：给定一段文本，让模型补充后面的内容</li>
+<li>命名实体识别(Name entity recognition)：识别文字中出现的人名地名的命名实体</li>
+<li>问答(Question answering)：给定一段文本以及针对它的一个问题，从文本中抽取答案</li>
+<li>填词(Filling masked text)：把一段文字的某些部分mask住，然后让模型填空</li>
+<li>摘要(Summarization)：根据一段长文本中生成简短的摘要</li>
+<li>翻译(Translation)：把一种语言的文字翻译成另一种语言</li>
+<li>特征提取(Feature extraction)：把一段文字用一个向量来表示</li>
+</ul>
+<p>情感分析的例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">pipeline</span>
+</span></span><span class="line"><span class="cl"><span class="n">classifier</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s1">&#39;sentiment-analysis’)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">results</span> <span class="o">=</span> <span class="n">classifier</span><span class="p">([</span><span class="s2">&#34;We are very happy to show you the Transformers library.&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="s2">&#34;We hope you don&#39;t hate it.&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;label: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">, with score: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">],</span> <span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 运行结果</span>
+</span></span><span class="line"><span class="cl"><span class="n">label</span><span class="p">:</span> <span class="n">POSITIVE</span><span class="p">,</span> <span class="k">with</span> <span class="n">score</span><span class="p">:</span> <span class="mf">0.9998</span>
+</span></span><span class="line"><span class="cl"><span class="n">label</span><span class="p">:</span> <span class="n">NEGATIVE</span><span class="p">,</span> <span class="k">with</span> <span class="n">score</span><span class="p">:</span> <span class="mf">0.5309</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果觉得模型不合适，寻找合适的模型：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">classifier</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s1">&#39;sentiment-analysis&#39;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&#34;nlptown/bert-base-multilingual-uncased-sentiment&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="512-tokenizer" class="headerLink">
+    <a href="#512-tokenizer" class="header-mark"></a>5.1.2 Tokenizer</h3><p>Tokenizer的作用大致就是分词，然后把词变成的整数ID，当然有些模型会使用subword。但是不管怎么样，最终的目的是把一段文本变成ID的序列。当然它也必须能够反过来把ID序列变成文本。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">inputs</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">(</span><span class="s2">&#34;We are very happy to show you the Transformers library.&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Tokenizer对象是callable，因此可以直接传入一个字符串，返回一个dict。最主要的是ID的list，同时也会返回attention mask：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span><span class="s1">&#39;input_ids&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">101</span><span class="p">,</span> <span class="mi">2057</span><span class="p">,</span> <span class="mi">2024</span><span class="p">,</span> <span class="mi">2200</span><span class="p">,</span> <span class="mi">3407</span><span class="p">,</span> <span class="mi">2000</span><span class="p">,</span> <span class="mi">2265</span><span class="p">,</span> <span class="mi">2017</span><span class="p">,</span> <span class="mi">1996</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">19081</span><span class="p">,</span> <span class="mi">3075</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl"><span class="mi">1012</span><span class="p">,</span> <span class="mi">102</span><span class="p">],</span> <span class="s1">&#39;attention_mask&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>我们也可以一次传入一个batch的字符串，这样便于批量处理。这时我们需要指定padding
+为True并且设置最大的长度：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">pt_batch</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="s2">&#34;We are very happy to show you the Transformers library.&#34;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;We hope you don&#39;t hate it.&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="n">padding</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">truncation</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">max_length</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&#34;pt&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>truncation为True会把过长的输入切掉，从而保证所有的句子都是相同长度的。</li>
+<li>return_tensors=”pt” 表示返回的是 PyTorch的Tensor，如果使用TensorFlow则需要设置。</li>
+<li>return_tensors=”tf”。</li>
+</ul>
+<p>分词结果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">pt_batch</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">input_ids</span><span class="p">:</span> <span class="p">[[</span><span class="mi">101</span><span class="p">,</span> <span class="mi">2057</span><span class="p">,</span> <span class="mi">2024</span><span class="p">,</span> <span class="mi">2200</span><span class="p">,</span> <span class="mi">3407</span><span class="p">,</span> <span class="mi">2000</span><span class="p">,</span> <span class="mi">2265</span><span class="p">,</span> <span class="mi">2017</span><span class="p">,</span> <span class="mi">1996</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">19081</span><span class="p">,</span> <span class="mi">3075</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl"><span class="mi">1012</span><span class="p">,</span> <span class="mi">102</span><span class="p">],</span> <span class="p">[</span><span class="mi">101</span><span class="p">,</span> <span class="mi">2057</span><span class="p">,</span> <span class="mi">3246</span><span class="p">,</span> <span class="mi">2017</span><span class="p">,</span> <span class="mi">2123</span><span class="p">,</span> <span class="mi">1005</span><span class="p">,</span> <span class="mi">1056</span><span class="p">,</span> <span class="mi">5223</span><span class="p">,</span> <span class="mi">2009</span><span class="p">,</span> <span class="mi">1012</span><span class="p">,</span> <span class="mi">102</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl"><span class="n">attention_mask</span><span class="p">:</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl"><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>pt_batch仍然是一个dict，input_ids是一个batch的ID序列，我们可以看到第二个字符串较短，所以它被padding成和第一个一样长。如果某个句子的长度超过max_length，也会被
+切掉多余的部分。</p>
+<h3 id="513-model" class="headerLink">
+    <a href="#513-model" class="header-mark"></a>5.1.3 Model</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoTokenizer</span><span class="p">,</span> <span class="n">AutoModelForSequenceClassification</span>
+</span></span><span class="line"><span class="cl"><span class="n">model_name</span> <span class="o">=</span> <span class="s2">&#34;distilbert-base-uncased-finetuned-sst-2-english&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">pt_model</span> <span class="o">=</span> <span class="n">AutoModelForSequenceClassification</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">model_name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">model_name</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Tokenizer的处理结果可以输入给模型，对于PyTorch则需要使用**来展开参数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># PyTorch</span>
+</span></span><span class="line"><span class="cl"><span class="n">pt_outputs</span> <span class="o">=</span> <span class="n">pt_model</span><span class="p">(</span><span class="o">**</span><span class="n">pt_batch</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Transformers的所有输出都是tuple，即使只有一个结果也会是长度为1的tuple：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">pt_outputs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="n">tensor</span><span class="p">([[</span><span class="o">-</span><span class="mf">4.0833</span><span class="p">,</span> <span class="mf">4.3364</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">        <span class="p">[</span> <span class="mf">0.0818</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.0418</span><span class="p">]],</span> <span class="n">grad_fn</span><span class="o">=&lt;</span><span class="n">AddmmBackward</span><span class="o">&gt;</span><span class="p">),)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="514-config" class="headerLink">
+    <a href="#514-config" class="header-mark"></a>5.1.4 Config</h3><p>如果你想自定义模型(这里指的是调整模型的超参数，比如网络的层数，每层的attention head个数等等，如果你要实现一个全新的模型，那就不能用这里的方法了)，那么你需要构造配置类。</p>
+<p>每个模型都有对应的配置类，比如DistilBertConfig。你可以通过它来指定隐单元的个数，dropout等等。如果你修改了核心的超参数(比如隐单元的个数)，那么就不能使用
+from_pretrained加载预训练的模型了，这时你必须从头开始训练模型。当然Tokenizer一般还是可以复用的。</p>
+<p>下面的代码修改了核心的超参数，构造了Tokenizer和模型对象：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">DistilBertConfig</span><span class="p">,</span> <span class="n">DistilBertTokenizer</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl"><span class="n">DistilBertForSequenceClassification</span>
+</span></span><span class="line"><span class="cl"><span class="n">config</span> <span class="o">=</span> <span class="n">DistilBertConfig</span><span class="p">(</span><span class="n">n_heads</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="o">=</span><span class="mi">4</span><span class="o">*</span><span class="mi">512</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">tokenizer</span> <span class="o">=</span> <span class="n">DistilBertTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s1">&#39;distilbert-base-uncased&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">model</span> <span class="o">=</span> <span class="n">DistilBertForSequenceClassification</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="515-ner-命名实体识别" class="headerLink">
+    <a href="#515-ner-%e5%91%bd%e5%90%8d%e5%ae%9e%e4%bd%93%e8%af%86%e5%88%ab" class="header-mark"></a>5.1.5 NER 命名实体识别</h3><p>本次比赛是NER类型，我们来HuggingFace在NER上的用法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">pipeline</span>
+</span></span><span class="line"><span class="cl"><span class="n">nlp</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s2">&#34;ner&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">sequence</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;Hugging Face Inc. is a company based in New York City. Its headquarters are in DUMBO, therefore very&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;close to the Manhattan Bridge which is visible from the window.&#34;</span><span class="p">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">nlp</span><span class="p">(</span><span class="n">sequence</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="s1">&#39;word&#39;</span><span class="p">:</span> <span class="s1">&#39;Hu&#39;</span><span class="p">,</span> <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="mf">0.9995632767677307</span><span class="p">,</span> <span class="s1">&#39;entity&#39;</span><span class="p">:</span> <span class="s1">&#39;I-ORG&#39;</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="s1">&#39;word&#39;</span><span class="p">:</span> <span class="s1">&#39;##gging&#39;</span><span class="p">,</span> <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="mf">0.9915938973426819</span><span class="p">,</span> <span class="s1">&#39;entity&#39;</span><span class="p">:</span> <span class="s1">&#39;I-ORG&#39;</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="s1">&#39;word&#39;</span><span class="p">:</span> <span class="s1">&#39;Face&#39;</span><span class="p">,</span> <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="mf">0.9982671737670898</span><span class="p">,</span> <span class="s1">&#39;entity&#39;</span><span class="p">:</span> <span class="s1">&#39;I-ORG&#39;</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="s1">&#39;word&#39;</span><span class="p">:</span> <span class="s1">&#39;Inc&#39;</span><span class="p">,</span> <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="mf">0.9994403719902039</span><span class="p">,</span> <span class="s1">&#39;entity&#39;</span><span class="p">:</span> <span class="s1">&#39;I-ORG&#39;</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="s1">&#39;word&#39;</span><span class="p">:</span> <span class="s1">&#39;New&#39;</span><span class="p">,</span> <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="mf">0.9994346499443054</span><span class="p">,</span> <span class="s1">&#39;entity&#39;</span><span class="p">:</span> <span class="s1">&#39;I-LOC&#39;</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="s1">&#39;word&#39;</span><span class="p">:</span> <span class="s1">&#39;York&#39;</span><span class="p">,</span> <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="mf">0.9993270635604858</span><span class="p">,</span> <span class="s1">&#39;entity&#39;</span><span class="p">:</span> <span class="s1">&#39;I-LOC&#39;</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="s1">&#39;word&#39;</span><span class="p">:</span> <span class="s1">&#39;City&#39;</span><span class="p">,</span> <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="mf">0.9993864893913269</span><span class="p">,</span> <span class="s1">&#39;entity&#39;</span><span class="p">:</span> <span class="s1">&#39;I-LOC&#39;</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="s1">&#39;word&#39;</span><span class="p">:</span> <span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="mf">0.9825621843338013</span><span class="p">,</span> <span class="s1">&#39;entity&#39;</span><span class="p">:</span> <span class="s1">&#39;I-LOC&#39;</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="s1">&#39;word&#39;</span><span class="p">:</span> <span class="s1">&#39;##UM&#39;</span><span class="p">,</span> <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="mf">0.936983048915863</span><span class="p">,</span> <span class="s1">&#39;entity&#39;</span><span class="p">:</span> <span class="s1">&#39;I-LOC&#39;</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="s1">&#39;word&#39;</span><span class="p">:</span> <span class="s1">&#39;##BO&#39;</span><span class="p">,</span> <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="mf">0.8987102508544922</span><span class="p">,</span> <span class="s1">&#39;entity&#39;</span><span class="p">:</span> <span class="s1">&#39;I-LOC&#39;</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="s1">&#39;word&#39;</span><span class="p">:</span> <span class="s1">&#39;Manhattan&#39;</span><span class="p">,</span> <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="mf">0.9758241176605225</span><span class="p">,</span> <span class="s1">&#39;entity&#39;</span><span class="p">:</span> <span class="s1">&#39;I-LOC&#39;</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="s1">&#39;word&#39;</span><span class="p">:</span> <span class="s1">&#39;Bridge&#39;</span><span class="p">,</span> <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="mf">0.990249514579773</span><span class="p">,</span> <span class="s1">&#39;entity&#39;</span><span class="p">:</span> <span class="s1">&#39;I-LOC&#39;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="516-训练" class="headerLink">
+    <a href="#516-%e8%ae%ad%e7%bb%83" class="header-mark"></a>5.1.6 训练</h3><p>Huggingface Transformers提供了Trainer用作训练：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">BertForSequenceClassification</span><span class="p">,</span> <span class="n">Trainer</span><span class="p">,</span> <span class="n">TrainingArguments</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">model</span> <span class="o">=</span> <span class="n">BertForSequenceClassification</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&#34;bert-large-uncased&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">training_args</span> <span class="o">=</span> <span class="n">TrainingArguments</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">output_dir</span><span class="o">=</span><span class="s1">&#39;./results&#39;</span><span class="p">,</span> <span class="c1"># output directory</span>
+</span></span><span class="line"><span class="cl">    <span class="n">num_train_epochs</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="c1"># total # of training epochs</span>
+</span></span><span class="line"><span class="cl">    <span class="n">per_device_train_batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="c1"># batch size per device during training</span>
+</span></span><span class="line"><span class="cl">    <span class="n">per_device_eval_batch_size</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="c1"># batch size for evaluation</span>
+</span></span><span class="line"><span class="cl">    <span class="n">warmup_steps</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="c1"># number of warmup steps for learning rate scheduler</span>
+</span></span><span class="line"><span class="cl">    <span class="n">weight_decay</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="c1"># strength of weight decay</span>
+</span></span><span class="line"><span class="cl">    <span class="n">logging_dir</span><span class="o">=</span><span class="s1">&#39;./logs&#39;</span><span class="p">,</span> <span class="c1"># directory for storing logs</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="c1"># the instantiated Transformers model to be trained</span>
+</span></span><span class="line"><span class="cl">    <span class="n">args</span><span class="o">=</span><span class="n">training_args</span><span class="p">,</span> <span class="c1"># training arguments, defined above</span>
+</span></span><span class="line"><span class="cl">    <span class="n">train_dataset</span><span class="o">=</span><span class="n">train_dataset</span><span class="p">,</span> <span class="c1"># training dataset</span>
+</span></span><span class="line"><span class="cl">    <span class="n">eval_dataset</span><span class="o">=</span><span class="n">test_dataset</span> <span class="c1"># evaluation dataset</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>TrainingArguments参数指定了训练的设置：输出目录、总的epochs、训练的batch_size、预测的batch_size、warmup的step数、weight_decay和log目录。然后使用trainer.train()和trainer.evaluate()函数就可以进行训练和验证。</p>
+<p>我们也可以自己实现模型，但是要求它的forward返回的第一个参数是loss。</p>
+<h2 id="6-模型融合" class="headerLink">
+    <a href="#6-%e6%a8%a1%e5%9e%8b%e8%9e%8d%e5%90%88" class="header-mark"></a>6 模型融合</h2><h3 id="61-融合方法介绍" class="headerLink">
+    <a href="#61-%e8%9e%8d%e5%90%88%e6%96%b9%e6%b3%95%e4%bb%8b%e7%bb%8d" class="header-mark"></a>6.1 融合方法介绍</h3><h4 id="611-voting" class="headerLink">
+    <a href="#611-voting" class="header-mark"></a>6.1.1 Voting</h4><p>Voting可以说是一种最为简单的模型融合方式。假如对于一个二分类模型，有3个基础模型，那么就采取投票的方式，投票多者为最终的分类。</p>
+<h4 id="612-bagging" class="headerLink">
+    <a href="#612-bagging" class="header-mark"></a>6.1.2 Bagging</h4><p>Bagging的思想是利用抽样生成不同的训练集，进而训练不同的模型，将这些模型的输出结果综合（投票或平均的方式）得到最终的结果。</p>
+<p>其本质是利用了模型的多样性，改善算法整体的效果。Bagging的重点在于不同训练集的生成，这里使用了一种名为Bootstrap的方法，即有放回的重复随机抽样，从而生成不同的数据集。</p>
+<p><figure><a class="lightgallery" href="/posts/feedPrize/bagging%20model.png" title="bagging" data-thumbnail="/posts/feedPrize/bagging%20model.png">
+        <img
+            
+            loading="lazy"
+            src="/posts/feedPrize/bagging%20model.png"
+            srcset="/posts/feedPrize/bagging%20model.png, /posts/feedPrize/bagging%20model.png 1.5x, /posts/feedPrize/bagging%20model.png 2x"
+            sizes="auto"
+            alt="bagging" height="420"  width="1259" >
+    </a></figure></p>
+<h4 id="613-boosting" class="headerLink">
+    <a href="#613-boosting" class="header-mark"></a>6.1.3 Boosting</h4><p>Boosting是一种提升算法，其思想是在算法迭代过程中，每次迭代构建新的分类器，重点关注被之前分类器分类错误的样本，如此迭代，最终加权平均所有分类器的结果，从而提升分类精度。</p>
+<p>与Bagging相比来说最大的区别就是Boosting是串行的，而Bagging中所有的分类器是可以同时生成的（分类器之间无关系），而Boosting中则必须先生成第一个分类器，然后依次往后进行。核心思想是通过改变训练集进行有针对性的学习，通过每次更新迭代，增加错误样本的权重，减小正确样本的权重。知错就改，逐渐变好。典型应用为：Adaboost、GBDT和Xgboost。</p>
+<h4 id="614-blending" class="headerLink">
+    <a href="#614-blending" class="header-mark"></a>6.1.4 Blending</h4><p>类似概率voting，用不相交的数据训练不同的Base Model，将它们的输出（概率值）取加权平均（两列数据偏差越小，且方差越大，则blend越有效果）。</p>
+<h3 id="62-模型融合-stacking" class="headerLink">
+    <a href="#62-%e6%a8%a1%e5%9e%8b%e8%9e%8d%e5%90%88-stacking" class="header-mark"></a>6.2 模型融合 Stacking</h3><p>交叉验证部分：首先将训练数据分为 5 份，接下来一共 5 个迭代，每次迭代时，将 4 份数据作为 Training Set 对每个 Base Model 进行训练，然后在剩下一份 Hold-out Set 上进行预测。<strong>同时也要将其在测试数据上的预测保存下来</strong>，对测试数据的全部做出预测。</p>
+<p>5 个迭代都完成以后我们就获得了一个 <strong>训练数据行数 * Base Model数量</strong> 的矩阵，这个矩阵接下来作为第二层的 Model 的训练数据，训练完以后，对test data做预测。</p>
+<p>这时我们得到了两个预测矩阵，平均后就得到最后的输出。</p>
+<p><figure><a class="lightgallery" href="/posts/feedPrize/stacking.png" title="stacking" data-thumbnail="/posts/feedPrize/stacking.png">
+        <img
+            
+            loading="lazy"
+            src="/posts/feedPrize/stacking.png"
+            srcset="/posts/feedPrize/stacking.png, /posts/feedPrize/stacking.png 1.5x, /posts/feedPrize/stacking.png 2x"
+            sizes="auto"
+            alt="stacking" height="558"  width="1727" >
+    </a></figure></p>
+<h2 id="7-总的解决方案思路" class="headerLink">
+    <a href="#7-%e6%80%bb%e7%9a%84%e8%a7%a3%e5%86%b3%e6%96%b9%e6%a1%88%e6%80%9d%e8%b7%af" class="header-mark"></a>7 总的解决方案思路</h2><p>采用了 <strong>longformer+ deberta</strong> 的双模型融合，由于官方数据的有一些不干净的原标签，所以我们使用经过修复的corrected_train.csv。</p>
+<p>在文本数据的处理上，我们将max_len设置在了1024（在推理是扩大至longformer=4096/deberta=2048）。之后我们对数据做了10Fold的标准切分。</p>
+<p>模型上我们选择了 <strong>allenai/longformer-base-4096和microsoft/deberta-large</strong> 版本，在之后接了一个Dropout层和Linear层。</p>
+<p>在模型预测出结果后，我们使用了后处理的方式来进一步筛选预测的实体，主要是对每种实体的最小长度和最小置信度做出限制，如果小于阈值则被后处理筛掉。</p>
+<h3 id="模型代码" class="headerLink">
+    <a href="#%e6%a8%a1%e5%9e%8b%e4%bb%a3%e7%a0%81" class="header-mark"></a>模型代码</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">FeedbackModel</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">super</span><span class="p">(</span><span class="n">FeedbackModel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 载入 backbone</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">Config</span><span class="o">.</span><span class="n">model_savename</span> <span class="o">==</span> <span class="s1">&#39;longformer&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">model_config</span> <span class="o">=</span> <span class="n">LongformerConfig</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">model_name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="bp">self</span><span class="o">.</span><span class="n">backbone</span> <span class="o">=</span> <span class="n">LongformerModel</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">model_name</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">model_config</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">model_config</span> <span class="o">=</span> <span class="n">AutoConfig</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">model_name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="bp">self</span><span class="o">.</span><span class="n">backbone</span> <span class="o">=</span> <span class="n">AutoModel</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">model_name</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">model_config</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">model_config</span> <span class="o">=</span> <span class="n">model_config</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">dropout1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">dropout2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">dropout3</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">dropout4</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.4</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">dropout5</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">model_config</span><span class="o">.</span><span class="n">hidden_size</span><span class="p">,</span> <span class="n">Config</span><span class="o">.</span><span class="n">num_labels</span><span class="p">)</span> <span class="c1"># 分类头</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_ids</span><span class="p">,</span> <span class="n">mask</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">backbone</span><span class="p">(</span><span class="n">input_ids</span><span class="p">,</span> <span class="n">mask</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 五个不同的dropout结果</span>
+</span></span><span class="line"><span class="cl">        <span class="n">logits1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dropout1</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+</span></span><span class="line"><span class="cl">        <span class="n">logits2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dropout2</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+</span></span><span class="line"><span class="cl">        <span class="n">logits3</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dropout3</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+</span></span><span class="line"><span class="cl">        <span class="n">logits4</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dropout4</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+</span></span><span class="line"><span class="cl">        <span class="n">logits5</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dropout5</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+</span></span><span class="line"><span class="cl">        <span class="n">logits</span> <span class="o">=</span> <span class="p">(</span><span class="n">logits1</span> <span class="o">+</span> <span class="n">logits2</span> <span class="o">+</span> <span class="n">logits3</span> <span class="o">+</span> <span class="n">logits4</span> <span class="o">+</span> <span class="n">logits5</span><span class="p">)</span> <span class="o">/</span> <span class="mi">5</span> <span class="c1"># 五层取平均</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">logits</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="后处理参数" class="headerLink">
+    <a href="#%e5%90%8e%e5%a4%84%e7%90%86%e5%8f%82%e6%95%b0" class="header-mark"></a>后处理参数</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 每种实体的的最小长度阈值，小于阈值不识别</span>
+</span></span><span class="line"><span class="cl"><span class="n">MIN_THRESH</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;I-Lead&#34;</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;I-Position&#34;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;I-Evidence&#34;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;I-Claim&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;I-Concluding Statement&#34;</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;I-Counterclaim&#34;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;I-Rebuttal&#34;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 每种实体的的最小置信度，小于阈值不识别</span>
+</span></span><span class="line"><span class="cl"><span class="n">PROB_THRESH</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;I-Lead&#34;</span><span class="p">:</span> <span class="mf">0.687</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;I-Position&#34;</span><span class="p">:</span> <span class="mf">0.537</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;I-Evidence&#34;</span><span class="p">:</span> <span class="mf">0.637</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;I-Claim&#34;</span><span class="p">:</span> <span class="mf">0.537</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;I-Concluding Statement&#34;</span><span class="p">:</span> <span class="mf">0.687</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;I-Counterclaim&#34;</span><span class="p">:</span> <span class="mf">0.37</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;I-Rebuttal&#34;</span><span class="p">:</span> <span class="mf">0.537</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>比赛上分历程：</p>
+<ol>
+<li>longformer Baseline 5Fold，Public LB : 0.678；</li>
+<li>将推理阶段的max_len设置为4096，Public LB : 0.688；</li>
+<li>加入后处理，Public LB : 0.694；</li>
+<li>尝试了deberta-base 但分数太低，我们没有尝试将其加入融合；</li>
+<li>deberta-large 5Fold 加入后处理，Public LB : 0.705；</li>
+<li>将两个模型融合，Public LB：0.709；</li>
+<li>对学习率，epoch等进行调参，Public LB：0.712；</li>
+<li>使用修复标签后的corrected_train.csv，Public LB：0.714；</li>
+<li>尝试将5fold换成10fold，Public LB：0.716；</li>
+<li>对后处理进行调参，Public LB：0.718；</li>
+</ol>
+<h2 id="总结" class="headerLink">
+    <a href="#%e6%80%bb%e7%bb%93" class="header-mark"></a>总结</h2><p>竞赛是由乔治亚州立大学举办的，对学生写作中的论证和修辞元素进行识别。本次竞赛在数据上我们修复了官方数据的不干净的原标签部分，整体的方案上采用了 <strong>longformer + deberta</strong> 的双模型融合，为了防止过拟合我们尝试了在模型头部位置加入Dropout层。我们训练出了longformer-base-4096和deberta-large两个模型，再通过后处理对每种实体的最小长度和最小置信度做出限制，筛掉小于阈值的预测值，最后进行CV-10Fold和简单的加权融合。此外，我们还尝试了deberta-base等，但没有起效果。最终我们获得了Private LB: 0.718 (Top2%) 的成绩。</p>
+</div>
+
+        
+
+<div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2022-10-11</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span><a class="link-to-mardown" href=/feedback-prize-evaluating-student-writing/index.md target="_blank" rel="noopener noreferrer">Read markdown</a>
+                    </span></div>
+            <div class="post-info-share"><button title="Share on Twitter" data-sharer="twitter" data-url="http://hongspell.github.io/feedback-prize-evaluating-student-writing/" data-title="Feedback Prize" data-via="ssdlaohu9527"><span class="fab fa-twitter fa-fw"></span></button><button title="Share on Facebook" data-sharer="facebook" data-url="http://hongspell.github.io/feedback-prize-evaluating-student-writing/"><span class="fab fa-facebook-square fa-fw"></span></button><button title="Share on WhatsApp" data-sharer="whatsapp" data-url="http://hongspell.github.io/feedback-prize-evaluating-student-writing/" data-title="Feedback Prize" data-web><span class="fab fa-whatsapp fa-fw"></span></button><button title="Share on Line" data-sharer="line" data-url="http://hongspell.github.io/feedback-prize-evaluating-student-writing/" data-title="Feedback Prize"><span data-svg-src="/lib/simple-icons/icons/line.min.svg"></span></button><button title="Share on 微博" data-sharer="weibo" data-url="http://hongspell.github.io/feedback-prize-evaluating-student-writing/" data-title="Feedback Prize" data-image="/posts/cover/Feedback Prize.png"><span class="fab fa-weibo fa-fw"></span></button><button title="Share on Myspace" data-sharer="myspace" data-url="http://hongspell.github.io/feedback-prize-evaluating-student-writing/" data-title="Feedback Prize" data-description=""><span data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></span></button><button title="Share on Blogger" data-sharer="blogger" data-url="http://hongspell.github.io/feedback-prize-evaluating-student-writing/" data-title="Feedback Prize" data-description=""><span class="fab fa-blogger fa-fw"></span></button><button title="Share on Evernote" data-sharer="evernote" data-url="http://hongspell.github.io/feedback-prize-evaluating-student-writing/" data-title="Feedback Prize"><span class="fab fa-evernote fa-fw"></span></button></div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"></div>
+</div>
+<div id="comments"></div></article></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">
+                    Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreferrer" title="Hugo 0.121.1">Hugo</a>&nbsp;|&nbsp;Theme - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreferrer" title="DoIt 0.4.0"><i class="far fa-edit fa-fw"></i> DoIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer">Hong</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+            <div class="footer-line"></div>
+            <div class="footer-line">
+            </div>
+        </div></footer></div>
+
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="Back to Top">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div id="cookieconsent-container"></div><div class="assets"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/katex/copy-tex.min.css">
+        <noscript><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"></noscript><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"data":{"desktop-header-typeit":"HongSpell","mobile-header-typeit":"HongSpell"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":false,"fuseIndexURL":"/index.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":2,"noResultsFound":"No results found","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"sharerjs":true,"table":{"sort":true},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/lib/tablesort/tablesort.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js" defer></script><script type="text/javascript" src="/lib/katex/auto-render.min.js" defer></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js" defer></script><script type="text/javascript" src="/lib/katex/mhchem.min.js" defer></script><script type="text/javascript" src="/js/katex.min.js" defer></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script type="text/javascript" src="/js/cookieconsent.min.js" defer></script><script type="text/javascript" src="/js/theme.min.js" defer></script></div>
+</body>
+
+</html>
