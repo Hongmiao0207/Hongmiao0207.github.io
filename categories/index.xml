@@ -1,29 +1,36 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Categories - Category - HongSpell</title>
-        <link>http://hongspell.github.io/categories/</link>
+        <link>https://hongspell.site/categories/</link>
         <description>Categories - Category - HongSpell</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>threewater027@gmail.com (Hong)</managingEditor>
-            <webMaster>threewater027@gmail.com (Hong)</webMaster><lastBuildDate>Tue, 11 Oct 2022 16:19:14 &#43;0800</lastBuildDate><atom:link href="http://hongspell.github.io/categories/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>threewater027@gmail.com (Hong)</webMaster><lastBuildDate>Tue, 11 Oct 2022 16:19:14 &#43;0800</lastBuildDate><atom:link href="https://hongspell.site/categories/" rel="self" type="application/rss+xml" /><item>
+    <title>database</title>
+    <link>https://hongspell.site/categories/database/</link>
+    <pubDate>Tue, 11 Oct 2022 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/categories/database/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>innodb</title>
+    <link>https://hongspell.site/categories/innodb/</link>
+    <pubDate>Tue, 11 Oct 2022 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/categories/innodb/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
     <title>kaggle</title>
-    <link>http://hongspell.github.io/categories/kaggle/</link>
+    <link>https://hongspell.site/categories/kaggle/</link>
     <pubDate>Tue, 11 Oct 2022 16:19:14 &#43;0800</pubDate><author>
         <name>Hong</name>
-    </author><guid>http://hongspell.github.io/categories/kaggle/</guid>
+    </author><guid>https://hongspell.site/categories/kaggle/</guid>
     <description><![CDATA[]]></description>
 </item><item>
-    <title>nlp</title>
-    <link>http://hongspell.github.io/categories/nlp/</link>
+    <title>mysql</title>
+    <link>https://hongspell.site/categories/mysql/</link>
     <pubDate>Tue, 11 Oct 2022 16:19:14 &#43;0800</pubDate><author>
         <name>Hong</name>
-    </author><guid>http://hongspell.github.io/categories/nlp/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>python</title>
-    <link>http://hongspell.github.io/categories/python/</link>
-    <pubDate>Tue, 11 Oct 2022 16:19:14 &#43;0800</pubDate><author>
-        <name>Hong</name>
-    </author><guid>http://hongspell.github.io/categories/python/</guid>
+    </author><guid>https://hongspell.site/categories/mysql/</guid>
     <description><![CDATA[]]></description>
 </item></channel>
 </rss>

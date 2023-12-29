@@ -1,8 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Series - Series - HongSpell</title>
-        <link>http://hongspell.github.io/series/</link>
+        <link>https://hongspell.site/series/</link>
         <description>Series - Series - HongSpell</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>threewater027@gmail.com (Hong)</managingEditor>
-            <webMaster>threewater027@gmail.com (Hong)</webMaster><atom:link href="http://hongspell.github.io/series/" rel="self" type="application/rss+xml" /></channel>
+            <webMaster>threewater027@gmail.com (Hong)</webMaster><lastBuildDate>Tue, 11 Oct 2022 16:19:14 &#43;0800</lastBuildDate><atom:link href="https://hongspell.site/series/" rel="self" type="application/rss+xml" /><item>
+    <title>kaggle比赛</title>
+    <link>https://hongspell.site/series/kaggle%E6%AF%94%E8%B5%9B/</link>
+    <pubDate>Tue, 11 Oct 2022 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/series/kaggle%E6%AF%94%E8%B5%9B/</guid>
+    <description><![CDATA[]]></description>
+</item></channel>
 </rss>

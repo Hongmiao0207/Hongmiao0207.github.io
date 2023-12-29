@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Sketches on HongSpell</title>
+    <link>https://hongspell.site/sketch/</link>
+    <description>Recent content in Sketches on HongSpell</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <managingEditor>threewater027@gmail.com (Hong)</managingEditor>
+    <webMaster>threewater027@gmail.com (Hong)</webMaster>
+    <lastBuildDate>Tue, 11 Oct 2022 16:19:14 +0800</lastBuildDate>
+    <atom:link href="https://hongspell.site/sketch/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>666e</title>
+      <link>https://hongspell.site/sketch/666/</link>
+      <pubDate>Tue, 11 Oct 2022 16:19:14 +0800</pubDate><author>threewater027@gmail.com (Hong)</author>
+      <guid>https://hongspell.site/sketch/666/</guid>
+      <description>Innodb Page InnoDB 起因： MySQL中数据存储是在物理磁盘上，而真正的数据处理是在内存中执行。（考虑到磁盘读写速度非常慢，频繁的操作性能差）。 解决方案： I</description>
+    </item>
+  </channel>
+</rss>

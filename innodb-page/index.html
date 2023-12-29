@@ -1,0 +1,741 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title>Innodb Page - HongSpell</title><meta name="Description" content=""><meta property="og:title" content="Innodb Page" />
+<meta property="og:description" content="Innodb Page InnoDB 起因： MySQL中数据存储是在物理磁盘上，而真正的数据处理是在内存中执行。（考虑到磁盘读写速度非常慢，频繁的操作性能差）。 解决方案： I" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hongspell.site/innodb-page/" /><meta property="og:image" content="https://hongspell.site/globalImage/avatar.webp" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-10-11T16:19:14+08:00" />
+<meta property="article:modified_time" content="2022-10-11T16:19:14+08:00" /><meta property="og:site_name" content="HongSpell" />
+
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://hongspell.site/globalImage/avatar.webp" /><meta name="twitter:title" content="Innodb Page"/>
+<meta name="twitter:description" content="Innodb Page InnoDB 起因： MySQL中数据存储是在物理磁盘上，而真正的数据处理是在内存中执行。（考虑到磁盘读写速度非常慢，频繁的操作性能差）。 解决方案： I"/>
+<meta name="twitter:site" content="@ssdlaohu9527"/>
+<meta name="application-name" content="HongSpell">
+<meta name="apple-mobile-web-app-title" content="HongSpell">
+
+<meta name="theme-color" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><meta name="twitter:creator" content="@ssdlaohu9527" /><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://hongspell.site/innodb-page/" /><link rel="next" href="https://hongspell.site/feedback-prize/" />
+<link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/color.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Innodb Page",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://hongspell.site/innodb-page/"
+        },"genre": "posts","wordcount":  5525 ,
+        "url": "https://hongspell.site/innodb-page/","datePublished": "2022-10-11T16:19:14+08:00","dateModified": "2022-10-11T16:19:14+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Hong"
+            },"description": ""
+    }
+    </script></head>
+
+<body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme); document.documentElement.style.setProperty('color-scheme', theme === 'light' ? 'light' : 'dark'); window.theme = theme;   window.isDark = window.theme !== 'light' }
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('auto' === 'light' || 'auto' === 'dark' || 'auto' === 'black') setTheme('auto'), saveTheme('auto'); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+        window.switchThemeEventSet = new Set()
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="HongSpell"><span id="desktop-header-typeit" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/projects/"> 项目 </a><a class="menu-item" href="/sketch/"> 手绘 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/Hongmiao0207" title="GitHub" rel="noopener noreferrer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-select" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw"></i>
+                    <select class="color-theme-select" id="theme-select-desktop" title="Switch Theme">
+                        <option value="light">Light</option>
+                        <option value="dark">Dark</option>
+                        <option value="black">Black</option>
+                        <option value="auto">Auto</option>
+                    </select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="HongSpell"><span id="mobile-header-typeit" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/projects/" title="">项目</a><a class="menu-item" href="/sketch/" title="">手绘</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/Hongmiao0207" title="GitHub" rel="noopener noreferrer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-select" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw"></i>
+                <select class="color-theme-select" id="theme-select-mobile" title="Switch Theme">
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                    <option value="black">Black</option>
+                    <option value="auto">Auto</option>
+                </select>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "false")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Innodb Page</h1><div class="post-meta">
+            <div class="post-meta-line">
+                <span class="post-author"><span class="author fas fa-user-circle fa-fw"></span><a href="/" title="Author" rel=" author" class="author">Hong</a>
+                </span>&nbsp;<span class="post-category">included in </span>&nbsp;<span class="post-category">categories <a href="/categories/mysql/"><i class="far fa-folder fa-fw"></i>mysql</a>&nbsp;<a href="/categories/database/"><i class="far fa-folder fa-fw"></i>database</a>&nbsp;<a href="/categories/innodb/"><i class="far fa-folder fa-fw"></i>innodb</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-10-11">2022-10-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;5525 words&nbsp;<i class="far fa-clock fa-fw"></i>&nbsp;12 minutes&nbsp;</div>
+        </div><div class="featured-image"><img
+        
+        loading="eager"
+        src="/posts/cover/InnodbPage.png"
+        srcset="/posts/cover/InnodbPage.png, /posts/cover/InnodbPage.png 1.5x, /posts/cover/InnodbPage.png 2x"
+        sizes="auto"
+        alt="/posts/cover/InnodbPage.png"
+        title="/posts/cover/InnodbPage.png" height="auto"   width="auto" ></div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#innodb">InnoDB</a></li>
+    <li><a href="#page-structure">Page Structure</a>
+      <ul>
+        <li><a href="#infimum--supremum">Infimum + Supremum</a></li>
+      </ul>
+    </li>
+    <li><a href="#行格式的选择">行格式的选择</a></li>
+    <li><a href="#compact-行格式存储">Compact 行格式存储</a>
+      <ul>
+        <li><a href="#compact行格式结构">Compact行格式结构</a></li>
+        <li><a href="#compact行格式存储---变长字段长度列表">Compact行格式存储 - 变长字段长度列表</a></li>
+        <li><a href="#compact行格式存储---null值列表">Compact行格式存储 - NULL值列表</a></li>
+        <li><a href="#compact行格式存储---记录头信息">Compact行格式存储 - 记录头信息</a></li>
+        <li><a href="#compact行格式存储---隐藏字段列属于记录的真实数据">Compact行格式存储 - 隐藏字段/列（属于记录的真实数据）</a></li>
+        <li><a href="#compact行格式存储---行溢出数据记录的真实数据">Compact行格式存储 - 行溢出数据（记录的真实数据）</a></li>
+      </ul>
+    </li>
+    <li><a href="#page-directory-页目录">Page Directory (页目录)</a></li>
+    <li><a href="#page-header">Page Header</a></li>
+    <li><a href="#file-header">File Header</a></li>
+    <li><a href="#file-trailer">File Trailer</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="innodb-page" class="headerLink">
+    <a href="#innodb-page" class="header-mark"></a>Innodb Page</h1><h2 id="innodb" class="headerLink">
+    <a href="#innodb" class="header-mark"></a>InnoDB</h2><ul>
+<li>
+<p>起因：</p>
+<ul>
+<li>MySQL中数据存储是在物理磁盘上，而真正的数据处理是在内存中执行。（考虑到磁盘读写速度非常慢，频繁的操作性能差）。</li>
+</ul>
+</li>
+<li>
+<p>解决方案：</p>
+<ul>
+<li>InooDB将一个表的数据划分为若干页（pages），以页作为磁盘与内存交互的基本单位，这些页通过 B-Tree索引联系起来，每页的默认大小为16kb（配置为 innodb_page_size）。</li>
+<li>这样保证每次至少读取1页数据到内存或写入磁盘，减少了内存与磁盘的交互次数，提升性能。</li>
+</ul>
+</li>
+<li>
+<p>遵循缓存设计思想：</p>
+<ul>
+<li>时间维度：如果一条数据正在在被使用，那么在接下来一段时间内大概率还会再被使用。
+<ul>
+<li>可以认为热点数据缓存都属于这种思路的实现。</li>
+</ul>
+</li>
+<li>空间维度：如果一条数据正在在被使用，那么存储在它附近的数据大概率也会很快被使用。
+<ul>
+<li>InnoDB的数据页和操作系统的页缓存则是这种思路的体现。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>其中，B-Tree索引就是聚簇索引（Clustered Index），这个索引的节点包含了所有列数据（也就是page）。二级索引的节点只有指向主键的指针。</p>
+</li>
+</ul>
+<h2 id="page-structure" class="headerLink">
+    <a href="#page-structure" class="header-mark"></a>Page Structure</h2><p><figure><a class="lightgallery" href="https://raw.githubusercontent.com/Hongmiao0207/repository/main/images/mysql_page_structure.png" title="mysql_page_structure" data-thumbnail="https://raw.githubusercontent.com/Hongmiao0207/repository/main/images/mysql_page_structure.png">
+        <img
+            
+            loading="lazy"
+            src="https://raw.githubusercontent.com/Hongmiao0207/repository/main/images/mysql_page_structure.png"
+            srcset="https://raw.githubusercontent.com/Hongmiao0207/repository/main/images/mysql_page_structure.png, https://raw.githubusercontent.com/Hongmiao0207/repository/main/images/mysql_page_structure.png 1.5x, https://raw.githubusercontent.com/Hongmiao0207/repository/main/images/mysql_page_structure.png 2x"
+            sizes="auto"
+            alt="mysql_page_structure">
+    </a></figure></p>
+<ul>
+<li>File Header：存储页的通用信息。</li>
+<li>Page Heade：存储数据页专有的信息。</li>
+<li>Infimum + Supremum：页面中最小和最大记录。</li>
+<li>User Records：用户存储的记录内容。</li>
+<li>Free Space：页面中空闲空间。</li>
+<li>Page Directory：存储页中记录的相对位置。</li>
+<li>File Trailer：校验页是否完整。</li>
+</ul>
+<h3 id="infimum--supremum" class="headerLink">
+    <a href="#infimum--supremum" class="header-mark"></a>Infimum + Supremum</h3><ul>
+<li>分别是最小记录和最大记录，属于MySQL为每个页添加的虚拟记录。
+<ul>
+<li>目的：防止插入新记录时需要移动已经存在的记录的位置。
+<ul>
+<li>最小记录永远位于页的最前面，最大记录永远位于页的最后面，这样可以避免记录移动，提高性能。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>最小记录的记录头中 heap_no = 0，最大记录的记录头中 heap_no  = 1，正式记录中的 heap_no从2开始。</li>
+<li>最小记录的 record_type = 2，最大记录的 record_type = 3。</li>
+<li>最小记录是页中单链表的头节点，最大记录是页中单链表的尾节点。</li>
+<li>它们的存在有助于确保B+树的有序性。</li>
+</ul>
+<h2 id="行格式的选择" class="headerLink">
+    <a href="#%e8%a1%8c%e6%a0%bc%e5%bc%8f%e7%9a%84%e9%80%89%e6%8b%a9" class="header-mark"></a>行格式的选择</h2><ul>
+<li>不同行格式适用于不同的使用情景：
+<ul>
+<li>Compact：适用于常规的OLTP(联机事务处理)应用。</li>
+<li>Dynamic &amp; Compressed：适用与特定情况，比如包含大量变长字段或需要数据压缩的情况。</li>
+</ul>
+</li>
+</ul>
+<h2 id="compact-行格式存储" class="headerLink">
+    <a href="#compact-%e8%a1%8c%e6%a0%bc%e5%bc%8f%e5%ad%98%e5%82%a8" class="header-mark"></a>Compact 行格式存储</h2><p>InnoDB中的一种行格式，用于存储整个记录的数据。</p>
+<ul>
+<li>
+<p>对于每个记录，Compact行格式将数据存储在本页中。</p>
+</li>
+<li>
+<p>对于较大的字段或行溢出数据，会使用溢出页来存储。</p>
+</li>
+<li>
+<p>比如 Text类型。如果页存在于聚簇索引上，那么这个节点数据就会过大，会一下读出很多页，也会降低读取效率（假如我们本身没有想获取 Text 列的情况下）。</p>
+<ul>
+<li>因此，InnoDB对于变长字段，一般倾向于把它们存储到其他地方。如何存储，就和  **InnoDB行格式（Row Format）**有关。</li>
+</ul>
+</li>
+<li>
+<p>行格式有四种：compact、redundant、dynamic &amp; compressed。</p>
+</li>
+</ul>
+<p>可以通过创建或修改表的语句来指定 行格式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table_name</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">...</span><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">)</span><span class="n">ROW_FORMAT</span><span class="o">=</span><span class="err">行格式</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table_name</span><span class="w"> </span><span class="n">ROW_FORMAT</span><span class="o">=</span><span class="err">行格式</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="compact行格式结构" class="headerLink">
+    <a href="#compact%e8%a1%8c%e6%a0%bc%e5%bc%8f%e7%bb%93%e6%9e%84" class="header-mark"></a>Compact行格式结构</h3><p><figure><a class="lightgallery" href="https://raw.githubusercontent.com/Hongmiao0207/repository/main/images/compact_row_format_structure.png" title="compact_row_format_structure" data-thumbnail="https://raw.githubusercontent.com/Hongmiao0207/repository/main/images/compact_row_format_structure.png">
+        <img
+            
+            loading="lazy"
+            src="https://raw.githubusercontent.com/Hongmiao0207/repository/main/images/compact_row_format_structure.png"
+            srcset="https://raw.githubusercontent.com/Hongmiao0207/repository/main/images/compact_row_format_structure.png, https://raw.githubusercontent.com/Hongmiao0207/repository/main/images/compact_row_format_structure.png 1.5x, https://raw.githubusercontent.com/Hongmiao0207/repository/main/images/compact_row_format_structure.png 2x"
+            sizes="auto"
+            alt="compact_row_format_structure">
+    </a></figure></p>
+<h3 id="compact行格式存储---变长字段长度列表" class="headerLink">
+    <a href="#compact%e8%a1%8c%e6%a0%bc%e5%bc%8f%e5%ad%98%e5%82%a8---%e5%8f%98%e9%95%bf%e5%ad%97%e6%ae%b5%e9%95%bf%e5%ba%a6%e5%88%97%e8%a1%a8" class="header-mark"></a>Compact行格式存储 - 变长字段长度列表</h3><ul>
+<li>
+<p>变长字段长度列表是compact行格式中的开头列表。</p>
+</li>
+<li>
+<p>包含数据不为null，且类型为长度不定的，比如varchar、varbinary、text、json等。</p>
+</li>
+<li>
+<p>不需要考虑它们到底占多少字节，省去列数据之间的边界定义。</p>
+</li>
+<li>
+<p>存储格式：16进制。</p>
+</li>
+<li>
+<p>排列顺序：16进制后的逆序排列。</p>
+<ul>
+<li>这种排列方式有助于在查找长度信息时提高效率。</li>
+</ul>
+</li>
+</ul>
+<h3 id="compact行格式存储---null值列表" class="headerLink">
+    <a href="#compact%e8%a1%8c%e6%a0%bc%e5%bc%8f%e5%ad%98%e5%82%a8---null%e5%80%bc%e5%88%97%e8%a1%a8" class="header-mark"></a>Compact行格式存储 - NULL值列表</h3><ul>
+<li>NULL值列表仅包含可以为NULL的字段，如果某个字段是 not null，这个字段就不会进入 NULL值列表中。</li>
+</ul>
+<h3 id="compact行格式存储---记录头信息" class="headerLink">
+    <a href="#compact%e8%a1%8c%e6%a0%bc%e5%bc%8f%e5%ad%98%e5%82%a8---%e8%ae%b0%e5%bd%95%e5%a4%b4%e4%bf%a1%e6%81%af" class="header-mark"></a>Compact行格式存储 - 记录头信息</h3><ul>
+<li>记录头固定为 5字节大小。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>大小(bits)</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>无用位/预留位</td>
+<td>2</td>
+<td>目前没用到</td>
+</tr>
+<tr>
+<td>deleted_flag</td>
+<td>1</td>
+<td>标记记录是否被删除</td>
+</tr>
+<tr>
+<td>min_rec_flag</td>
+<td>1</td>
+<td>b+树种非叶子节点最小记录标记</td>
+</tr>
+<tr>
+<td>n_owned</td>
+<td>4</td>
+<td>当前记录拥有记录数</td>
+</tr>
+<tr>
+<td>heap_no</td>
+<td>13</td>
+<td>该记录在堆中的位置信息（堆中的序号）</td>
+</tr>
+<tr>
+<td>record_type</td>
+<td>3</td>
+<td>记录类型</td>
+</tr>
+<tr>
+<td>next_record</td>
+<td>16</td>
+<td>页中下一条记录的相对位置</td>
+</tr>
+</tbody>
+</table>
+<p>其中：</p>
+<ul>
+<li>
+<p>delete_flag：</p>
+<ul>
+<li>类型：0表示未删除；1表示删除。</li>
+<li>未删除的记录不会立即从磁盘移除，而是先打上删除标记，所有被删除的记录会组成一个垃圾链表。</li>
+<li>之后新插入的记录可能会重用到垃圾链表占用的空间，因此这个空间也称为<strong>可重用空间</strong>。</li>
+</ul>
+</li>
+<li>
+<p>heap_no：表示当前记录在本页的位置</p>
+<ul>
+<li>比如：heap_no=2，就表示这条记录在本页中的位置事2.</li>
+<li>实际上，InnoDB会自动地为每页加上两条虚拟记录，即最小记录0和最大记录1。两条记录被单独地放在 Infimum 和 Supremum的部分，但还是会占用页中位置0和1。</li>
+</ul>
+</li>
+<li>
+<p>record_type有4种类型：</p>
+<ul>
+<li>普通记录：0（10进制）或 000（2进制）。</li>
+<li>B+树非叶子节点记录：1（10进制）或 001（2进制）。</li>
+<li>最小记录（伪记录的首记录）：2（10进制）或 010（2进制）。</li>
+<li>最大记录（伪记录的尾记录）：3（10进制）或 011（2进制）。</li>
+</ul>
+</li>
+<li>
+<p>next_record：</p>
+<ul>
+<li>表示从当前记录的真实数据到下一条记录的真实数据的地址<strong>偏移量</strong>。</li>
+<li>简单理解为单项链表，最小记录的下一个是第一条真实记录，最后一条真实记录的下一个是最大记录。
+<ul>
+<li>从heap_no角度来看，即，0 -&gt; 2 -&gt; &hellip; -&gt; n -&gt; 1，因为0是最小记录，1是最大记录，其中，n是最后一条真实记录。
+<ul>
+<li>注：
+<ul>
+<li>我们用箭头取代实际的偏移量，方便理解。</li>
+<li>但在页中记录之间的实际顺序是通过 DB_ROW_ID 这个隐藏列来决定的。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="compact行格式存储---隐藏字段列属于记录的真实数据" class="headerLink">
+    <a href="#compact%e8%a1%8c%e6%a0%bc%e5%bc%8f%e5%ad%98%e5%82%a8---%e9%9a%90%e8%97%8f%e5%ad%97%e6%ae%b5%e5%88%97%e5%b1%9e%e4%ba%8e%e8%ae%b0%e5%bd%95%e7%9a%84%e7%9c%9f%e5%ae%9e%e6%95%b0%e6%8d%ae" class="header-mark"></a>Compact行格式存储 - 隐藏字段/列（属于记录的真实数据）</h3><table>
+<thead>
+<tr>
+<th>列名</th>
+<th>大小（字节）</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DB_ROW_ID</td>
+<td>6</td>
+<td>用作主键ID（非表中主键）</td>
+</tr>
+<tr>
+<td>DB_TRX_ID</td>
+<td>6</td>
+<td>当前记录项的事务id</td>
+</tr>
+<tr>
+<td>DB_ROLL_PTR</td>
+<td>7</td>
+<td>undo log指针</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p>DB_ROW_ID：</p>
+<ul>
+<li>用作记录的物理标识符，不一定是主键。</li>
+<li>这个字段用户无法直接查看：
+<ul>
+<li>因此你无法知道它里面存的数据究竟是什么格式。</li>
+<li>可能是 ID值，可能是物理化的ID值，或者其他，都不为认知，我们直知道它和ID相关。</li>
+</ul>
+</li>
+<li>这个字段是可排序的（每个页中的记录依据它来排序）。</li>
+<li>每页中记录排序顺序是根据该字段/列决定的。</li>
+<li>它的生成规则：
+<ul>
+<li>优先使用用户自定义主键作为主键。</li>
+<li>如果用户没定义主键，会选取一个unique键作为主键。</li>
+<li>如果表中没有定义unique键，则会为表默认添加一个生成 DB_ROW_ID的隐藏列最为主键。</li>
+</ul>
+</li>
+<li>注：它不一定是全局唯一，只是在页内唯一。</li>
+</ul>
+</li>
+<li>
+<p>DB_TRX_ID</p>
+<ul>
+<li>用于记录当前记录项的事务ID，每个事务开始时，系统版本号（Transaction ID）会递增，因此它用于标识记录所属的事务。</li>
+<li>每开始一个新事务，系统版本号会自动递增，而事务开始时刻的系统版本号回作为事务id，事务commit的话，就会更新这里。</li>
+</ul>
+</li>
+<li>
+<p>DB_ROLL_PTR</p>
+<ul>
+<li>指向当前记录项的 undo log，用于撤销和回滚事务所作的更改。</li>
+<li>如果发生事务回滚，系统会从此字段来查找之前版本的数据，以将记录恢复到事务开始之前的状态。</li>
+</ul>
+</li>
+</ul>
+<h3 id="compact行格式存储---行溢出数据记录的真实数据" class="headerLink">
+    <a href="#compact%e8%a1%8c%e6%a0%bc%e5%bc%8f%e5%ad%98%e5%82%a8---%e8%a1%8c%e6%ba%a2%e5%87%ba%e6%95%b0%e6%8d%ae%e8%ae%b0%e5%bd%95%e7%9a%84%e7%9c%9f%e5%ae%9e%e6%95%b0%e6%8d%ae" class="header-mark"></a>Compact行格式存储 - 行溢出数据（记录的真实数据）</h3><p>varchar(m)最多能存储的数据：</p>
+<ul>
+<li>
+<p>MySQL对一条记录占用的最大存储空间是有限制的，除BLONB或者TEXT类型的列外，其他所有列（不包括隐藏列和记录头信息）占用的字节长度加起来不应该超过 65535个字节。</p>
+<ul>
+<li>不严谨的认为，MySQL一行记录占用的存储空间不能超过65535个字节。</li>
+<li>实际上，65535个字节包括：
+<ul>
+<li>真实数据。</li>
+<li>真实数据占用的字节长度。</li>
+<li>NULL值标识（如果是 not null就无此空间）。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>而MySQL中磁盘与内存交互的基本单位是页，一般为16kb，16384个字节。而一行记录最大可以是65535个字节。</p>
+<ul>
+<li>造成了一页存不下一行数据的情况。</li>
+</ul>
+</li>
+<li>
+<p>在 Compact 和 Redundant 行格式中，对于占用存储空间大的列，在记录真实数据处只会存储该列的一部分数据。把剩余的数据分散存储在几个其他页中，然后在记录的真实数据处用20个字节存储指向这些页的地址，从未可以找到剩余数据的所在页。</p>
+</li>
+</ul>
+<p><figure><a class="lightgallery" href="https://raw.githubusercontent.com/Hongmiao0207/repository/main/images/recording_real_data_and_pointing_to_other_page_addresses.png" title="recording_real_data_and_pointing_to_other_page_addresses" data-thumbnail="https://raw.githubusercontent.com/Hongmiao0207/repository/main/images/recording_real_data_and_pointing_to_other_page_addresses.png">
+        <img
+            
+            loading="lazy"
+            src="https://raw.githubusercontent.com/Hongmiao0207/repository/main/images/recording_real_data_and_pointing_to_other_page_addresses.png"
+            srcset="https://raw.githubusercontent.com/Hongmiao0207/repository/main/images/recording_real_data_and_pointing_to_other_page_addresses.png, https://raw.githubusercontent.com/Hongmiao0207/repository/main/images/recording_real_data_and_pointing_to_other_page_addresses.png 1.5x, https://raw.githubusercontent.com/Hongmiao0207/repository/main/images/recording_real_data_and_pointing_to_other_page_addresses.png 2x"
+            sizes="auto"
+            alt="recording_real_data_and_pointing_to_other_page_addresses">
+    </a></figure></p>
+<ul>
+<li>
+<p>注：本记录只会存储该列的前768个字节的数据 和 一个指向其他页的地址。剩下的数据会存放的其他页。</p>
+<ul>
+<li>这种情况就叫做 行溢出，存储超过768字节数据的那些页面叫做<strong>页内溢出页（Overflow Pages）</strong>,这些页内溢出页中存储了行溢出数据的一部分。</li>
+</ul>
+</li>
+<li>
+<p>注意：上述都是Compact 和 Redundant行格式中处理行溢出数据</p>
+<ul>
+<li>InnoDB存储引擎中，默认的行格式是Dynamic。并且Dynamic与Compact很像，只是在处理行溢出数据上有差异。
+<ul>
+<li>其中，Dynamic 不会在记录的真实数据处存放 前786个字节，而是将所有字节都存储在其他页面，这些页面称为<strong>溢出页</strong>。</li>
+</ul>
+</li>
+<li>另外，Compressed 行格式 会采用 压缩算法对页面进行压缩，以节省空间。它通常不会涉及行溢出数据的问题，因为，它的设计目的时在页内压缩数据，而不是将数据存储在其他页中。</li>
+</ul>
+</li>
+</ul>
+<p>查询InnoDB默认行格式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">show</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;innodb_default_row_format&#39;</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="page-directory-页目录" class="headerLink">
+    <a href="#page-directory-%e9%a1%b5%e7%9b%ae%e5%bd%95" class="header-mark"></a>Page Directory (页目录)</h2><p>（这段和ChatGPT描述的有出入）</p>
+<ul>
+<li>
+<p>它是InnoDB存储引擎内部的一个机制，用于帮助管理和加速数据页的查找，而不是直接管理记录。</p>
+</li>
+<li>
+<p>ChatGPT解释：Page Directory时用来定位数据页的工具，其原理不是通过分组实现。（我看网上教程写的是分组）？？？？？？？？</p>
+</li>
+<li>
+<p>功能：保证数据量较大时的查找数据的速度。</p>
+<ul>
+<li>解决的问题：在页中，记录是按照主键大小正序串联成一个单链表。如果在数据量较大的时候根据主键进行遍历查询，效率太差。</li>
+</ul>
+</li>
+<li>
+<p>大致原理：</p>
+<ul>
+<li>将所有正常的记录（包括最大、最小记录，不包括标记为已删除的记录）划分为几个组。（具体怎么划分还不确定）</li>
+<li>每个组的最后一条记录（也就是最大的记录）的头信息中的 n_owned属性表示该组内共有几条数据。</li>
+<li>将每组的最后一条记录的地址偏移量单独提取出来按顺序存储到靠近页尾部的地方，这个位置就是 Page Directory。</li>
+</ul>
+</li>
+<li>
+<p>规定：</p>
+<ul>
+<li>对于最小记录所在的分组只能有1条记录，最大记录所在的分组拥有的记录条数只能在 1-8条之间，剩下的分组中记录的条数范围只能在4-8条之间。</li>
+</ul>
+</li>
+</ul>
+<p>如图中，记录共有18条，InnoDB会把它们分成5组，第一组中只有一个最小记录：</p>
+<p><figure><a class="lightgallery" href="https://raw.githubusercontent.com/Hongmiao0207/repository/main/images/page_directory.png" title="page directory" data-thumbnail="https://raw.githubusercontent.com/Hongmiao0207/repository/main/images/page_directory.png">
+        <img
+            
+            loading="lazy"
+            src="https://raw.githubusercontent.com/Hongmiao0207/repository/main/images/page_directory.png"
+            srcset="https://raw.githubusercontent.com/Hongmiao0207/repository/main/images/page_directory.png, https://raw.githubusercontent.com/Hongmiao0207/repository/main/images/page_directory.png 1.5x, https://raw.githubusercontent.com/Hongmiao0207/repository/main/images/page_directory.png 2x"
+            sizes="auto"
+            alt="page directory">
+    </a></figure></p>
+<ul>
+<li>如何通过page directory查找指定主键值的记录：
+<ul>
+<li>通过二分法确定该记录所在的槽，并找到该槽所在分组中主键值最小的记录。</li>
+<li>通过记录的next_record属性遍历该槽所在组中的各个记录。</li>
+</ul>
+</li>
+</ul>
+<h2 id="page-header" class="headerLink">
+    <a href="#page-header" class="header-mark"></a>Page Header</h2><ul>
+<li>
+<p>专门用来存储数据页相关的各种状态信息。</p>
+</li>
+<li>
+<p>PAGE_N_DIR_SLOTS：表示 Page Directory 中的槽数量。</p>
+</li>
+<li>
+<p>PAGE_HEAP_TOP：Free Space 的起始地址。Free Space 是数据页中尚未被记录使用的空间。</p>
+</li>
+<li>
+<p>PAGE_N_HEAP：当前数据页中的记录数量，但不包括已经标记为删除的记录。</p>
+</li>
+<li>
+<p>PAGE_FREE &amp; PAGE_GARBAGE 共同表示了已删除记录的管理，已删除的记录通过链表结构组织起来，可以重新被利用。</p>
+<ul>
+<li>PAGE_FREE：第一个已标记为删除的记录的地址（各个已删除的地址通过 next_record也会组成一个单链表）。</li>
+<li>PAGE_GARBAGE：已删除记录占用的字节数。</li>
+</ul>
+</li>
+<li>
+<p>PAGE_LAST_INSERT：最后插入记录的位置。</p>
+</li>
+<li>
+<p>PAGE_DIRECTION：最后一条记录插入方向。</p>
+</li>
+<li>
+<p>PAGE_N_DIRECTION：一个方向连续插入的记录数（如果最后一条记录的插入方向改变，这个状态值会被清零重新统计）。</p>
+</li>
+<li>
+<p>PAGE_N_RECS：数据页中的记录数量，不包括最小和最大记录以及标记为删除的记录。</p>
+</li>
+<li>
+<p>PAGE_MAX_TRX_ID：用于标识对当前数据页进行修改的最大事务ID。</p>
+</li>
+<li>
+<p>PAGE_LEVEL：用于标识数据页在 B+ 树索引中的层级位置。</p>
+</li>
+<li>
+<p>PAGE_INDEX_ID：标识了数据页所属的索引ID。</p>
+</li>
+<li>
+<p>PAGE_BTR_SEG_LEAF &amp; PAGE_BTR_SEG_TOP：用于标识
+B+ 树叶子段和非叶子段的头部信息。仅在B+树的Root页定义。</p>
+</li>
+</ul>
+<h2 id="file-header" class="headerLink">
+    <a href="#file-header" class="header-mark"></a>File Header</h2><p>用来描述各种页都适用的通用信息：</p>
+<ul>
+<li>FIL_PAGE_SPACE_OR_CHKSUM 页的校验和（checksum值）。
+<ul>
+<li>校验和是通过对页的内容进行计算得到的值，用于验证页面内容的完整性。有助于检测数据文件在存储或传输过程中是否发生了损坏。</li>
+</ul>
+</li>
+<li>FIL_PAGE_OFFSET：为每一个页都有一个唯一的页号
+<ul>
+<li>这个页号标识了数据文件中的页的位置，允许 InnoDB 存储引擎精确定位到特定页。</li>
+</ul>
+</li>
+<li>FIL_PAGE_PREV 上一个页的页号。</li>
+<li>FIL_PAGE_NEXT 下一个页的页号。
+<ul>
+<li>这两个属性用于构建双向链表，将数据文件中的页连接在一起。这对于页的管理和遍历非常有用。</li>
+</ul>
+</li>
+<li>FIL_PAGE_LSN 页面被最后修改时对应的日志序列位置（英文名是：Log Sequence Number）。</li>
+<li>FIL_PAGE_TYPE：当前页的类型。
+<ul>
+<li>InnoDB 将不同类型的页用于不同的目的，例如数据页、索引页等。这个属性标识了当前页的用途。</li>
+</ul>
+</li>
+<li>FIL_PAGE_FILE_FLUSH_LSN 仅在系统表空间的一个页中定义，代表文件至少被刷新到了对应的LSN值。</li>
+<li>FIL_PAGE_ARCH_LOG_NO_OR_SPACE_ID 页属于哪个表空间。</li>
+</ul>
+<h2 id="file-trailer" class="headerLink">
+    <a href="#file-trailer" class="header-mark"></a>File Trailer</h2><ul>
+<li>
+<p>MySQL中内存和磁盘的基本交互单位是页。如果内存中页被修改了，那么某个时刻一定会将内存页同步到磁盘中。如果在同步的过程中，系统出现问题，就可能导致磁盘中的页数据没能完全同步，也就是发生了脏页的情况。为了避免发生这种问题，mysql在每个页的尾部加上了File Trailer来校验页的完整性。</p>
+</li>
+<li>
+<p>File Trailer由8个字节组成：</p>
+<ul>
+<li>前4个字节代表页的校验和：这个部分是和File Header中的校验和相对应的。
+<ul>
+<li>File Header和File Trailer都有校验和，如果两者一致则表示数据页是完整的。否则，则表示数据页是脏页。</li>
+</ul>
+</li>
+<li>后4个字节代表页面被最后修改时对应的日志序列位置（LSN）。</li>
+</ul>
+</li>
+<li>
+<p>校验和（Checksum）：前4个字节表示页的校验和。校验和是通过对页的内容应用某种算法而得到的值，它用于验证页面内容的完整性。File Header 和 File Trailer 中的校验和应该是一致的。如果它们不一致，这可能表示页面在同步到磁盘时发生了错误或中断，即发生了脏页的情况。校验和的匹配是确保页面完整性的关键。</p>
+</li>
+<li>
+<p>日志序列位置（LSN）：后4个字节表示页面被最后修改时对应的日志序列位置（LSN）。这个值记录了页面最后一次修改的日志位置，用于恢复和崩溃恢复。通过比较 File Header 和 File Trailer 中的 LSN，可以确定页面是否已经完全同步到磁盘。如果 LSN 不一致，表示页面的修改可能没有完全刷入磁盘。</p>
+</li>
+</ul>
+</div>
+
+        
+
+<div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2022-10-11</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span><a class="link-to-mardown" href=/innodb-page/index.md target="_blank" rel="noopener noreferrer">Read markdown</a>
+                    </span></div>
+            <div class="post-info-share"><button title="Share on Twitter" data-sharer="twitter" data-url="https://hongspell.site/innodb-page/" data-title="Innodb Page" data-via="ssdlaohu9527"><span class="fab fa-twitter fa-fw"></span></button><button title="Share on Facebook" data-sharer="facebook" data-url="https://hongspell.site/innodb-page/"><span class="fab fa-facebook-square fa-fw"></span></button><button title="Share on WhatsApp" data-sharer="whatsapp" data-url="https://hongspell.site/innodb-page/" data-title="Innodb Page" data-web><span class="fab fa-whatsapp fa-fw"></span></button><button title="Share on Line" data-sharer="line" data-url="https://hongspell.site/innodb-page/" data-title="Innodb Page"><span data-svg-src="/lib/simple-icons/icons/line.min.svg"></span></button><button title="Share on 微博" data-sharer="weibo" data-url="https://hongspell.site/innodb-page/" data-title="Innodb Page" data-image="/posts/cover/InnodbPage.png"><span class="fab fa-weibo fa-fw"></span></button><button title="Share on Myspace" data-sharer="myspace" data-url="https://hongspell.site/innodb-page/" data-title="Innodb Page" data-description=""><span data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></span></button><button title="Share on Blogger" data-sharer="blogger" data-url="https://hongspell.site/innodb-page/" data-title="Innodb Page" data-description=""><span class="fab fa-blogger fa-fw"></span></button><button title="Share on Evernote" data-sharer="evernote" data-url="https://hongspell.site/innodb-page/" data-title="Innodb Page"><span class="fab fa-evernote fa-fw"></span></button></div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+            <a href="/feedback-prize/" class="next" rel="next" title="Feedback Prize">Feedback Prize<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer">Hong</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a href="http://beian.miit.gov.cn/" target="_blank">2031361891509</a></span></div>
+            <div class="footer-line"></div>
+            <div class="footer-line">
+            </div>
+        </div></footer></div>
+
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="Back to Top">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div id="cookieconsent-container"></div><div class="assets"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/katex/copy-tex.min.css">
+        <noscript><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"></noscript><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"data":{"desktop-header-typeit":"HongSpell","mobile-header-typeit":"HongSpell"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":false,"fuseIndexURL":"/index.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":2,"noResultsFound":"No results found","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"sharerjs":true,"table":{"sort":true},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/lib/tablesort/tablesort.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js" defer></script><script type="text/javascript" src="/lib/katex/auto-render.min.js" defer></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js" defer></script><script type="text/javascript" src="/lib/katex/mhchem.min.js" defer></script><script type="text/javascript" src="/js/katex.min.js" defer></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script type="text/javascript" src="/js/cookieconsent.min.js" defer></script><script type="text/javascript" src="/js/theme.min.js" defer></script></div>
+</body>
+
+</html>
