@@ -1,0 +1,381 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title>Machine Learning Notes 03 - HongSpell</title><meta name="Description" content=""><meta property="og:title" content="Machine Learning Notes 03" />
+<meta property="og:description" content="4. 决策树 decision tree主流应用在集成学习中多棵决策树构建森林。 4.1 基本流程又叫判定树，在分类问题中，它基于树结构来进行决策和判定，给出最终判定结果" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hongspell.site/pumpkin-book-notes03/" /><meta property="og:image" content="https://hongspell.site/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-10-11T16:19:14+08:00" />
+<meta property="article:modified_time" content="2021-10-11T16:19:14+08:00" /><meta property="og:site_name" content="HongSpell" />
+<meta property="og:see_also" content="https://hongspell.site/pumpkin-book-notes01/" /><meta property="og:see_also" content="https://hongspell.site/pumpkin-book-notes02/" /><meta property="og:see_also" content="https://hongspell.site/pumpkin-book-notes04/" /><meta property="og:see_also" content="https://hongspell.site/pumpkin-book-notes05/" /><meta property="og:see_also" content="https://hongspell.site/pumpkin-book-notes06/" />
+
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://hongspell.site/" /><meta name="twitter:title" content="Machine Learning Notes 03"/>
+<meta name="twitter:description" content="4. 决策树 decision tree主流应用在集成学习中多棵决策树构建森林。 4.1 基本流程又叫判定树，在分类问题中，它基于树结构来进行决策和判定，给出最终判定结果"/>
+<meta name="twitter:site" content="@ssdlaohu9527"/>
+<meta name="application-name" content="HongSpell">
+<meta name="apple-mobile-web-app-title" content="HongSpell">
+
+<meta name="theme-color" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><meta name="twitter:creator" content="@ssdlaohu9527" /><link rel="icon" href="/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://hongspell.site/pumpkin-book-notes03/" /><link rel="prev" href="https://hongspell.site/pumpkin-book-notes02/" /><link rel="next" href="https://hongspell.site/pumpkin-book-notes04/" />
+<link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/color.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Machine Learning Notes 03",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://hongspell.site/pumpkin-book-notes03/"
+        },"genre": "posts","keywords": "machine learning, 西瓜书, 南瓜书","wordcount":  1945 ,
+        "url": "https://hongspell.site/pumpkin-book-notes03/","datePublished": "2021-10-11T16:19:14+08:00","dateModified": "2021-10-11T16:19:14+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Hong"
+            },"description": ""
+    }
+    </script></head>
+
+<body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme); document.documentElement.style.setProperty('color-scheme', theme === 'light' ? 'light' : 'dark'); window.theme = theme;   window.isDark = window.theme !== 'light' }
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('auto' === 'light' || 'auto' === 'dark' || 'auto' === 'black') setTheme('auto'), saveTheme('auto'); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+        window.switchThemeEventSet = new Set()
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="HongSpell"><span id="desktop-header-typeit" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/projects/"> 项目 </a><a class="menu-item" href="/sketch/"> 手绘 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/Hongmiao0207" title="GitHub" rel="noopener noreferrer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-select" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw"></i>
+                    <select class="color-theme-select" id="theme-select-desktop" title="Switch Theme">
+                        <option value="light">Light</option>
+                        <option value="dark">Dark</option>
+                        <option value="black">Black</option>
+                        <option value="auto">Auto</option>
+                    </select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="HongSpell"><span id="mobile-header-typeit" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/projects/" title="">项目</a><a class="menu-item" href="/sketch/" title="">手绘</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/Hongmiao0207" title="GitHub" rel="noopener noreferrer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-select" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw"></i>
+                <select class="color-theme-select" id="theme-select-mobile" title="Switch Theme">
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                    <option value="black">Black</option>
+                    <option value="auto">Auto</option>
+                </select>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "false")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Machine Learning Notes 03</h1><div class="post-meta">
+            <div class="post-meta-line">
+                <span class="post-author"><span class="author fas fa-user-circle fa-fw"></span><a href="/" title="Author" rel=" author" class="author">Hong</a>
+                </span>&nbsp;<span class="post-category">included in </span>&nbsp;<span class="post-category">category <a href="/categories/machine-learning/"><i class="far fa-folder fa-fw"></i>machine learning</a></span>&nbsp;<span class="post-category">and</span>&nbsp;<span class="post-series">series <a href="/series/pumpkinbook-notes/"><i class="far fa-list-alt fa-fw"></i>pumpkinbook - notes</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-10-11">2021-10-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;1945 words&nbsp;<i class="far fa-clock fa-fw"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="featured-image"><img
+        
+        loading="eager"
+        src="/posts/pumpkin-book-notes/xigua.png"
+        srcset="/posts/pumpkin-book-notes/xigua.png, /posts/pumpkin-book-notes/xigua.png 1.5x, /posts/pumpkin-book-notes/xigua.png 2x"
+        sizes="auto"
+        alt="/posts/pumpkin-book-notes/xigua.png"
+        title="/posts/pumpkin-book-notes/xigua.png" height="auto"   width="auto" ></div><div class="details series-nav open">
+                                <div class="details-summary series-title">
+                                    <span>Series - pumpkinbook - notes</span>
+                                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                                </div>
+                                <div class="details-content series-content">
+                                    <nav>
+                                        <ul>
+                                                    <li><a href="/pumpkin-book-notes01/">Machine Learning Notes 01</a></li>
+                                                    <li><a href="/pumpkin-book-notes02/">Machine Learning Notes 02</a></li><li><span class="active">Machine Learning Notes 03</span></li>
+                                                    <li><a href="/pumpkin-book-notes04/">Machine Learning Notes 04</a></li>
+                                                    <li><a href="/pumpkin-book-notes05/">Machine Learning Notes 05</a></li>
+                                                    <li><a href="/pumpkin-book-notes06/">Machine Learning Notes 06</a></li></ul>
+                                    </nav>
+                                </div>
+                            </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#4-决策树-decision-tree">4. 决策树 decision tree</a>
+      <ul>
+        <li><a href="#41-基本流程">4.1 基本流程</a></li>
+        <li><a href="#42-划分选择">4.2 划分选择</a>
+          <ul>
+            <li><a href="#421-信息增益">4.2.1 信息增益</a></li>
+            <li><a href="#422-增益率">4.2.2 增益率</a></li>
+            <li><a href="#423-基尼指数-gini">4.2.3 基尼指数 Gini</a></li>
+          </ul>
+        </li>
+        <li><a href="#43-剪枝处理-pruning">4.3 剪枝处理 pruning</a>
+          <ul>
+            <li><a href="#431-预剪枝">4.3.1 预剪枝</a></li>
+            <li><a href="#432-后剪枝">4.3.2 后剪枝</a></li>
+          </ul>
+        </li>
+        <li><a href="#44-连续和缺失值">4.4 连续和缺失值</a>
+          <ul>
+            <li><a href="#441-连续值处理">4.4.1 连续值处理</a></li>
+            <li><a href="#442-缺失值处理不完整样本">4.4.2 缺失值处理（不完整样本）</a></li>
+            <li><a href="#443-多变量决策树">4.4.3 多变量决策树</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="4-决策树-decision-tree" class="headerLink">
+    <a href="#4-%e5%86%b3%e7%ad%96%e6%a0%91-decision-tree" class="header-mark"></a>4. 决策树 decision tree</h2><p>主流应用在集成学习中多棵决策树构建森林。</p>
+<h3 id="41-基本流程" class="headerLink">
+    <a href="#41-%e5%9f%ba%e6%9c%ac%e6%b5%81%e7%a8%8b" class="header-mark"></a>4.1 基本流程</h3><p>又叫判定树，在分类问题中，它基于树结构来进行决策和判定，给出最终判定结果。</p>
+<p>决策树的生成是一个递归过程，三种情形导致递归：</p>
+<ol>
+<li>当前节点包含的样本全属于同一类别，无需划分。</li>
+<li>当前属性集为空，或全样本所在的所有属性上取值相同，无法划分。</li>
+<li>当前节点包含的样本集合为空，不能划分。</li>
+</ol>
+<p>其中，2情形下，把当前节点标记为叶节点，并将其类别设定为该节点所含样本最多的类别。3情形下，同样把当前节点标记为叶节点，但是将其类别设定为其父节点所含样本最多的类别。</p>
+<ul>
+<li>二者处理实质不同，2利用的是后验分布，3是先验分布。</li>
+</ul>
+<p>算法原理：逻辑上通过 if else语句判断；几何上根据某种准则划分特征空间，最终目的是将样本越分越纯。</p>
+<ul>
+<li>特征空间是将样本各个特征作为一个轴，构成的空间。</li>
+</ul>
+<h3 id="42-划分选择" class="headerLink">
+    <a href="#42-%e5%88%92%e5%88%86%e9%80%89%e6%8b%a9" class="header-mark"></a>4.2 划分选择</h3><p>决策树学习的关键是如何选择最优划分属性，也就是节点purity要高。</p>
+<h4 id="421-信息增益" class="headerLink">
+    <a href="#421-%e4%bf%a1%e6%81%af%e5%a2%9e%e7%9b%8a" class="header-mark"></a>4.2.1 信息增益</h4><p>information entropy 信息熵 是度量样本集合纯度最常用的指标。</p>
+<p>$$Ent(D)=-\sum^{|y|}_{k=1} p_k {log}_2 p_k$$</p>
+<p>其中，约定p=0，plog2p=0；ent值越小，d纯度越高。（结合2为底的对数函数图像去看就很好理解）</p>
+<p><strong>条件熵</strong>（Y的信息熵关于概率分布X的期望，条件熵也就是Y的信息熵）：在已知X后Y的不确定性
+$$H(Y|X) = \sum_x p(x) H(Y|X=x)$$</p>
+<p>解释：从单属性（特征）a（色泽）的角度来看，假设其可能取值为{a1, a2, a3, &hellip;, a^V}，其中，a1 &lt; 30，a2 &gt; 30。D^v表示属性a取到这些值的集合，因此D^1表示色泽小于30的样本集合，D^2表示色泽大于30的样本集合。 |D^v| / D 表示当前属样本集合（即a1或a2）占总样本（a1+&hellip;+av）的占比，那么在已知属性a的取值后，样本集合D的条件熵为</p>
+<p>$$\sum^V_{v=1} \frac{|D^v|}{|D|} Ent(D^v)$$</p>
+<p>信息增益</p>
+<p>$$Gain(D,a)=Ent(D)-\sum^V_{v=1}\frac{|D|^v}{|D|}Ent(D^v)$$</p>
+<p>信息增益越大，意味着属性a来进行划分所获得的纯度提升越大。</p>
+<p>在已知属性（特征）a的取值后y的不确定性减少的量（差值），即纯度的提升。</p>
+<p>通常前者值 $Ent(D)$（信息熵）大，后者值 $\sum^V_{v=1}\frac{|D|^v}{|D|}Ent(D^v)$（条件熵）小。</p>
+<h4 id="422-增益率" class="headerLink">
+    <a href="#422-%e5%a2%9e%e7%9b%8a%e7%8e%87" class="header-mark"></a>4.2.2 增益率</h4><p>然后，信息增益准则对取值数目较多的属性有所偏好，为减少这种偏好带来的不利影响，引入了增益率 gain ratio来选择最优划分属性</p>
+<p>$$Gain \ ratio(D,a)=\frac{Gain(D,a)}{IV(a)}$$</p>
+<p>其中</p>
+<p>$$IV(a)=\sum^V_{v=1} \frac{|D^v|}{D} {log}_2 \frac{|D^v|}{|D|}$$</p>
+<p>IV(a)称为属性a的固有值 intrinsic value。属性a可能取值数目越多（V越大），则IV(a)的值通常越大。</p>
+<p>要注意的是和信息增益准则相反，增益率准则对可取值数目较少的属性有偏好。所以它不能直接用来进行属性的划分，而是使用了一个启发式，先从候选划分属性中找出信息增益高于平均水平的属性，在从中选择增益率最高的。</p>
+<h4 id="423-基尼指数-gini" class="headerLink">
+    <a href="#423-%e5%9f%ba%e5%b0%bc%e6%8c%87%e6%95%b0-gini" class="header-mark"></a>4.2.3 基尼指数 Gini</h4><p>$$Gini(D,a) = \sum^{|y|}<em>{k=1}  \sum</em>{k^{&rsquo;} \neq{k}} p_k p_{k^{&rsquo;}}$$</p>
+<p>$$=1-\sum^{|y|}_{k=1} p^2_k$$</p>
+<p>直观来说，Gini(D) 反映了数据集D中随机抽取两个两本，其类别标记不一致的概率。因此，<strong>Gini越小，碰到异类的概率就小，数据集D的纯度越高</strong>。</p>
+<p>属性a的基尼指数定义为</p>
+<p>$$Gini_index(D,a) = \sum^V_{v=1} \frac{|D^v|}{|D|} Gini(D^v)$$</p>
+<p>因此，<strong>在候选属性集合A中，选择那个使得划分后基尼指数最小的属性作为最优划分属性</strong>，即 $a_* = arg_{a \in A} min Gini_index(D,a)$</p>
+<h3 id="43-剪枝处理-pruning" class="headerLink">
+    <a href="#43-%e5%89%aa%e6%9e%9d%e5%a4%84%e7%90%86-pruning" class="header-mark"></a>4.3 剪枝处理 pruning</h3><p>剪枝是决策树算法解决过拟合的手段，节点划分过程有时造成分支过多，以至于把训练集自身的一些特点当作所有数据都具有的一般性质而导致过拟合。因此，可以主动去掉一些分支来降低过拟合的风险。</p>
+<p>基本策略：</p>
+<ul>
+<li>预剪枝（prepruning），每个节点在划分前先进性评估，若当前节点的划分不能提升决策树泛化能力，则不会把当前节点标记为叶节点。</li>
+<li>后剪枝（post-pruning），先生成完整的决策树，然后自底向上地对非叶节点进行考察，若该节点对应子树能够提升泛化性，则将该子树替换为叶节点。</li>
+</ul>
+<p>如何判断泛化性提升？先预留部分数据作验证集。</p>
+<h4 id="431-预剪枝" class="headerLink">
+    <a href="#431-%e9%a2%84%e5%89%aa%e6%9e%9d" class="header-mark"></a>4.3.1 预剪枝</h4><p>基于信息增益准则，选取某属性对训练数据集进行划分，产生该属性种类n个分支。若不进行划分，直接将该节点标为叶节点，那么验证集对该节点进行评估，得出一个验证集的精度 a%。通过预剪枝划分后，同样用验证集进行评估，得到一个精度b%。比较a、b，如果b精度大于a，那么就证明这个预剪枝是有效的，反之就是无效。这样做可以阻止展开。</p>
+<p>好处是降低过拟合风险，减少训练时间和测试时间。缺点是，某些节点可能当前不具备泛化性的提升，但是醉着后续的划分，可能会导致性能的提升。预剪枝基于的是贪心的思想，禁止分支展开。</p>
+<h4 id="432-后剪枝" class="headerLink">
+    <a href="#432-%e5%90%8e%e5%89%aa%e6%9e%9d" class="header-mark"></a>4.3.2 后剪枝</h4><p>生成完整的决策树，得到验证集精度为a%。选择某一节点分支剪除，然后进行验证，如果得到的精度b% 高于a%，那就会进行剪枝，如果精度没有明显的提升，就会保留。</p>
+<h3 id="44-连续和缺失值" class="headerLink">
+    <a href="#44-%e8%bf%9e%e7%bb%ad%e5%92%8c%e7%bc%ba%e5%a4%b1%e5%80%bc" class="header-mark"></a>4.4 连续和缺失值</h3><h4 id="441-连续值处理" class="headerLink">
+    <a href="#441-%e8%bf%9e%e7%bb%ad%e5%80%bc%e5%a4%84%e7%90%86" class="header-mark"></a>4.4.1 连续值处理</h4><p>之前讨论的都是离散值。由于连续属性的可取值数不再有限，因此，不能直接根据连续属性的可取值来对节点进行划分。连续属性离散化可能使用，最简单的策略，二分法（bi-partition）</p>
+<p>有点难，没看懂</p>
+<h4 id="442-缺失值处理不完整样本" class="headerLink">
+    <a href="#442-%e7%bc%ba%e5%a4%b1%e5%80%bc%e5%a4%84%e7%90%86%e4%b8%8d%e5%ae%8c%e6%95%b4%e6%a0%b7%e6%9c%ac" class="header-mark"></a>4.4.2 缺失值处理（不完整样本）</h4><h4 id="443-多变量决策树" class="headerLink">
+    <a href="#443-%e5%a4%9a%e5%8f%98%e9%87%8f%e5%86%b3%e7%ad%96%e6%a0%91" class="header-mark"></a>4.4.3 多变量决策树</h4></div>
+
+        
+
+
+<h2>Related Content</h2>
+<div class="related-container">
+    <div class="related-item-container">
+            <div class="related-image">
+                <a href="/pumpkin-book-notes06/"><img
+        
+        loading="lazy"
+        src="/posts/pumpkin-book-notes/xigua.png"
+        srcset="/posts/pumpkin-book-notes/xigua.png, /posts/pumpkin-book-notes/xigua.png 1.5x, /posts/pumpkin-book-notes/xigua.png 2x"
+        sizes="auto"
+        alt="/posts/pumpkin-book-notes/xigua.png"
+        title="/posts/pumpkin-book-notes/xigua.png" height="200"   width="400" ></a>
+            </div><h2 class="related-title">
+                <a href="/pumpkin-book-notes06/">Machine Learning Notes 06</a>
+            </h2>
+        </div>
+    <div class="related-item-container">
+            <div class="related-image">
+                <a href="/pumpkin-book-notes05/"><img
+        
+        loading="lazy"
+        src="/posts/pumpkin-book-notes/xigua.png"
+        srcset="/posts/pumpkin-book-notes/xigua.png, /posts/pumpkin-book-notes/xigua.png 1.5x, /posts/pumpkin-book-notes/xigua.png 2x"
+        sizes="auto"
+        alt="/posts/pumpkin-book-notes/xigua.png"
+        title="/posts/pumpkin-book-notes/xigua.png" height="200"   width="400" ></a>
+            </div><h2 class="related-title">
+                <a href="/pumpkin-book-notes05/">Machine Learning Notes 05</a>
+            </h2>
+        </div>
+    <div class="related-item-container">
+            <div class="related-image">
+                <a href="/pumpkin-book-notes04/"><img
+        
+        loading="lazy"
+        src="/posts/pumpkin-book-notes/xigua.png"
+        srcset="/posts/pumpkin-book-notes/xigua.png, /posts/pumpkin-book-notes/xigua.png 1.5x, /posts/pumpkin-book-notes/xigua.png 2x"
+        sizes="auto"
+        alt="/posts/pumpkin-book-notes/xigua.png"
+        title="/posts/pumpkin-book-notes/xigua.png" height="200"   width="400" ></a>
+            </div><h2 class="related-title">
+                <a href="/pumpkin-book-notes04/">Machine Learning Notes 04</a>
+            </h2>
+        </div>
+    <div class="related-item-container">
+            <div class="related-image">
+                <a href="/pumpkin-book-notes02/"><img
+        
+        loading="lazy"
+        src="/posts/pumpkin-book-notes/xigua.png"
+        srcset="/posts/pumpkin-book-notes/xigua.png, /posts/pumpkin-book-notes/xigua.png 1.5x, /posts/pumpkin-book-notes/xigua.png 2x"
+        sizes="auto"
+        alt="/posts/pumpkin-book-notes/xigua.png"
+        title="/posts/pumpkin-book-notes/xigua.png" height="200"   width="400" ></a>
+            </div><h2 class="related-title">
+                <a href="/pumpkin-book-notes02/">Machine Learning Notes 02</a>
+            </h2>
+        </div>
+    <div class="related-item-container">
+            <div class="related-image">
+                <a href="/pumpkin-book-notes01/"><img
+        
+        loading="lazy"
+        src="/posts/pumpkin-book-notes/xigua.png"
+        srcset="/posts/pumpkin-book-notes/xigua.png, /posts/pumpkin-book-notes/xigua.png 1.5x, /posts/pumpkin-book-notes/xigua.png 2x"
+        sizes="auto"
+        alt="/posts/pumpkin-book-notes/xigua.png"
+        title="/posts/pumpkin-book-notes/xigua.png" height="200"   width="400" ></a>
+            </div><h2 class="related-title">
+                <a href="/pumpkin-book-notes01/">Machine Learning Notes 01</a>
+            </h2>
+        </div>
+    
+
+</div>
+
+<div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2021-10-11</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span><a class="link-to-mardown" href=/pumpkin-book-notes03/index.md target="_blank" rel="noopener noreferrer">Read markdown</a>
+                    </span></div>
+            <div class="post-info-share"><button title="Share on Twitter" data-sharer="twitter" data-url="https://hongspell.site/pumpkin-book-notes03/" data-title="Machine Learning Notes 03" data-via="ssdlaohu9527" data-hashtags="machine learning,西瓜书,南瓜书"><span class="fab fa-twitter fa-fw"></span></button><button title="Share on Facebook" data-sharer="facebook" data-url="https://hongspell.site/pumpkin-book-notes03/" data-hashtag="machine learning"><span class="fab fa-facebook-square fa-fw"></span></button><button title="Share on WhatsApp" data-sharer="whatsapp" data-url="https://hongspell.site/pumpkin-book-notes03/" data-title="Machine Learning Notes 03" data-web><span class="fab fa-whatsapp fa-fw"></span></button><button title="Share on Line" data-sharer="line" data-url="https://hongspell.site/pumpkin-book-notes03/" data-title="Machine Learning Notes 03"><span data-svg-src="/lib/simple-icons/icons/line.min.svg"></span></button><button title="Share on 微博" data-sharer="weibo" data-url="https://hongspell.site/pumpkin-book-notes03/" data-title="Machine Learning Notes 03" data-image="/posts/pumpkin-book-notes/xigua.png"><span class="fab fa-weibo fa-fw"></span></button><button title="Share on Myspace" data-sharer="myspace" data-url="https://hongspell.site/pumpkin-book-notes03/" data-title="Machine Learning Notes 03" data-description=""><span data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></span></button><button title="Share on Blogger" data-sharer="blogger" data-url="https://hongspell.site/pumpkin-book-notes03/" data-title="Machine Learning Notes 03" data-description=""><span class="fab fa-blogger fa-fw"></span></button><button title="Share on Evernote" data-sharer="evernote" data-url="https://hongspell.site/pumpkin-book-notes03/" data-title="Machine Learning Notes 03"><span class="fab fa-evernote fa-fw"></span></button></div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/machine-learning/">machine learning</a>,&nbsp;<a href="/tags/%E8%A5%BF%E7%93%9C%E4%B9%A6/">西瓜书</a>,&nbsp;<a href="/tags/%E5%8D%97%E7%93%9C%E4%B9%A6/">南瓜书</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/pumpkin-book-notes02/" class="prev" rel="prev" title="Machine Learning Notes 02"><i class="fas fa-angle-left fa-fw"></i>Machine Learning Notes 02</a>
+            <a href="/pumpkin-book-notes04/" class="next" rel="next" title="Machine Learning Notes 04">Machine Learning Notes 04<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2023 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer">Hong</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a href="http://beian.miit.gov.cn/" target="_blank">黑ICP备2023016241号</a></span></div>
+            <div class="footer-line"></div>
+            <div class="footer-line">
+            </div>
+        </div></footer></div>
+
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="Back to Top">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div id="cookieconsent-container"></div><div class="assets"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/katex/copy-tex.min.css">
+        <noscript><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"></noscript><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"data":{"desktop-header-typeit":"HongSpell","mobile-header-typeit":"HongSpell"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":false,"fuseIndexURL":"/index.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":2,"noResultsFound":"No results found","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"sharerjs":true,"table":{"sort":true},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/lib/tablesort/tablesort.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js" defer></script><script type="text/javascript" src="/lib/katex/auto-render.min.js" defer></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js" defer></script><script type="text/javascript" src="/lib/katex/mhchem.min.js" defer></script><script type="text/javascript" src="/js/katex.min.js" defer></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script type="text/javascript" src="/js/cookieconsent.min.js" defer></script><script type="text/javascript" src="/js/theme.min.js" defer></script></div>
+</body>
+
+</html>

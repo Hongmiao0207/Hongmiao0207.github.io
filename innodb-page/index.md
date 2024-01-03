@@ -1,8 +1,6 @@
 # Innodb Page
 
 
-# Innodb Page
-
 ## InnoDB
 
 - 起因：

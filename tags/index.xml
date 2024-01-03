@@ -4,19 +4,75 @@
         <link>https://hongspell.site/tags/</link>
         <description>Tags - Tag - HongSpell</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>threewater027@gmail.com (Hong)</managingEditor>
-            <webMaster>threewater027@gmail.com (Hong)</webMaster><lastBuildDate>Tue, 11 Oct 2022 16:19:14 &#43;0800</lastBuildDate><atom:link href="https://hongspell.site/tags/" rel="self" type="application/rss+xml" /><item>
-    <title>nlp</title>
-    <link>https://hongspell.site/tags/nlp/</link>
-    <pubDate>Tue, 11 Oct 2022 16:19:14 &#43;0800</pubDate><author>
+            <webMaster>threewater027@gmail.com (Hong)</webMaster><lastBuildDate>Sun, 12 Nov 2023 16:19:14 &#43;0800</lastBuildDate><atom:link href="https://hongspell.site/tags/" rel="self" type="application/rss+xml" /><item>
+    <title>database</title>
+    <link>https://hongspell.site/tags/database/</link>
+    <pubDate>Sun, 12 Nov 2023 16:19:14 &#43;0800</pubDate><author>
         <name>Hong</name>
-    </author><guid>https://hongspell.site/tags/nlp/</guid>
+    </author><guid>https://hongspell.site/tags/database/</guid>
     <description><![CDATA[]]></description>
 </item><item>
-    <title>python</title>
-    <link>https://hongspell.site/tags/python/</link>
-    <pubDate>Tue, 11 Oct 2022 16:19:14 &#43;0800</pubDate><author>
+    <title>innodb</title>
+    <link>https://hongspell.site/tags/innodb/</link>
+    <pubDate>Sun, 12 Nov 2023 16:19:14 &#43;0800</pubDate><author>
         <name>Hong</name>
-    </author><guid>https://hongspell.site/tags/python/</guid>
+    </author><guid>https://hongspell.site/tags/innodb/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>mysql</title>
+    <link>https://hongspell.site/tags/mysql/</link>
+    <pubDate>Sun, 12 Nov 2023 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/tags/mysql/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>java</title>
+    <link>https://hongspell.site/tags/java/</link>
+    <pubDate>Thu, 21 Sep 2023 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/tags/java/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>lambda表达式</title>
+    <link>https://hongspell.site/tags/lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/</link>
+    <pubDate>Thu, 21 Sep 2023 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/tags/lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>stream</title>
+    <link>https://hongspell.site/tags/stream/</link>
+    <pubDate>Thu, 21 Sep 2023 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/tags/stream/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>design-patterns</title>
+    <link>https://hongspell.site/tags/design-patterns/</link>
+    <pubDate>Mon, 07 Aug 2023 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/tags/design-patterns/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>kafka</title>
+    <link>https://hongspell.site/tags/kafka/</link>
+    <pubDate>Tue, 14 Mar 2023 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/tags/kafka/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>mq</title>
+    <link>https://hongspell.site/tags/mq/</link>
+    <pubDate>Tue, 14 Mar 2023 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/tags/mq/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>jvm</title>
+    <link>https://hongspell.site/tags/jvm/</link>
+    <pubDate>Wed, 21 Dec 2022 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/tags/jvm/</guid>
     <description><![CDATA[]]></description>
 </item></channel>
 </rss>

@@ -1,7 +1,5 @@
-# Feedback Prize
-
-
 # Feedback Prize - Evaluating Student Writing | Kaggle
+
 
 ## 1 比赛介绍
 
@@ -55,11 +53,11 @@ train.csv - 一个包含训练集中所有论文注释版本的.csv文件：
 
 标签：
 
-![label01](./projects/feedPrize/label01.png)
+![label01](/posts/kaggle/feedback-prize/label01.png)
 
 预测：
 
-![prediction01](./projects/feedPrize/prediction01.png)
+![prediction01](/posts/kaggle/feedback-prize/prediction01.png)
 
 - 第一个预测与任何一个标签都没有>=0.5的重叠，是一个假阳性。
 - 第二个预测将与第二个标签完全重叠，是一个真阳性。
@@ -116,19 +114,19 @@ NER是NLP中一项基础性关键任务。从自然语言处理的流程来看�
 
 其优点在于其为⼀个位置进⾏标注的过程中可以利⽤丰富的内部及上下⽂特征信息。
 
-![crf模型](./projects/feedPrize/crf%20model.png)
+![crf模型](/posts/kaggle/feedback-prize/crf%20model.png)
 
 ### 2.3.2 LSTM + CRF
 
 随着深度学习的发展，学术界提出了Deep Learning + CRF模型做序列标注。在神经⽹络的输出层接⼊CRF层（重点是利⽤标签转移概率）来做句⼦级别的标签预测，使得标注过程不再是对各个token独⽴分类。
 
-![LSTM+CRF模型](./projects/feedPrize/LSTM+CRF%20model.png)
+![LSTM+CRF模型](/posts/kaggle/feedback-prize/LSTM+CRF%20model.png)
 
 ### 2.3.3 BERT + (LSTM) + CRF
 
 BERT中蕴含了大量的通用知识，利用预训练好的BERT模型，再用少量的标注数据进行FINETUNE是一种快速的获得效果不错的NER的方法。
 
-![BERT+LSTM+CRF模型](./projects/feedPrize/BERT+LSTM+CRF%20model.png)
+![BERT+LSTM+CRF模型](/posts/kaggle/feedback-prize/BERT+LSTM+CRF%20model.png)
 
 ## 3 NLP数据增强
 
@@ -572,7 +570,7 @@ Bagging的思想是利用抽样生成不同的训练集，进而训练不同的�
 
 其本质是利用了模型的多样性，改善算法整体的效果。Bagging的重点在于不同训练集的生成，这里使用了一种名为Bootstrap的方法，即有放回的重复随机抽样，从而生成不同的数据集。
 
-![bagging](./projects/feedPrize/bagging%20model.png)
+![bagging](/posts/kaggle/feedback-prize/bagging%20model.png)
 
 #### 6.1.3 Boosting
 
@@ -592,7 +590,7 @@ Boosting是一种提升算法，其思想是在算法迭代过程中，每次迭
 
 这时我们得到了两个预测矩阵，平均后就得到最后的输出。
 
-![stacking](./projects/feedPrize/stacking.png)
+![stacking](/posts/kaggle/feedback-prize/stacking.png)
 
 ## 7 总的解决方案思路
 

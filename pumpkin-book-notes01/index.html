@@ -1,0 +1,394 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title>Machine Learning Notes 01 - HongSpell</title><meta name="Description" content=""><meta property="og:title" content="Machine Learning Notes 01" />
+<meta property="og:description" content="1. 绪论 1.1 基本术语 data set instance / sample attribute / feature attribute value attribute space / sample space feature vector dimensionality learning / training training data training sample training set hypothesis: 模型对应了关于数据的某种潜在的规律 ground-truth: 潜在规律的本身 learner: 模型，给定数据和" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hongspell.site/pumpkin-book-notes01/" /><meta property="og:image" content="https://hongspell.site/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-09-30T16:19:14+08:00" />
+<meta property="article:modified_time" content="2021-09-30T16:19:14+08:00" /><meta property="og:site_name" content="HongSpell" />
+<meta property="og:see_also" content="https://hongspell.site/pumpkin-book-notes02/" /><meta property="og:see_also" content="https://hongspell.site/pumpkin-book-notes03/" /><meta property="og:see_also" content="https://hongspell.site/pumpkin-book-notes04/" /><meta property="og:see_also" content="https://hongspell.site/pumpkin-book-notes05/" /><meta property="og:see_also" content="https://hongspell.site/pumpkin-book-notes06/" />
+
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://hongspell.site/" /><meta name="twitter:title" content="Machine Learning Notes 01"/>
+<meta name="twitter:description" content="1. 绪论 1.1 基本术语 data set instance / sample attribute / feature attribute value attribute space / sample space feature vector dimensionality learning / training training data training sample training set hypothesis: 模型对应了关于数据的某种潜在的规律 ground-truth: 潜在规律的本身 learner: 模型，给定数据和"/>
+<meta name="twitter:site" content="@ssdlaohu9527"/>
+<meta name="application-name" content="HongSpell">
+<meta name="apple-mobile-web-app-title" content="HongSpell">
+
+<meta name="theme-color" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><meta name="twitter:creator" content="@ssdlaohu9527" /><link rel="icon" href="/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://hongspell.site/pumpkin-book-notes01/" /><link rel="next" href="https://hongspell.site/pumpkin-book-notes02/" />
+<link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/color.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Machine Learning Notes 01",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://hongspell.site/pumpkin-book-notes01/"
+        },"genre": "posts","keywords": "machine learning, 西瓜书, 南瓜书","wordcount":  1262 ,
+        "url": "https://hongspell.site/pumpkin-book-notes01/","datePublished": "2021-09-30T16:19:14+08:00","dateModified": "2021-09-30T16:19:14+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Hong"
+            },"description": ""
+    }
+    </script></head>
+
+<body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme); document.documentElement.style.setProperty('color-scheme', theme === 'light' ? 'light' : 'dark'); window.theme = theme;   window.isDark = window.theme !== 'light' }
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('auto' === 'light' || 'auto' === 'dark' || 'auto' === 'black') setTheme('auto'), saveTheme('auto'); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+        window.switchThemeEventSet = new Set()
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="HongSpell"><span id="desktop-header-typeit" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/projects/"> 项目 </a><a class="menu-item" href="/sketch/"> 手绘 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/Hongmiao0207" title="GitHub" rel="noopener noreferrer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-select" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw"></i>
+                    <select class="color-theme-select" id="theme-select-desktop" title="Switch Theme">
+                        <option value="light">Light</option>
+                        <option value="dark">Dark</option>
+                        <option value="black">Black</option>
+                        <option value="auto">Auto</option>
+                    </select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="HongSpell"><span id="mobile-header-typeit" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/projects/" title="">项目</a><a class="menu-item" href="/sketch/" title="">手绘</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/Hongmiao0207" title="GitHub" rel="noopener noreferrer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-select" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw"></i>
+                <select class="color-theme-select" id="theme-select-mobile" title="Switch Theme">
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                    <option value="black">Black</option>
+                    <option value="auto">Auto</option>
+                </select>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "false")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Machine Learning Notes 01</h1><div class="post-meta">
+            <div class="post-meta-line">
+                <span class="post-author"><span class="author fas fa-user-circle fa-fw"></span><a href="/" title="Author" rel=" author" class="author">Hong</a>
+                </span>&nbsp;<span class="post-category">included in </span>&nbsp;<span class="post-category">category <a href="/categories/machine-learning/"><i class="far fa-folder fa-fw"></i>machine learning</a></span>&nbsp;<span class="post-category">and</span>&nbsp;<span class="post-series">series <a href="/series/pumpkinbook-notes/"><i class="far fa-list-alt fa-fw"></i>pumpkinbook - notes</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-09-30">2021-09-30</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;1262 words&nbsp;<i class="far fa-clock fa-fw"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="featured-image"><img
+        
+        loading="eager"
+        src="/posts/pumpkin-book-notes/xigua.png"
+        srcset="/posts/pumpkin-book-notes/xigua.png, /posts/pumpkin-book-notes/xigua.png 1.5x, /posts/pumpkin-book-notes/xigua.png 2x"
+        sizes="auto"
+        alt="/posts/pumpkin-book-notes/xigua.png"
+        title="/posts/pumpkin-book-notes/xigua.png" height="auto"   width="auto" ></div><div class="details series-nav open">
+                                <div class="details-summary series-title">
+                                    <span>Series - pumpkinbook - notes</span>
+                                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                                </div>
+                                <div class="details-content series-content">
+                                    <nav>
+                                        <ul><li><span class="active">Machine Learning Notes 01</span></li>
+                                                    <li><a href="/pumpkin-book-notes02/">Machine Learning Notes 02</a></li>
+                                                    <li><a href="/pumpkin-book-notes03/">Machine Learning Notes 03</a></li>
+                                                    <li><a href="/pumpkin-book-notes04/">Machine Learning Notes 04</a></li>
+                                                    <li><a href="/pumpkin-book-notes05/">Machine Learning Notes 05</a></li>
+                                                    <li><a href="/pumpkin-book-notes06/">Machine Learning Notes 06</a></li></ul>
+                                    </nav>
+                                </div>
+                            </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-绪论">1. 绪论</a>
+      <ul>
+        <li><a href="#11-基本术语">1.1 基本术语</a></li>
+        <li><a href="#12-假设空间">1.2 假设空间</a></li>
+        <li><a href="#13-归纳偏好">1.3 归纳偏好</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-模型评估和选择">2. 模型评估和选择</a>
+      <ul>
+        <li><a href="#21-经验误差与过拟合">2.1 经验误差与过拟合</a></li>
+        <li><a href="#22-评估方法">2.2 评估方法</a>
+          <ul>
+            <li><a href="#221-留出法-hold-out">2.2.1 留出法 hold-out</a></li>
+            <li><a href="#222-交叉验证法-cross-validation">2.2.2 交叉验证法 cross validation</a></li>
+            <li><a href="#223-自助法-bootstrapping">2.2.3 自助法 bootstrapping</a></li>
+          </ul>
+        </li>
+        <li><a href="#23-性能度量-performance-measure">2.3 性能度量 performance measure</a>
+          <ul>
+            <li><a href="#231-错误率和精度">2.3.1 错误率和精度</a></li>
+            <li><a href="#232-查准率-precision查全率-recall-与f1">2.3.2 查准率 precision、查全率 recall 与F1</a></li>
+            <li><a href="#233-roc-与-auc">2.3.3 ROC 与 AUC</a></li>
+            <li><a href="#234-代价敏感错误率和代价曲线">2.3.4 代价敏感错误率和代价曲线</a></li>
+          </ul>
+        </li>
+        <li><a href="#24-偏差与方差">2.4 偏差与方差</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="1-绪论" class="headerLink">
+    <a href="#1-%e7%bb%aa%e8%ae%ba" class="header-mark"></a>1. 绪论</h2><h3 id="11-基本术语" class="headerLink">
+    <a href="#11-%e5%9f%ba%e6%9c%ac%e6%9c%af%e8%af%ad" class="header-mark"></a>1.1 基本术语</h3><ul>
+<li>data set</li>
+<li>instance / sample</li>
+<li>attribute / feature</li>
+<li>attribute value</li>
+<li>attribute space / sample space</li>
+<li>feature vector</li>
+<li>dimensionality</li>
+<li>learning / training</li>
+<li>training data</li>
+<li>training sample</li>
+<li>training set</li>
+<li>hypothesis: 模型对应了关于数据的某种潜在的规律</li>
+<li>ground-truth: 潜在规律的本身</li>
+<li>learner: 模型，给定数据和参数空间上的实例化</li>
+<li>prediction</li>
+<li>label</li>
+<li>example, ($x_i, y_i$)</li>
+<li>label space</li>
+<li>classification, 分类、离散</li>
+<li>regression, 连续</li>
+<li>binary classification</li>
+<li>positive / negative class</li>
+<li>multi-class classification</li>
+<li>testing</li>
+<li>testing sample</li>
+<li>clustering, 将西瓜做聚类，即将训练集中的西瓜分成若干组</li>
+<li>cluster, 每组称为一个簇</li>
+<li>supervised learning, 分类、回归问题</li>
+<li>unsupervised learning, 聚类</li>
+<li>generalization, 泛化，模型适用于新样本的能力</li>
+<li>distribution, 通常假设样本空间中全体样本服从一个未知<strong>分布</strong></li>
+<li>independent and identically distributed, 每个样本都是独立地从这个分布上采样获得的</li>
+</ul>
+<h3 id="12-假设空间" class="headerLink">
+    <a href="#12-%e5%81%87%e8%ae%be%e7%a9%ba%e9%97%b4" class="header-mark"></a>1.2 假设空间</h3><p>科学推理手段：</p>
+<ul>
+<li>induction, 从具体事实归结出一般性规律。</li>
+<li>deduction, 从技术原理推演具体情况。</li>
+</ul>
+<p>假设空间：存在一个所有可能的由输入空间到输出空间的映射所构成的集合，则假设空间就是该机喝的一个子集。</p>
+<h3 id="13-归纳偏好" class="headerLink">
+    <a href="#13-%e5%bd%92%e7%ba%b3%e5%81%8f%e5%a5%bd" class="header-mark"></a>1.3 归纳偏好</h3><p>归纳偏好是算法在学习过程中对某种类型假设的偏好，防止算法被假设空间中看似等效的假设过迷惑，而无法产生确定的结果。</p>
+<h2 id="2-模型评估和选择" class="headerLink">
+    <a href="#2-%e6%a8%a1%e5%9e%8b%e8%af%84%e4%bc%b0%e5%92%8c%e9%80%89%e6%8b%a9" class="header-mark"></a>2. 模型评估和选择</h2><h3 id="21-经验误差与过拟合" class="headerLink">
+    <a href="#21-%e7%bb%8f%e9%aa%8c%e8%af%af%e5%b7%ae%e4%b8%8e%e8%bf%87%e6%8b%9f%e5%90%88" class="header-mark"></a>2.1 经验误差与过拟合</h3><p>经验/训练误差，训练集上实际预测输出与样本的真实输出之间的差异。</p>
+<p>过拟合，在训练样本表现过好，但是泛化性能下降。一般由于学习能力过于强大导致。</p>
+<h3 id="22-评估方法" class="headerLink">
+    <a href="#22-%e8%af%84%e4%bc%b0%e6%96%b9%e6%b3%95" class="header-mark"></a>2.2 评估方法</h3><h4 id="221-留出法-hold-out" class="headerLink">
+    <a href="#221-%e7%95%99%e5%87%ba%e6%b3%95-hold-out" class="header-mark"></a>2.2.1 留出法 hold-out</h4><p>将数据集分为两个互斥的集合，一个训练集、一个测试集。两个集合要尽量保持数据分布的一致性。复杂度高。</p>
+<h4 id="222-交叉验证法-cross-validation" class="headerLink">
+    <a href="#222-%e4%ba%a4%e5%8f%89%e9%aa%8c%e8%af%81%e6%b3%95-cross-validation" class="header-mark"></a>2.2.2 交叉验证法 cross validation</h4><p>将数据集划分为k个大小相似的互斥子集，保证一致性。k-1个子集作为训练集，余下的并集作为测试集。</p>
+<h4 id="223-自助法-bootstrapping" class="headerLink">
+    <a href="#223-%e8%87%aa%e5%8a%a9%e6%b3%95-bootstrapping" class="header-mark"></a>2.2.3 自助法 bootstrapping</h4><p>适用于数据集小、难以有效划分训练、测试集。改变了初始数据集的分布。在数据量足够时，不如前两个常用。</p>
+<h3 id="23-性能度量-performance-measure" class="headerLink">
+    <a href="#23-%e6%80%a7%e8%83%bd%e5%ba%a6%e9%87%8f-performance-measure" class="header-mark"></a>2.3 性能度量 performance measure</h3><p>衡量模型泛化能力的评价标准，比如回归任务常用的“均方误差”。</p>
+<h4 id="231-错误率和精度" class="headerLink">
+    <a href="#231-%e9%94%99%e8%af%af%e7%8e%87%e5%92%8c%e7%b2%be%e5%ba%a6" class="header-mark"></a>2.3.1 错误率和精度</h4><p>错误率与精度的关系为 $1-E(f;D)=acc(f;D)$</p>
+<h4 id="232-查准率-precision查全率-recall-与f1" class="headerLink">
+    <a href="#232-%e6%9f%a5%e5%87%86%e7%8e%87-precision%e6%9f%a5%e5%85%a8%e7%8e%87-recall-%e4%b8%8ef1" class="header-mark"></a>2.3.2 查准率 precision、查全率 recall 与F1</h4><p>在类似信息检索的应用中，错误率和精度是不够用的。</p>
+<p>二分类问题中，根据真实类别和学习器预测类别划分出真正例（true positive）、假正例（false positive）、真反例（true negative）、假反例（false negative），查准率P和查全率R分别定义为：
+$$P=\frac{TP}{TP+FP}$$
+$$R=\frac{TP}{TP+FN}$$</p>
+<p>二者是矛盾的度量，一个高另一个就低。平衡点（Break-Event Point）就是一个综合考虑双方性能度量，取得相对双高的比例。</p>
+<h4 id="233-roc-与-auc" class="headerLink">
+    <a href="#233-roc-%e4%b8%8e-auc" class="header-mark"></a>2.3.3 ROC 与 AUC</h4><p>ROC (Receiver Operating Characteristic) 受试者工作特征曲线，横坐标是False Positive，纵坐标时 True Positive。其横纵坐标是没有相关性的，所以不能把其当作函数曲线分析，二十四将其看作无数的点。</p>
+<p>AUC (Area Under ROC Curve), ROC曲线下的面积。当一个学习器的ROC曲线被另一个学习器的曲线完全包住，可断言后者性能优越。当二者ROC曲线发生交叉时，就需要通过AUC来判据。AUC估算为：
+$$AUC=\frac{1}{2}\sum^{m-1}<em>{i=1}(x</em>{i+1}-x_i)(y_i+y_{i+1})$$</p>
+<p>AUC考虑的是样本预测的排序质量，因此它与排序误差有关联。</p>
+<h4 id="234-代价敏感错误率和代价曲线" class="headerLink">
+    <a href="#234-%e4%bb%a3%e4%bb%b7%e6%95%8f%e6%84%9f%e9%94%99%e8%af%af%e7%8e%87%e5%92%8c%e4%bb%a3%e4%bb%b7%e6%9b%b2%e7%ba%bf" class="header-mark"></a>2.3.4 代价敏感错误率和代价曲线</h4><p>根据不同类型造成的不同损失，可为错误赋予非均等代价 unequal cost。</p>
+<p>在非均等代价下，ROC曲线不能直接反应学习器的期望总体代价，但是代价曲线可以。</p>
+<h3 id="24-偏差与方差" class="headerLink">
+    <a href="#24-%e5%81%8f%e5%b7%ae%e4%b8%8e%e6%96%b9%e5%b7%ae" class="header-mark"></a>2.4 偏差与方差</h3><p>偏差方差分解是解释学习算法泛化性能的重要工具，对算法的期望泛化错误率进行拆解。</p>
+</div>
+
+        
+
+
+<h2>Related Content</h2>
+<div class="related-container">
+    <div class="related-item-container">
+            <div class="related-image">
+                <a href="/pumpkin-book-notes06/"><img
+        
+        loading="lazy"
+        src="/posts/pumpkin-book-notes/xigua.png"
+        srcset="/posts/pumpkin-book-notes/xigua.png, /posts/pumpkin-book-notes/xigua.png 1.5x, /posts/pumpkin-book-notes/xigua.png 2x"
+        sizes="auto"
+        alt="/posts/pumpkin-book-notes/xigua.png"
+        title="/posts/pumpkin-book-notes/xigua.png" height="200"   width="400" ></a>
+            </div><h2 class="related-title">
+                <a href="/pumpkin-book-notes06/">Machine Learning Notes 06</a>
+            </h2>
+        </div>
+    <div class="related-item-container">
+            <div class="related-image">
+                <a href="/pumpkin-book-notes05/"><img
+        
+        loading="lazy"
+        src="/posts/pumpkin-book-notes/xigua.png"
+        srcset="/posts/pumpkin-book-notes/xigua.png, /posts/pumpkin-book-notes/xigua.png 1.5x, /posts/pumpkin-book-notes/xigua.png 2x"
+        sizes="auto"
+        alt="/posts/pumpkin-book-notes/xigua.png"
+        title="/posts/pumpkin-book-notes/xigua.png" height="200"   width="400" ></a>
+            </div><h2 class="related-title">
+                <a href="/pumpkin-book-notes05/">Machine Learning Notes 05</a>
+            </h2>
+        </div>
+    <div class="related-item-container">
+            <div class="related-image">
+                <a href="/pumpkin-book-notes04/"><img
+        
+        loading="lazy"
+        src="/posts/pumpkin-book-notes/xigua.png"
+        srcset="/posts/pumpkin-book-notes/xigua.png, /posts/pumpkin-book-notes/xigua.png 1.5x, /posts/pumpkin-book-notes/xigua.png 2x"
+        sizes="auto"
+        alt="/posts/pumpkin-book-notes/xigua.png"
+        title="/posts/pumpkin-book-notes/xigua.png" height="200"   width="400" ></a>
+            </div><h2 class="related-title">
+                <a href="/pumpkin-book-notes04/">Machine Learning Notes 04</a>
+            </h2>
+        </div>
+    <div class="related-item-container">
+            <div class="related-image">
+                <a href="/pumpkin-book-notes03/"><img
+        
+        loading="lazy"
+        src="/posts/pumpkin-book-notes/xigua.png"
+        srcset="/posts/pumpkin-book-notes/xigua.png, /posts/pumpkin-book-notes/xigua.png 1.5x, /posts/pumpkin-book-notes/xigua.png 2x"
+        sizes="auto"
+        alt="/posts/pumpkin-book-notes/xigua.png"
+        title="/posts/pumpkin-book-notes/xigua.png" height="200"   width="400" ></a>
+            </div><h2 class="related-title">
+                <a href="/pumpkin-book-notes03/">Machine Learning Notes 03</a>
+            </h2>
+        </div>
+    <div class="related-item-container">
+            <div class="related-image">
+                <a href="/pumpkin-book-notes02/"><img
+        
+        loading="lazy"
+        src="/posts/pumpkin-book-notes/xigua.png"
+        srcset="/posts/pumpkin-book-notes/xigua.png, /posts/pumpkin-book-notes/xigua.png 1.5x, /posts/pumpkin-book-notes/xigua.png 2x"
+        sizes="auto"
+        alt="/posts/pumpkin-book-notes/xigua.png"
+        title="/posts/pumpkin-book-notes/xigua.png" height="200"   width="400" ></a>
+            </div><h2 class="related-title">
+                <a href="/pumpkin-book-notes02/">Machine Learning Notes 02</a>
+            </h2>
+        </div>
+    
+
+</div>
+
+<div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2021-09-30</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span><a class="link-to-mardown" href=/pumpkin-book-notes01/index.md target="_blank" rel="noopener noreferrer">Read markdown</a>
+                    </span></div>
+            <div class="post-info-share"><button title="Share on Twitter" data-sharer="twitter" data-url="https://hongspell.site/pumpkin-book-notes01/" data-title="Machine Learning Notes 01" data-via="ssdlaohu9527" data-hashtags="machine learning,西瓜书,南瓜书"><span class="fab fa-twitter fa-fw"></span></button><button title="Share on Facebook" data-sharer="facebook" data-url="https://hongspell.site/pumpkin-book-notes01/" data-hashtag="machine learning"><span class="fab fa-facebook-square fa-fw"></span></button><button title="Share on WhatsApp" data-sharer="whatsapp" data-url="https://hongspell.site/pumpkin-book-notes01/" data-title="Machine Learning Notes 01" data-web><span class="fab fa-whatsapp fa-fw"></span></button><button title="Share on Line" data-sharer="line" data-url="https://hongspell.site/pumpkin-book-notes01/" data-title="Machine Learning Notes 01"><span data-svg-src="/lib/simple-icons/icons/line.min.svg"></span></button><button title="Share on 微博" data-sharer="weibo" data-url="https://hongspell.site/pumpkin-book-notes01/" data-title="Machine Learning Notes 01" data-image="/posts/pumpkin-book-notes/xigua.png"><span class="fab fa-weibo fa-fw"></span></button><button title="Share on Myspace" data-sharer="myspace" data-url="https://hongspell.site/pumpkin-book-notes01/" data-title="Machine Learning Notes 01" data-description=""><span data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></span></button><button title="Share on Blogger" data-sharer="blogger" data-url="https://hongspell.site/pumpkin-book-notes01/" data-title="Machine Learning Notes 01" data-description=""><span class="fab fa-blogger fa-fw"></span></button><button title="Share on Evernote" data-sharer="evernote" data-url="https://hongspell.site/pumpkin-book-notes01/" data-title="Machine Learning Notes 01"><span class="fab fa-evernote fa-fw"></span></button></div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/machine-learning/">machine learning</a>,&nbsp;<a href="/tags/%E8%A5%BF%E7%93%9C%E4%B9%A6/">西瓜书</a>,&nbsp;<a href="/tags/%E5%8D%97%E7%93%9C%E4%B9%A6/">南瓜书</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+            <a href="/pumpkin-book-notes02/" class="next" rel="next" title="Machine Learning Notes 02">Machine Learning Notes 02<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2023 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer">Hong</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a href="http://beian.miit.gov.cn/" target="_blank">黑ICP备2023016241号</a></span></div>
+            <div class="footer-line"></div>
+            <div class="footer-line">
+            </div>
+        </div></footer></div>
+
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="Back to Top">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div id="cookieconsent-container"></div><div class="assets"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/katex/copy-tex.min.css">
+        <noscript><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"></noscript><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"data":{"desktop-header-typeit":"HongSpell","mobile-header-typeit":"HongSpell"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":false,"fuseIndexURL":"/index.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":2,"noResultsFound":"No results found","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"sharerjs":true,"table":{"sort":true},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/lib/tablesort/tablesort.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js" defer></script><script type="text/javascript" src="/lib/katex/auto-render.min.js" defer></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js" defer></script><script type="text/javascript" src="/lib/katex/mhchem.min.js" defer></script><script type="text/javascript" src="/js/katex.min.js" defer></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script type="text/javascript" src="/js/cookieconsent.min.js" defer></script><script type="text/javascript" src="/js/theme.min.js" defer></script></div>
+</body>
+
+</html>

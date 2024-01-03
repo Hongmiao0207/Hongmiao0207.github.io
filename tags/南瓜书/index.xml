@@ -1,0 +1,62 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>南瓜书 - Tag - HongSpell</title>
+        <link>https://hongspell.site/tags/%E5%8D%97%E7%93%9C%E4%B9%A6/</link>
+        <description>南瓜书 - Tag - HongSpell</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>threewater027@gmail.com (Hong)</managingEditor>
+            <webMaster>threewater027@gmail.com (Hong)</webMaster><lastBuildDate>Fri, 29 Oct 2021 16:19:14 &#43;0800</lastBuildDate><atom:link href="https://hongspell.site/tags/%E5%8D%97%E7%93%9C%E4%B9%A6/" rel="self" type="application/rss+xml" /><item>
+    <title>Machine Learning Notes 06</title>
+    <link>https://hongspell.site/pumpkin-book-notes06/</link>
+    <pubDate>Fri, 29 Oct 2021 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/pumpkin-book-notes06/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/posts/pumpkin-book-notes/xigua.png" referrerpolicy="no-referrer">
+            </div>1 模型评估与选择 过拟合：就是不具备普遍性，在训练集中表现好，测试集和实际使用中一般 欠拟合：模型对于训练集的表现都不好 评估方法：将数据集分为训]]></description>
+</item><item>
+    <title>Machine Learning Notes 05</title>
+    <link>https://hongspell.site/pumpkin-book-notes05/</link>
+    <pubDate>Wed, 20 Oct 2021 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/pumpkin-book-notes05/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/posts/pumpkin-book-notes/xigua.png" referrerpolicy="no-referrer">
+            </div>6. 支持向量机它是一个几何角度建模模型，对于线性可分数据集，支持向量机就是找距离正负样本都最远的超平面。相比于感知机（它就是找到一个超平面能将]]></description>
+</item><item>
+    <title>Machine Learning Notes 04</title>
+    <link>https://hongspell.site/pumpkin-book-notes04/</link>
+    <pubDate>Fri, 15 Oct 2021 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/pumpkin-book-notes04/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/posts/pumpkin-book-notes/xigua.png" referrerpolicy="no-referrer">
+            </div>5. 神经网络 neural networks 5.1 神经元模型神经元neuron是神经网络最基本的成分。 M-P神经元模型模仿生物神经网络，通过激活函数activation fun]]></description>
+</item><item>
+    <title>Machine Learning Notes 03</title>
+    <link>https://hongspell.site/pumpkin-book-notes03/</link>
+    <pubDate>Mon, 11 Oct 2021 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/pumpkin-book-notes03/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/posts/pumpkin-book-notes/xigua.png" referrerpolicy="no-referrer">
+            </div>4. 决策树 decision tree主流应用在集成学习中多棵决策树构建森林。 4.1 基本流程又叫判定树，在分类问题中，它基于树结构来进行决策和判定，给出最终判定结果]]></description>
+</item><item>
+    <title>Machine Learning Notes 02</title>
+    <link>https://hongspell.site/pumpkin-book-notes02/</link>
+    <pubDate>Wed, 06 Oct 2021 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/pumpkin-book-notes02/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/posts/pumpkin-book-notes/xigua.png" referrerpolicy="no-referrer">
+            </div>3 线性模型 3.1 基本形式线性模型形式简单易于建模，一些非线性模型也可在此基础上引入层级结构或高维映射得到。 $$f(x)= \omega^Tx+b$$ 3.2 Linear Regression线性回归通]]></description>
+</item><item>
+    <title>Machine Learning Notes 01</title>
+    <link>https://hongspell.site/pumpkin-book-notes01/</link>
+    <pubDate>Thu, 30 Sep 2021 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/pumpkin-book-notes01/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/posts/pumpkin-book-notes/xigua.png" referrerpolicy="no-referrer">
+            </div>1. 绪论 1.1 基本术语 data set instance / sample attribute / feature attribute value attribute space / sample space feature vector dimensionality learning / training training data training sample training set hypothesis: 模型对应了关于数据的某种潜在的规律 ground-truth: 潜在规律的本身 learner: 模型，给定数据和]]></description>
+</item></channel>
+</rss>

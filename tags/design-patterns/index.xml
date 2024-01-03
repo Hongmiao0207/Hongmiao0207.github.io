@@ -1,0 +1,17 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>design-patterns - Tag - HongSpell</title>
+        <link>https://hongspell.site/tags/design-patterns/</link>
+        <description>design-patterns - Tag - HongSpell</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>threewater027@gmail.com (Hong)</managingEditor>
+            <webMaster>threewater027@gmail.com (Hong)</webMaster><lastBuildDate>Mon, 07 Aug 2023 16:19:14 &#43;0800</lastBuildDate><atom:link href="https://hongspell.site/tags/design-patterns/" rel="self" type="application/rss+xml" /><item>
+    <title>Singleton Pattern for Java</title>
+    <link>https://hongspell.site/singleton-pattern/</link>
+    <pubDate>Mon, 07 Aug 2023 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/singleton-pattern/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/posts/design-patterns/design-patterns_cover.png" referrerpolicy="no-referrer">
+            </div>创建型模式 用于描述&quot;怎么创建对象&quot;，特点是将对象的创建和使用分离。 如：单例、原型、工厂方法、抽象工厂、建造者等。 Singleton Pat]]></description>
+</item></channel>
+</rss>

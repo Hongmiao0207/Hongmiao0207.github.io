@@ -4,12 +4,47 @@
         <link>https://hongspell.site/series/</link>
         <description>Series - Series - HongSpell</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>threewater027@gmail.com (Hong)</managingEditor>
-            <webMaster>threewater027@gmail.com (Hong)</webMaster><lastBuildDate>Tue, 11 Oct 2022 16:19:14 &#43;0800</lastBuildDate><atom:link href="https://hongspell.site/series/" rel="self" type="application/rss+xml" /><item>
-    <title>kaggle比赛</title>
-    <link>https://hongspell.site/series/kaggle%E6%AF%94%E8%B5%9B/</link>
-    <pubDate>Tue, 11 Oct 2022 16:19:14 &#43;0800</pubDate><author>
+            <webMaster>threewater027@gmail.com (Hong)</webMaster><lastBuildDate>Sun, 12 Nov 2023 16:19:14 &#43;0800</lastBuildDate><atom:link href="https://hongspell.site/series/" rel="self" type="application/rss+xml" /><item>
+    <title>db - mysql</title>
+    <link>https://hongspell.site/series/db-mysql/</link>
+    <pubDate>Sun, 12 Nov 2023 16:19:14 &#43;0800</pubDate><author>
         <name>Hong</name>
-    </author><guid>https://hongspell.site/series/kaggle%E6%AF%94%E8%B5%9B/</guid>
+    </author><guid>https://hongspell.site/series/db-mysql/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>java-stream</title>
+    <link>https://hongspell.site/series/java-stream/</link>
+    <pubDate>Thu, 21 Sep 2023 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/series/java-stream/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>design patterns for java</title>
+    <link>https://hongspell.site/series/design-patterns-for-java/</link>
+    <pubDate>Mon, 07 Aug 2023 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/series/design-patterns-for-java/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>mq - kafka</title>
+    <link>https://hongspell.site/series/mq-kafka/</link>
+    <pubDate>Tue, 14 Mar 2023 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/series/mq-kafka/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>jvm-notes</title>
+    <link>https://hongspell.site/series/jvm-notes/</link>
+    <pubDate>Wed, 21 Dec 2022 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/series/jvm-notes/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>pumpkinbook - notes</title>
+    <link>https://hongspell.site/series/pumpkinbook-notes/</link>
+    <pubDate>Fri, 29 Oct 2021 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/series/pumpkinbook-notes/</guid>
     <description><![CDATA[]]></description>
 </item></channel>
 </rss>

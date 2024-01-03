@@ -1,0 +1,17 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>kafka - Tag - HongSpell</title>
+        <link>https://hongspell.site/tags/kafka/</link>
+        <description>kafka - Tag - HongSpell</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>threewater027@gmail.com (Hong)</managingEditor>
+            <webMaster>threewater027@gmail.com (Hong)</webMaster><lastBuildDate>Tue, 14 Mar 2023 16:19:14 &#43;0800</lastBuildDate><atom:link href="https://hongspell.site/tags/kafka/" rel="self" type="application/rss+xml" /><item>
+    <title>Kafka 入门</title>
+    <link>https://hongspell.site/1.-kafka-%E5%85%A5%E9%97%A8/</link>
+    <pubDate>Tue, 14 Mar 2023 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/1.-kafka-%E5%85%A5%E9%97%A8/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/posts/kafka/kafka_cover.jpg" referrerpolicy="no-referrer">
+            </div>1. 概述例子： 日常： 前端埋点记录用户的行为数据（浏览、点赞、收藏、评论等） 。 将上述存储到日志中，通过Flume对日志进行实时监控并传送给Had]]></description>
+</item></channel>
+</rss>

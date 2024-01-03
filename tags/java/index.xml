@@ -1,0 +1,35 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>java - Tag - HongSpell</title>
+        <link>https://hongspell.site/tags/java/</link>
+        <description>java - Tag - HongSpell</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>threewater027@gmail.com (Hong)</managingEditor>
+            <webMaster>threewater027@gmail.com (Hong)</webMaster><lastBuildDate>Thu, 21 Sep 2023 16:19:14 &#43;0800</lastBuildDate><atom:link href="https://hongspell.site/tags/java/" rel="self" type="application/rss+xml" /><item>
+    <title>了解Java Stream流操作</title>
+    <link>https://hongspell.site/java-stream%E6%93%8D%E4%BD%9C/</link>
+    <pubDate>Thu, 21 Sep 2023 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/java-stream%E6%93%8D%E4%BD%9C/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/posts/java/java-stream/java_stream_cover.jpg" referrerpolicy="no-referrer">
+            </div>Static Class 静态类可以在一个类里面定义静态类，比如，内部类 (nested class)。把nested class封闭起来的叫外部类。只有内部类才可以static。]]></description>
+</item><item>
+    <title>Singleton Pattern for Java</title>
+    <link>https://hongspell.site/singleton-pattern/</link>
+    <pubDate>Mon, 07 Aug 2023 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/singleton-pattern/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/posts/design-patterns/design-patterns_cover.png" referrerpolicy="no-referrer">
+            </div>创建型模式 用于描述&quot;怎么创建对象&quot;，特点是将对象的创建和使用分离。 如：单例、原型、工厂方法、抽象工厂、建造者等。 Singleton Pat]]></description>
+</item><item>
+    <title>深入理解JVM</title>
+    <link>https://hongspell.site/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3jvm/</link>
+    <pubDate>Wed, 21 Dec 2022 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3jvm/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/posts/java/jvm-notes/jvm_cover.jpg" referrerpolicy="no-referrer">
+            </div>1 内存与垃圾回收 1.1 JVM与Java体系结构java比c++优势：内存动态分配、垃圾收集技术 jvm字节码：特定的二进制文件格式，class文件]]></description>
+</item></channel>
+</rss>

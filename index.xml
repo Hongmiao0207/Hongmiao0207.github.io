@@ -4,25 +4,97 @@
         <link>https://hongspell.site/</link>
         <description>HongSpell</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>threewater027@gmail.com (Hong)</managingEditor>
-            <webMaster>threewater027@gmail.com (Hong)</webMaster><lastBuildDate>Tue, 11 Oct 2022 16:19:14 &#43;0800</lastBuildDate>
+            <webMaster>threewater027@gmail.com (Hong)</webMaster><lastBuildDate>Sun, 12 Nov 2023 16:19:14 &#43;0800</lastBuildDate>
             <atom:link href="https://hongspell.site/index.xml" rel="self" type="application/rss+xml" />
         <item>
-    <title>Feedback Prize</title>
+    <title>Feedback Prize - Evaluating Student Writing | Kaggle</title>
     <link>https://hongspell.site/feedback-prize/</link>
-    <pubDate>Tue, 11 Oct 2022 16:19:14 &#43;0800</pubDate><author>
+    <pubDate>Thu, 24 Mar 2022 16:19:14 &#43;0800</pubDate><author>
                     <name>Hong</name>
                 </author><guid>https://hongspell.site/feedback-prize/</guid>
     <description><![CDATA[<div class="featured-image">
-                <img src="/posts/feedback-prize/feedback-prize.png" referrerpolicy="no-referrer">
-            </div>Feedback Prize - Evaluating Student Writing | Kaggle 1 比赛介绍在这次竞赛中，将识别学生写作中的元素。更具体地说，将自动分割文本，并对6-12年级学生所写的文章中的论证和修辞元素]]></description>
+                <img src="/posts/kaggle/feedback-prize/feedback-prize.png" referrerpolicy="no-referrer">
+            </div>1 比赛介绍在这次竞赛中，将识别学生写作中的元素。更具体地说，将自动分割文本，并对6-12年级学生所写的文章中的论证和修辞元素进行分类。帮助学]]></description>
 </item><item>
     <title>Innodb Page</title>
     <link>https://hongspell.site/innodb-page/</link>
-    <pubDate>Tue, 11 Oct 2022 16:19:14 &#43;0800</pubDate><author>
+    <pubDate>Sun, 12 Nov 2023 16:19:14 &#43;0800</pubDate><author>
         <name>Hong</name>
     </author><guid>https://hongspell.site/innodb-page/</guid>
     <description><![CDATA[<div class="featured-image">
-                <img src="/posts/cover/InnodbPage.png" referrerpolicy="no-referrer">
-            </div>Innodb Page InnoDB 起因： MySQL中数据存储是在物理磁盘上，而真正的数据处理是在内存中执行。（考虑到磁盘读写速度非常慢，频繁的操作性能差）。 解决方案： I]]></description>
+                <img src="/posts/mysql/innodb-page/InnodbPage.png" referrerpolicy="no-referrer">
+            </div>InnoDB 起因： MySQL中数据存储是在物理磁盘上，而真正的数据处理是在内存中执行。（考虑到磁盘读写速度非常慢，频繁的操作性能差）。 解决方案： Ino]]></description>
+</item><item>
+    <title>了解Java Stream流操作</title>
+    <link>https://hongspell.site/java-stream%E6%93%8D%E4%BD%9C/</link>
+    <pubDate>Thu, 21 Sep 2023 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/java-stream%E6%93%8D%E4%BD%9C/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/posts/java/java-stream/java_stream_cover.jpg" referrerpolicy="no-referrer">
+            </div>Static Class 静态类可以在一个类里面定义静态类，比如，内部类 (nested class)。把nested class封闭起来的叫外部类。只有内部类才可以static。]]></description>
+</item><item>
+    <title>Singleton Pattern for Java</title>
+    <link>https://hongspell.site/singleton-pattern/</link>
+    <pubDate>Mon, 07 Aug 2023 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/singleton-pattern/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/posts/design-patterns/design-patterns_cover.png" referrerpolicy="no-referrer">
+            </div>创建型模式 用于描述&quot;怎么创建对象&quot;，特点是将对象的创建和使用分离。 如：单例、原型、工厂方法、抽象工厂、建造者等。 Singleton Pat]]></description>
+</item><item>
+    <title>Kafka 入门</title>
+    <link>https://hongspell.site/1.-kafka-%E5%85%A5%E9%97%A8/</link>
+    <pubDate>Tue, 14 Mar 2023 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/1.-kafka-%E5%85%A5%E9%97%A8/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/posts/kafka/kafka_cover.jpg" referrerpolicy="no-referrer">
+            </div>1. 概述例子： 日常： 前端埋点记录用户的行为数据（浏览、点赞、收藏、评论等） 。 将上述存储到日志中，通过Flume对日志进行实时监控并传送给Had]]></description>
+</item><item>
+    <title>深入理解JVM</title>
+    <link>https://hongspell.site/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3jvm/</link>
+    <pubDate>Wed, 21 Dec 2022 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3jvm/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/posts/java/jvm-notes/jvm_cover.jpg" referrerpolicy="no-referrer">
+            </div>1 内存与垃圾回收 1.1 JVM与Java体系结构java比c++优势：内存动态分配、垃圾收集技术 jvm字节码：特定的二进制文件格式，class文件]]></description>
+</item><item>
+    <title>Machine Learning Notes 06</title>
+    <link>https://hongspell.site/pumpkin-book-notes06/</link>
+    <pubDate>Fri, 29 Oct 2021 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/pumpkin-book-notes06/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/posts/pumpkin-book-notes/xigua.png" referrerpolicy="no-referrer">
+            </div>1 模型评估与选择 过拟合：就是不具备普遍性，在训练集中表现好，测试集和实际使用中一般 欠拟合：模型对于训练集的表现都不好 评估方法：将数据集分为训]]></description>
+</item><item>
+    <title>Machine Learning Notes 05</title>
+    <link>https://hongspell.site/pumpkin-book-notes05/</link>
+    <pubDate>Wed, 20 Oct 2021 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/pumpkin-book-notes05/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/posts/pumpkin-book-notes/xigua.png" referrerpolicy="no-referrer">
+            </div>6. 支持向量机它是一个几何角度建模模型，对于线性可分数据集，支持向量机就是找距离正负样本都最远的超平面。相比于感知机（它就是找到一个超平面能将]]></description>
+</item><item>
+    <title>Machine Learning Notes 04</title>
+    <link>https://hongspell.site/pumpkin-book-notes04/</link>
+    <pubDate>Fri, 15 Oct 2021 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/pumpkin-book-notes04/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/posts/pumpkin-book-notes/xigua.png" referrerpolicy="no-referrer">
+            </div>5. 神经网络 neural networks 5.1 神经元模型神经元neuron是神经网络最基本的成分。 M-P神经元模型模仿生物神经网络，通过激活函数activation fun]]></description>
+</item><item>
+    <title>Machine Learning Notes 03</title>
+    <link>https://hongspell.site/pumpkin-book-notes03/</link>
+    <pubDate>Mon, 11 Oct 2021 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/pumpkin-book-notes03/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/posts/pumpkin-book-notes/xigua.png" referrerpolicy="no-referrer">
+            </div>4. 决策树 decision tree主流应用在集成学习中多棵决策树构建森林。 4.1 基本流程又叫判定树，在分类问题中，它基于树结构来进行决策和判定，给出最终判定结果]]></description>
 </item></channel>
 </rss>

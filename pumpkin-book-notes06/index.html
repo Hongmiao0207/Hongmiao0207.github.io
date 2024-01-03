@@ -1,0 +1,1000 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title>Machine Learning Notes 06 - HongSpell</title><meta name="Description" content=""><meta property="og:title" content="Machine Learning Notes 06" />
+<meta property="og:description" content="1 模型评估与选择 过拟合：就是不具备普遍性，在训练集中表现好，测试集和实际使用中一般 欠拟合：模型对于训练集的表现都不好 评估方法：将数据集分为训" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hongspell.site/pumpkin-book-notes06/" /><meta property="og:image" content="https://hongspell.site/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-10-29T16:19:14+08:00" />
+<meta property="article:modified_time" content="2021-10-29T16:19:14+08:00" /><meta property="og:site_name" content="HongSpell" />
+<meta property="og:see_also" content="https://hongspell.site/pumpkin-book-notes01/" /><meta property="og:see_also" content="https://hongspell.site/pumpkin-book-notes02/" /><meta property="og:see_also" content="https://hongspell.site/pumpkin-book-notes03/" /><meta property="og:see_also" content="https://hongspell.site/pumpkin-book-notes04/" /><meta property="og:see_also" content="https://hongspell.site/pumpkin-book-notes05/" />
+
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://hongspell.site/" /><meta name="twitter:title" content="Machine Learning Notes 06"/>
+<meta name="twitter:description" content="1 模型评估与选择 过拟合：就是不具备普遍性，在训练集中表现好，测试集和实际使用中一般 欠拟合：模型对于训练集的表现都不好 评估方法：将数据集分为训"/>
+<meta name="twitter:site" content="@ssdlaohu9527"/>
+<meta name="application-name" content="HongSpell">
+<meta name="apple-mobile-web-app-title" content="HongSpell">
+
+<meta name="theme-color" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><meta name="twitter:creator" content="@ssdlaohu9527" /><link rel="icon" href="/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://hongspell.site/pumpkin-book-notes06/" /><link rel="prev" href="https://hongspell.site/pumpkin-book-notes05/" /><link rel="next" href="https://hongspell.site/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3jvm/" />
+<link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/color.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Machine Learning Notes 06",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://hongspell.site/pumpkin-book-notes06/"
+        },"genre": "posts","keywords": "machine learning, 西瓜书, 南瓜书","wordcount":  8505 ,
+        "url": "https://hongspell.site/pumpkin-book-notes06/","datePublished": "2021-10-29T16:19:14+08:00","dateModified": "2021-10-29T16:19:14+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Hong"
+            },"description": ""
+    }
+    </script></head>
+
+<body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme); document.documentElement.style.setProperty('color-scheme', theme === 'light' ? 'light' : 'dark'); window.theme = theme;   window.isDark = window.theme !== 'light' }
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('auto' === 'light' || 'auto' === 'dark' || 'auto' === 'black') setTheme('auto'), saveTheme('auto'); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+        window.switchThemeEventSet = new Set()
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="HongSpell"><span id="desktop-header-typeit" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/projects/"> 项目 </a><a class="menu-item" href="/sketch/"> 手绘 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/Hongmiao0207" title="GitHub" rel="noopener noreferrer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-select" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw"></i>
+                    <select class="color-theme-select" id="theme-select-desktop" title="Switch Theme">
+                        <option value="light">Light</option>
+                        <option value="dark">Dark</option>
+                        <option value="black">Black</option>
+                        <option value="auto">Auto</option>
+                    </select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="HongSpell"><span id="mobile-header-typeit" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/projects/" title="">项目</a><a class="menu-item" href="/sketch/" title="">手绘</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/Hongmiao0207" title="GitHub" rel="noopener noreferrer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-select" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw"></i>
+                <select class="color-theme-select" id="theme-select-mobile" title="Switch Theme">
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                    <option value="black">Black</option>
+                    <option value="auto">Auto</option>
+                </select>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "false")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Machine Learning Notes 06</h1><div class="post-meta">
+            <div class="post-meta-line">
+                <span class="post-author"><span class="author fas fa-user-circle fa-fw"></span><a href="/" title="Author" rel=" author" class="author">Hong</a>
+                </span>&nbsp;<span class="post-category">included in </span>&nbsp;<span class="post-category">category <a href="/categories/machine-learning/"><i class="far fa-folder fa-fw"></i>machine learning</a></span>&nbsp;<span class="post-category">and</span>&nbsp;<span class="post-series">series <a href="/series/pumpkinbook-notes/"><i class="far fa-list-alt fa-fw"></i>pumpkinbook - notes</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-10-29">2021-10-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;8505 words&nbsp;<i class="far fa-clock fa-fw"></i>&nbsp;17 minutes&nbsp;</div>
+        </div><div class="featured-image"><img
+        
+        loading="eager"
+        src="/posts/pumpkin-book-notes/xigua.png"
+        srcset="/posts/pumpkin-book-notes/xigua.png, /posts/pumpkin-book-notes/xigua.png 1.5x, /posts/pumpkin-book-notes/xigua.png 2x"
+        sizes="auto"
+        alt="/posts/pumpkin-book-notes/xigua.png"
+        title="/posts/pumpkin-book-notes/xigua.png" height="auto"   width="auto" ></div><div class="details series-nav open">
+                                <div class="details-summary series-title">
+                                    <span>Series - pumpkinbook - notes</span>
+                                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                                </div>
+                                <div class="details-content series-content">
+                                    <nav>
+                                        <ul>
+                                                    <li><a href="/pumpkin-book-notes01/">Machine Learning Notes 01</a></li>
+                                                    <li><a href="/pumpkin-book-notes02/">Machine Learning Notes 02</a></li>
+                                                    <li><a href="/pumpkin-book-notes03/">Machine Learning Notes 03</a></li>
+                                                    <li><a href="/pumpkin-book-notes04/">Machine Learning Notes 04</a></li>
+                                                    <li><a href="/pumpkin-book-notes05/">Machine Learning Notes 05</a></li><li><span class="active">Machine Learning Notes 06</span></li></ul>
+                                    </nav>
+                                </div>
+                            </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-模型评估与选择">1 模型评估与选择</a></li>
+    <li><a href="#2-线性模型">2 线性模型</a>
+      <ul>
+        <li><a href="#21-线性回归">2.1 线性回归</a></li>
+        <li><a href="#22-正则化-regularization">2.2 正则化 Regularization</a></li>
+        <li><a href="#23-对数线性回归-log-linear-regression">2.3 对数线性回归 log-linear regression</a></li>
+        <li><a href="#24-对数几率回归">2.4 对数几率回归</a></li>
+        <li><a href="#25-数学基础极大似然估计-mle">2.5 数学基础：极大似然估计 MLE</a></li>
+        <li><a href="#26-数学基础贝叶斯公式-bayes">2.6 数学基础：贝叶斯公式 Bayes</a></li>
+        <li><a href="#27-线性判别分析-linear-discriminant-analysis-lda">2.7 线性判别分析 (Linear Discriminant Analysis LDA)</a></li>
+        <li><a href="#28-数学基础拉格朗日乘子法">2.8 数学基础：拉格朗日乘子法</a></li>
+        <li><a href="#29-数学基础广义特征值">2.9 数学基础：广义特征值</a></li>
+        <li><a href="#210-数学基础广义瑞利商">2.10 数学基础：广义瑞利商</a></li>
+        <li><a href="#211-多分类问题">2.11 多分类问题</a></li>
+        <li><a href="#212-类别不平衡问题-class-imbalance">2.12 类别不平衡问题 class-imbalance</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-决策树-decision-tree">3 决策树 Decision Tree</a>
+      <ul>
+        <li><a href="#31-基本流程">3.1 基本流程</a></li>
+        <li><a href="#32-划分选择">3.2 划分选择</a></li>
+        <li><a href="#33-信息增益-information-entropy">3.3 信息增益 information entropy</a></li>
+        <li><a href="#34-增益率-gain-ratio">3.4 增益率 Gain Ratio</a></li>
+        <li><a href="#35-基尼指数-cart-index-classification-and-regression-tree">3.5 基尼指数 CART Index (Classification and Regression Tree)</a></li>
+        <li><a href="#36-剪枝处理-pruning">3.6 剪枝处理 pruning</a></li>
+        <li><a href="#37-连续与缺失值">3.7 连续与缺失值</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-神经网络">4 神经网络</a>
+      <ul>
+        <li><a href="#41-激活函数-activation-function">4.1 激活函数 activation function</a></li>
+      </ul>
+    </li>
+    <li><a href="#42-感知机perceptron与多层网络">4.2 感知机（Perceptron）与多层网络</a>
+      <ul>
+        <li><a href="#43-感知机的学习策略">4.3 感知机的学习策略</a></li>
+        <li><a href="#44-多层网络">4.4 多层网络</a></li>
+      </ul>
+    </li>
+    <li><a href="#45-误差逆传播算法-error-backpropagation-bp">4.5 误差逆传播算法 error BackPropagation BP</a></li>
+    <li><a href="#5-数据处理">5 数据处理</a>
+      <ul>
+        <li><a href="#51-数据预处理-简介">5.1 数据预处理-简介</a></li>
+        <li><a href="#52-数据无量纲化">5.2 数据无量纲化</a></li>
+        <li><a href="#53-数据预处理---处理缺失值">5.3 数据预处理 - 处理缺失值</a>
+          <ul>
+            <li><a href="#531-数据清洗">5.3.1 数据清洗</a></li>
+            <li><a href="#532-填补缺失值的重要性">5.3.2 填补缺失值的重要性</a></li>
+            <li><a href="#533-缺失值导致的问题">5.3.3 缺失值导致的问题</a></li>
+            <li><a href="#534-缺失数据类型">5.3.4 缺失数据类型</a></li>
+            <li><a href="#535-缺失值的类别">5.3.5 缺失值的类别</a></li>
+            <li><a href="#536-缺失值插补类型">5.3.6 缺失值插补类型</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="1-模型评估与选择" class="headerLink">
+    <a href="#1-%e6%a8%a1%e5%9e%8b%e8%af%84%e4%bc%b0%e4%b8%8e%e9%80%89%e6%8b%a9" class="header-mark"></a>1 模型评估与选择</h2><ul>
+<li>
+<p>过拟合：就是不具备普遍性，在训练集中表现好，测试集和实际使用中一般</p>
+</li>
+<li>
+<p>欠拟合：模型对于训练集的表现都不好</p>
+</li>
+<li>
+<p>评估方法：将数据集分为训练集和测试集的方法</p>
+<ul>
+<li>留出法：简单因此常用</li>
+<li>交叉验证：应用于同算法异参数或异算法之间的比较</li>
+<li>自助法：应用于集成学习</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-线性模型" class="headerLink">
+    <a href="#2-%e7%ba%bf%e6%80%a7%e6%a8%a1%e5%9e%8b" class="header-mark"></a>2 线性模型</h2><ul>
+<li>基本形式：$f(x) = w^T x + b$，其中，w是1*d维的向量，w和b确定后，模型就确定了。</li>
+</ul>
+<h3 id="21-线性回归" class="headerLink">
+    <a href="#21-%e7%ba%bf%e6%80%a7%e5%9b%9e%e5%bd%92" class="header-mark"></a>2.1 线性回归</h3><ul>
+<li>目的：使f(x)接近y值</li>
+<li>如何达到目的，在x和y是已知的情况下，确定w和b的值即可
+<ul>
+<li>如何确定w和b？
+<ul>
+<li>最小二乘法：
+<ul>
+<li>$(w,b) = arg \ \ min_(w,b) \ \ \sum(f(x)-y)^2$</li>
+<li>即 $(w,b) = arg \ \ min_(w,b) \ \ \sum(y - wx - b)^2$</li>
+</ul>
+</li>
+<li>最小二乘法几何意义：试图找到一个直线，使得样本到直线上的欧氏距离之和最小</li>
+<li>求最小值问题：就是分别对w、b求解其导数=0的过程</li>
+<li>在多元线性回归中，同理，只不过x从向量变成了矩阵
+<ul>
+<li>令 $w^* = (w;b) = (w_1; w_2; &hellip;; w_d; b)$，从一元线性回归方程中可得：
+<ul>
+<li>$w^<em>=arg \ \ min_{w^</em>} \ \ (y-Xw^<em>)^T (y-Xw^</em>)$，其中 X表示m*d维的x
+<ul>
+<li>为什么一元线性回归的平方形式在多元中可以写成其乘以其转置的形式？</li>
+<li>这样成立的前提是X为满秩矩阵或者正定矩阵（full-rank or positive definite matrix）</li>
+</ul>
+</li>
+<li>对$w^*$求导并让其导数式=0即可求得最优解，因此
+<ul>
+<li>$w^* = (X^TX)^{-1} X^T y$，其中，$(X^TX)^{-1}$为$(X^TX)$的逆矩阵</li>
+<li>逆矩阵：
+<ul>
+<li>只有方阵才有逆矩阵</li>
+<li>矩阵和其逆矩阵相乘等于单位矩阵（从左上到右下的对角线上的元素为1，其余元素为0），效果等于实数中一个数乘以其倒数就等于1</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="22-正则化-regularization" class="headerLink">
+    <a href="#22-%e6%ad%a3%e5%88%99%e5%8c%96-regularization" class="header-mark"></a>2.2 正则化 Regularization</h3><p>理想情况，$X^TX$是满秩的，但是实际情况中多数不是满秩，此时可解出多个w，且都能使均方误差最小化，如果选择一个w作为输出？&mdash;正则化项</p>
+<ul>
+<li>什么是正则化？
+<ul>
+<li>让w的个数最小化就是正则化</li>
+<li>形式：$\frac{\lambda}{2} ||W||^2_2, \lambda &gt;= 0$，其中$||W||^2_2$ 表示二范数</li>
+<li>整体结构：$min{\sum(y-W^Tx) + \frac{\lambda}{2}||W||^2_2}, \lambda&gt;=0$</li>
+</ul>
+</li>
+</ul>
+<h3 id="23-对数线性回归-log-linear-regression" class="headerLink">
+    <a href="#23-%e5%af%b9%e6%95%b0%e7%ba%bf%e6%80%a7%e5%9b%9e%e5%bd%92-log-linear-regression" class="header-mark"></a>2.3 对数线性回归 log-linear regression</h3><ul>
+<li>对数线性回归解决的了，线性模型输出值之间可能存在跨度太大的问题，即将输出标记控制在指数尺度上。</li>
+</ul>
+<p>通过 $ln y = w^Tx +b$，试图让 $e^{w^Tx+b}$ 逼近y。</p>
+<!-- ![单位阶跃函数](/posts/pumpkin-book-notes/unitStep.png) -->
+<figure><a class="lightgallery" href="/posts/pumpkin-book-notes/unitStep.png" title="/posts/pumpkin-book-notes/unitStep.png" data-thumbnail="/posts/pumpkin-book-notes/unitStep.png" data-sub-html="<h2>单位阶跃函数</h2>">
+        <img
+            
+            loading="lazy"
+            src="/posts/pumpkin-book-notes/unitStep.png"
+            srcset="/posts/pumpkin-book-notes/unitStep.png, /posts/pumpkin-book-notes/unitStep.png 1.5x, /posts/pumpkin-book-notes/unitStep.png 2x"
+            sizes="auto"
+            alt="/posts/pumpkin-book-notes/unitStep.png" height="303px"  width="518px" >
+    </a><figcaption class="image-caption">单位阶跃函数</figcaption>
+    </figure>
+<ul>
+<li>对数线性回归适合与回归问题</li>
+<li>对数几率回归则适用于分类问题</li>
+</ul>
+<h3 id="24-对数几率回归" class="headerLink">
+    <a href="#24-%e5%af%b9%e6%95%b0%e5%87%a0%e7%8e%87%e5%9b%9e%e5%bd%92" class="header-mark"></a>2.4 对数几率回归</h3><ul>
+<li>二分类问题中，$y \in {0,1}$，线性回归的预测值是实值，不好用与分类中，而 &ldquo;单位阶跃函数&rdquo; unit-step，可以将值转换为0/1.</li>
+</ul>
+<p>但是单位阶跃函数不连续，所以不能直接作用在线性回归上，而对数几率函数可以替代单位阶跃函数，且它是连续的。</p>
+<ul>
+<li>单位阶跃函数与对数几率函数对比：</li>
+</ul>
+<!-- ![对数线性回归](/posts/pumpkin-book-notes/logLinearRegression.png) -->
+<figure><a class="lightgallery" href="/posts/pumpkin-book-notes/logLinearRegression.png" title="/posts/pumpkin-book-notes/logLinearRegression.png" data-thumbnail="/posts/pumpkin-book-notes/logLinearRegression.png" data-sub-html="<h2>线性回归</h2>">
+        <img
+            
+            loading="lazy"
+            src="/posts/pumpkin-book-notes/logLinearRegression.png"
+            srcset="/posts/pumpkin-book-notes/logLinearRegression.png, /posts/pumpkin-book-notes/logLinearRegression.png 1.5x, /posts/pumpkin-book-notes/logLinearRegression.png 2x"
+            sizes="auto"
+            alt="/posts/pumpkin-book-notes/logLinearRegression.png" height="346px"  width="386px" >
+    </a><figcaption class="image-caption">线性回归</figcaption>
+    </figure>
+<ul>
+<li>
+<p>对数几率函数：$y=\frac{1}{1+e^{-(w^Tx+b)}}$</p>
+</li>
+<li>
+<p>它是一种 Sigmoid函数，将 $(w^Tx+b)$，设为 z，该函数将z转化为接近0或1的值</p>
+</li>
+<li>
+<p>其中几率为，得到正例的可能性 和 1 - 得到正例的可能性（即反例）的比值，对这个几率取对数就是叫对数几率（log odds, logit)</p>
+</li>
+<li>
+<p>$ln\frac{y}{1-y}=w^Tx+b$</p>
+</li>
+<li>
+<p>对数几率回归优点：</p>
+<ul>
+<li>不仅可以预测类别，还可以得到近似的概率预测</li>
+<li>对数几率函数是任意阶可导的凸函数（凸函数是可以直接用于求最优解的函数）</li>
+</ul>
+</li>
+<li>
+<p>求解对数几率函数中的w和b：极大似然估计</p>
+</li>
+</ul>
+<h3 id="25-数学基础极大似然估计-mle" class="headerLink">
+    <a href="#25-%e6%95%b0%e5%ad%a6%e5%9f%ba%e7%a1%80%e6%9e%81%e5%a4%a7%e4%bc%bc%e7%84%b6%e4%bc%b0%e8%ae%a1-mle" class="header-mark"></a>2.5 数学基础：极大似然估计 MLE</h3><ul>
+<li>什么时候用极大似然估计：模型已定，参数未知</li>
+<li>采样要满足的假设：所有采样都要独立同分布</li>
+<li>正态分布下的极大似然估计的公式：
+<ul>
+<li>$f(x)=\frac{1}{\sqrt{2\pi}\sigma} exp(-\frac{(x-\mu)^2}{2\sigma^2})$</li>
+</ul>
+</li>
+</ul>
+<p>$P(x|\theta)$ 输入有两个，一个x，一个是模型的参数 $\theta$</p>
+<ul>
+<li>概率函数：$\theta$ 已知，x是变量；描述对于不同样本点x，其出现概率是多少</li>
+<li>似然函数：x已知，$\theta$是变量；描述对于不同的模型参数，出现x这个样本点的概率是多少。</li>
+</ul>
+<p><a href="https://zhuanlan.zhihu.com/p/26614750" target="_blank" rel="noopener noreferrer">极大似然估计的数学例子</a></p>
+<ul>
+<li>如何求极大似然估计？
+<ul>
+<li>令其导数=0，理解起立就是，函数有切线，函数中不同的位置对应着不同的切线，如何找到极值点？就是当它切线与x轴平行的时候，即切线斜率=0的时候，而这个切线斜率就是函数对应的导数。</li>
+</ul>
+</li>
+</ul>
+<h3 id="26-数学基础贝叶斯公式-bayes" class="headerLink">
+    <a href="#26-%e6%95%b0%e5%ad%a6%e5%9f%ba%e7%a1%80%e8%b4%9d%e5%8f%b6%e6%96%af%e5%85%ac%e5%bc%8f-bayes" class="header-mark"></a>2.6 数学基础：贝叶斯公式 Bayes</h3><ul>
+<li>
+<p>区分概率和统计：前者已知模型和参数，推数据；后者已知数据，推模型和参数。</p>
+</li>
+<li>
+<p>贝叶斯公式:</p>
+<ul>
+<li>$P(A|B)=\frac{P(B|A)P(A)}{P(B)}$，核心就是条件概率和联合概率</li>
+<li>把B展开：
+<ul>
+<li>$P(A|B)=\frac{P(B|A)P(A)}{P(B|A)|(A)+P(B|\sim A)P(\sim A)}$，其中 ~A表示非A</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>贝叶斯公式就是在描述，How much you can trust evidence</p>
+<ul>
+<li>理解公式和思想的例子：一辆车的警报响了；
+<ul>
+<li>事件A表示车被砸</li>
+<li>事件B表示警报响</li>
+<li>P(A|B)表示警报响了并且车被砸了概率</li>
+<li>P(B|A)表示车被砸引发了警报的概率</li>
+<li>P(B|~A)表示警报响了，但是车并没有被砸</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="27-线性判别分析-linear-discriminant-analysis-lda" class="headerLink">
+    <a href="#27-%e7%ba%bf%e6%80%a7%e5%88%a4%e5%88%ab%e5%88%86%e6%9e%90-linear-discriminant-analysis-lda" class="header-mark"></a>2.7 线性判别分析 (Linear Discriminant Analysis LDA)</h3><ul>
+<li>
+<p>线性判别分析主要用于分类问题，也叫 Fisher判别分析，是一种监督降维方法</p>
+</li>
+<li>
+<p>LDA思想：设法将样本投影到一条直线上，使样本在这条线上最容易分类；要求，同类近，异类远</p>
+</li>
+<li>
+<p>线性判别模型：采用直线或超平面将样本直接切开，表示为 y = f(w^T x + b)，划分平面表示为 w^T x + b = 0。常见模型，逻辑回归（sigmod函数）、感知机（激活函数）</p>
+</li>
+<li>
+<p>其中 w就是我们要找的投影线的向量，我们只关心向量方向，而不关心模长</p>
+</li>
+<li>
+<p>为了让异类样本相隔远，就需要让异类均值的差大，让同类间离散小，就需要同类的协方差小</p>
+</li>
+<li>
+<p>最大化目标：$J=\frac{||w^T \mu_0 - w^T \mu_1||^2_2}{w^T \Sigma_0 w + w^T \Sigma_1 w}$ 展开得 $\frac{w^T(\mu_0 - \mu_1)(\mu_0 - \mu_1)^Tw}{w^T(\Sigma_0+\Sigma_1)w}$</p>
+</li>
+<li>
+<p>类内方差小 min，类间均值大 max</p>
+<ul>
+<li>within-class scatter matrix: $S_w = \Sigma_0 + \Sigma_1$</li>
+<li>between-class scatter matrix: $S_b = (\mu_0-\mu_1)(\mu0-\mu_1)^T$</li>
+</ul>
+</li>
+<li>
+<p>改写后，$J = \frac{w^T S_b w}{w^T S_w w}$，这就是LDA的最大化目标，即 Sb和Sw的广义瑞利商（generalized rayleigh quotient），要求的就是 max J</p>
+<ul>
+<li>此时，max J 不可解，因为w会被约掉；但由于w的大小并不会影响最终结果，因为只需要确定w方向。因此，解决方案就是 固定w的大小，固定的方式有很多种，书中是将分母大小固定，$w^T S_w w = 1$：
+<ul>
+<li>已知 Sw的大小是固定的，为什么？因为给定样本后，Sw是个固定的矩阵，是个常量；这么做就等价于固定w的模长（不管固定分子还是分母都是可以的，因为样本给定后，均值和方差都是固定的）</li>
+</ul>
+</li>
+<li>所以 max J = $w^T S_b w$，s.t. $w^T S_w w=1$</li>
+<li>而通常优化问题都是转化成最小化问题，那么此时 max J -&gt; min J:
+<ul>
+<li>$min_w J = - w^T S_b w$，s.t. $w^T S_w w=1$</li>
+<li>求解带约束的优化问题的常用方法：拉格朗日乘子法</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="28-数学基础拉格朗日乘子法" class="headerLink">
+    <a href="#28-%e6%95%b0%e5%ad%a6%e5%9f%ba%e7%a1%80%e6%8b%89%e6%a0%bc%e6%9c%97%e6%97%a5%e4%b9%98%e5%ad%90%e6%b3%95" class="header-mark"></a>2.8 数学基础：拉格朗日乘子法</h3><ul>
+<li>
+<p>对于仅含约束的优化问题：</p>
+<ul>
+<li>$min_x f(x)$，s.t. $h_i(x)=0$，i = 1,2,&hellip;,n</li>
+</ul>
+</li>
+<li>
+<p>其中自变量x属于实数，f(x)和hi(x)均有连续的一阶偏导数。首先推出其拉格朗日函数：</p>
+<ul>
+<li>$L(x, \lambda) = f(x) + \sum_{i=1}^n \lambda_i h_i(x)$</li>
+</ul>
+</li>
+<li>
+<p>其中 $\lambda = (\lambda_1, \lambda_2,&hellip;,\lambda_n)^T$ 为拉格朗日乘子。然后对拉格朗日函数关于x求偏导。并令导数=0，再搭配约束条件 $h_i(x)=0$解出x，求解出所有x即为上述优化问题的所有可能（极值点）（只能求出1个或者多个局部极值点，不能确定哪个是想要的）</p>
+</li>
+<li>
+<p>求解 w</p>
+<ul>
+<li>$min_w J = - w^T S_b w$，s.t. $w^T S_w w-1=0$，其中 $w^T S_w w-1=0$ 就是 h(x)</li>
+<li>由拉格朗日乘子法可得拉格朗日函数：$L(w, \lambda) = -w^TS_b w + \lambda(w^TS_w w - 1)$，也就是 f(x)+h(x)</li>
+<li>对 w 求偏导：
+<ul>
+<li>$\frac{\partial L(w, \lambda)}{\partial w} = - \frac{\partial (w^T S_b w)}{\partial w} + \lambda \frac{\partial (w^T S_w w - 1)}{\partial w}$</li>
+<li>$= -(S_b + S_b^T)w + \lambda(S_w + S^T_w)w$</li>
+</ul>
+</li>
+<li>由于 Sb=Sb^T，Sw=Sw^T（因为Sb和Sw都是对称矩阵），所以：
+<ul>
+<li>$L(w, \lambda) = -2 S_b w + 2 \lambda S_w w$</li>
+</ul>
+</li>
+<li>令上式 = 0：
+<ul>
+<li>$S_b w = \lambda S_w w$ (广义特征值)
+<ul>
+<li>特征值：$Ax = \lambda x$</li>
+<li>广义特征值：$Ax = \lambda B x$</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>将Sb和Sw展开：$(\mu_0-\mu_1)(\mu_0-\mu_1)^T w = \lambda S_w w$
+<ul>
+<li>其中，$\mu_0$ 和 $\mu_1$ 是列向量，它们相减还是列向量，$(\mu_0-\mu_1)^T$是行向量，w是列向量；行向量*列向量 = 实数，所以：</li>
+<li>令 $(\mu_0 - \mu_1)^T w = \gamma$，则：
+<ul>
+<li>$\gamma (\mu_1 - \mu_2) = \lambda S_w w$</li>
+<li>$w = \frac{\gamma}{\lambda} S^{-1}_w (\mu_0 - \mu_1)$</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>由于最终求解的w不关心其大小，只关心方向，所以令常数项=1，即$\frac{\gamma}{\lambda}=1$，此时有：
+<ul>
+<li>$w = S^{-1}_w (\mu_0 - \mu_1)$</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="29-数学基础广义特征值" class="headerLink">
+    <a href="#29-%e6%95%b0%e5%ad%a6%e5%9f%ba%e7%a1%80%e5%b9%bf%e4%b9%89%e7%89%b9%e5%be%81%e5%80%bc" class="header-mark"></a>2.9 数学基础：广义特征值</h3><ul>
+<li>定义：设A, B为 n阶方阵，若存在 $\lambda$，使得方程 $Ax=\lambda Bx$ 存在<strong>非零解</strong>，则称 $\lambda$ 为A相对于 B的特征广义指，x为A相对于B的属于广义特征值 $\lambda$ 的特征向量。
+<ul>
+<li>特别地，当 B = I（单位矩阵）时，广义特征值问题退化为标准特征值问题。</li>
+</ul>
+</li>
+</ul>
+<h3 id="210-数学基础广义瑞利商" class="headerLink">
+    <a href="#210-%e6%95%b0%e5%ad%a6%e5%9f%ba%e7%a1%80%e5%b9%bf%e4%b9%89%e7%91%9e%e5%88%a9%e5%95%86" class="header-mark"></a>2.10 数学基础：广义瑞利商</h3><ul>
+<li>定义：设A, B为 n阶厄米（Hermitian）矩阵，且B正定，称 $R(x)=\frac{x^H Ax}{x^H Bx}$ (x != 0) 为A相对于B的广义瑞利商。
+<ul>
+<li>特别地，当 B = I（单位矩阵）时，广义瑞利商退化为瑞利商。</li>
+<li>其中，当矩阵是实数矩阵时，厄米矩阵就等于转置，即 $A^H=A^T$，此时 A和A^H对称；而当元素为复数时，会有不同。</li>
+</ul>
+</li>
+<li>性质：假设，$\lambda_i, x_i (i=1,2,&hellip;,n)$ 为A相对于B的广义特征值和特征向量，且 $\lambda_1 &lt;= \lambda_2 &lt;= &hellip; &lt;= \lambda_n$，则有：
+<ul>
+<li>$min_{x != 0} \ \ R(X) = \frac{x^H Ax}{x^H bx} = \lambda_1, \ \ x^* = x_1$</li>
+<li>$max_{x!=0} \ \ R(x) = \frac{x^H Ax}{x^H Bx} = \lambda_n, \ \ x^* = x_n$</li>
+</ul>
+</li>
+</ul>
+<h3 id="211-多分类问题" class="headerLink">
+    <a href="#211-%e5%a4%9a%e5%88%86%e7%b1%bb%e9%97%ae%e9%a2%98" class="header-mark"></a>2.11 多分类问题</h3><ul>
+<li>学习：一般是利用二分类学习器解决多分类问题，通过拆解法，将多分类任务拆为若干个二分类任务求解。</li>
+<li>测试：对这些分类器的预测结果集成得到多分类结果。</li>
+<li>拆分策略：
+<ul>
+<li>One vs One
+<ul>
+<li>将N个类别两两配对，产生N(N-1)/2个二分类任务（也就是训练N(N-1)/2个分类器）</li>
+<li>测试阶段，新样本提交给所有的分类器，得到N(N-1)/2个分类结果，把预测最多的类别作为最终结果</li>
+<li>存储开销和测试开销会大</li>
+</ul>
+</li>
+<li>One vs Rest
+<ul>
+<li>将一个类的样例作为正例，其余全部作为反例，来训练N个分类器</li>
+<li>测试阶段，仅有一个分类器预测为正类，则对应的类别标记作为最终分类结果；若有多个分类器预测为正类，则根据置信度最大的分类器的类别标记作为分类结果</li>
+<li>存储开销和测试时间开销通常小于上一个；如果类别很多的情况下，测试时间开销就大于上一个，因为她需要用到全部样例，而上一个朱需要用到两个类的样例</li>
+<li>预测性能，二者差不多</li>
+</ul>
+</li>
+<li>Many vs Many
+<ul>
+<li>每次将若干个类作为正类，若干个其他类作为反类。正反类构造必须有特殊的设计，不能随意选取，常用技术：纠错输出码（Error Correction Output Codes, ECOC）
+<ul>
+<li>ECOC是将编码的思想引入类别拆分，尽可能在解码过程中具有容错性</li>
+<li>工作过程：
+<ul>
+<li>编码：对N个类别做M次划分，每次划分将两部分类别分别划分为正反类，从而形成一个二分类训练集，这样产生M个训练集，可以训练出M个分类器</li>
+<li>解码：M个分类器分别对测试样本进行预测，这些预测标记组成一个编码。将编码与每个类别的各自编码进行比较，返回其中距离最小的类别作为最终预测结果</li>
+</ul>
+</li>
+<li>类别划分通过编码矩阵（coding matrix） 指定，常见形式 二元码、三元码</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="212-类别不平衡问题-class-imbalance" class="headerLink">
+    <a href="#212-%e7%b1%bb%e5%88%ab%e4%b8%8d%e5%b9%b3%e8%a1%a1%e9%97%ae%e9%a2%98-class-imbalance" class="header-mark"></a>2.12 类别不平衡问题 class-imbalance</h3><ul>
+<li>前提：分类任务中，不同类别的训练样例数母差别很大，比如，正类样例少，反类样例特别多</li>
+<li>类别不平衡处理的基本方法：
+<ul>
+<li>基本策略：再缩放（rescaling）
+<ul>
+<li>几率y/(1-y)反映了正例可能性和反例可能性之比，若其 &gt; 1，则预测为正例；
+<ul>
+<li>然而，训练集中正反例数目不同时，令m^+表示正例数目，m^-表示反例数目，则，目测几率是 m^+/m^-</li>
+<li>由于，通常假设训练集是真实样本总体的无偏采样，因此观测几率就代表了真实几率。于是，只要分类器的预测几率高于观测几率就判定为正例：</li>
+<li>y/(1-y) &gt; m^+/m^-，则 预测为正例</li>
+<li>而 分类器基于 y/(1-y)进行决策，因此，需要对预测值进行调整，即再缩放：</li>
+<li>$\frac{y&rsquo;}{1-y&rsquo;} = \frac{y}{1-y} \frac{m^-}{m^+}$</li>
+</ul>
+</li>
+<li>弊端：假设往往不成立，即，训练集是真实样本总体的无偏采样</li>
+</ul>
+</li>
+<li>主流做法1：欠采样（undersampling）
+<ul>
+<li>直接对训练集里的反类样例进行欠采样，即去除一些反例，使得正反数目接近</li>
+<li>优势：开销小</li>
+<li>弊端：不能随意丢弃反例，会丢失重要信息，需要通过特定算法来处理</li>
+</ul>
+</li>
+<li>主流做法2：过采样（oversampling）
+<ul>
+<li>对训练集里的正类样例进行过采样，即增加一些正例使得正反数目接近</li>
+<li>弊端：不能随便对样例进行重复采样，否则会过拟合</li>
+</ul>
+</li>
+<li>主流做法3：阈值移动（threshold-moving）
+<ul>
+<li>直接基于原始训练集进行学习，但是在训练好的分类器进行预测时，将$\frac{y&rsquo;}{1-y&rsquo;} = \frac{y}{1-y} \frac{m^-}{m^+}$嵌入到其决策过程中</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-决策树-decision-tree" class="headerLink">
+    <a href="#3-%e5%86%b3%e7%ad%96%e6%a0%91-decision-tree" class="header-mark"></a>3 决策树 Decision Tree</h2><h3 id="31-基本流程" class="headerLink">
+    <a href="#31-%e5%9f%ba%e6%9c%ac%e6%b5%81%e7%a8%8b" class="header-mark"></a>3.1 基本流程</h3><p>一般的，决策树包含根节点、若干内部节点、若干叶节点</p>
+<ul>
+<li>叶节点：一个决策结果</li>
+<li>除叶节点：特征测试（属性测试）</li>
+</ul>
+<p>父节点传递给子节点什么？</p>
+<ul>
+<li>将其包含的样本集合，根据属性测试的结果，划分到子节点中（根节点包含的是样本全集）</li>
+<li>从 根节点 到 每个叶子节点 的路径，对应了一个判定测试序列</li>
+</ul>
+<p>决策树学习的目的：</p>
+<ul>
+<li>生成一颗泛化能力强的树（其基本流程遵循分而治之策略 divide-and conquer）</li>
+</ul>
+<p>决策树的生成：递归过程</p>
+<ul>
+<li>三种情况会导致递归：
+<ul>
+<li>当前节点包含的样本 全属于同一类别，即，无需划分
+<ul>
+<li>即，将当前节点标记为某一类别叶节点</li>
+</ul>
+</li>
+<li>当前特征（属性）为null，或，所有样本在 所有属性上 取值相同，即，无法划分
+<ul>
+<li>即，将其标记为叶节点，其类别是训练集中样本数量最多的类</li>
+</ul>
+</li>
+<li>当前节点包含的 样本集合为null，即，不能划分
+<ul>
+<li>将其父节点标记为叶节点，类别为训练集中最多样本最多的类</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="32-划分选择" class="headerLink">
+    <a href="#32-%e5%88%92%e5%88%86%e9%80%89%e6%8b%a9" class="header-mark"></a>3.2 划分选择</h3><p>决策树的流程中最重要的是：如何从属性集A中 选择最优划分属性 a？</p>
+<ul>
+<li>随着划分的进行，让节点 纯度（<strong>purity</strong>）越来越高，即，分支节点所包含的样本属性尽可能地属于同一类别</li>
+</ul>
+<h3 id="33-信息增益-information-entropy" class="headerLink">
+    <a href="#33-%e4%bf%a1%e6%81%af%e5%a2%9e%e7%9b%8a-information-entropy" class="header-mark"></a>3.3 信息增益 information entropy</h3><p>一种度量样本纯度的最长用的指标</p>
+<p>规定样本集合D中，第k类样本所占比例为pk (k = 1, 2, &hellip;, |y|),那么<strong>信息熵</strong>为：
+$$Ent(D) = - \sum_{k=1}^{|y|} p_k log_{2} p_k$$</p>
+<p>Ent(D)越小，样本集合D纯度越高，其中，$0 &lt;= Ent(D) &lt;= log_2 |y|$，|y|表示样本类总数，$0 &lt;= p_k &lt;= 1$，$\sum_{k=1}^n p_k = 1$。</p>
+<ul>
+<li>若令 |y| = n，即集合D就是样本全集，那么，pk = xk，（x指的是样本，不是特征）</li>
+</ul>
+<p><a href="https://notability.com/n/0f8dPBfjS1mOnVKm8BQu7O" target="_blank" rel="noopener noreferrer">信息熵公式推导</a></p>
+<p>假定存在一个离散属性a，它有个v个取值，使用a对D互粉，就会产生v个分支节点，每个分支节点包含了对应属性a的样本，记D^v。再求出D^v的信息熵后，考虑不同分支节点包含样本数不同，给分支节点赋予权重 $\frac{|D^v|}{|D|}$，（这个权重就是a1在a中的正例占比，D^v即1-正例占比），样本数越多的分支节点，影响越大。由此计算出用属性a对于D进行划分所获得的信息增益（information gain）
+$$Gain(D, a) = Ent(D) - \sum_{v=1}^V \frac{|D^v|}{|D|} Ent(D^v)$$</p>
+<p>由属性a划分所获得的纯度提升，和信息增益成正比。</p>
+<p>因此，可以在生成分支前，先进行决策树的划分属性选择（max)</p>
+<h3 id="34-增益率-gain-ratio" class="headerLink">
+    <a href="#34-%e5%a2%9e%e7%9b%8a%e7%8e%87-gain-ratio" class="header-mark"></a>3.4 增益率 Gain Ratio</h3><p>解决的问题：信息增益准则由于一些偏好（比如，对取值数目多的属性偏好）对预测带来不利影响</p>
+<p>$$Grain_ratio(D, a) = \frac{Gain(D, a)}{IV(a)}$$</p>
+<p>其中，属性a是固有值（intrinsic value)，属性a取值数目越多，V越大，IV通常越大。</p>
+<h3 id="35-基尼指数-cart-index-classification-and-regression-tree" class="headerLink">
+    <a href="#35-%e5%9f%ba%e5%b0%bc%e6%8c%87%e6%95%b0-cart-index-classification-and-regression-tree" class="header-mark"></a>3.5 基尼指数 CART Index (Classification and Regression Tree)</h3><p>CART决策树使用基尼指数来划分属性，数据集D的纯度通过基尼值来度量：
+$$Gini(D)=\sum_{k=1}^{|y|} \sum_{k&rsquo; !=k} p_k p_{k&rsquo;}$$
+$$= 1- \sum_{k=1}^{|y|} p^2_k$$</p>
+<p>基尼值反映了D随机抽取两个样本，其类别标记不一致的概率。</p>
+<p>基尼值越小，数据集纯度越高。</p>
+<p>基尼指数定义：
+$$Gini_index(D, a) = \sum_{v=1}^V \frac{|D^v|}{|D|} Gini(D^v)$$</p>
+<h3 id="36-剪枝处理-pruning" class="headerLink">
+    <a href="#36-%e5%89%aa%e6%9e%9d%e5%a4%84%e7%90%86-pruning" class="header-mark"></a>3.6 剪枝处理 pruning</h3><ul>
+<li>用途：对付过拟合（避免分支过多）</li>
+<li>剪枝策略：
+<ul>
+<li>预剪枝（prepruning)
+<ul>
+<li>场景：决策树生成中</li>
+<li>过程：在节点划分前，进行估计；如果当前节点不能提升泛化性能，则终止划分并将当前节点标为叶节点</li>
+</ul>
+</li>
+<li>后剪枝（post-pruing）
+<ul>
+<li>场景：生成完整的决策树后</li>
+<li>过程：自底向上地对非叶子节点测试，若该节点的子树替换成叶子节点能够提升泛化型，则将该子替换成叶子节点</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="37-连续与缺失值" class="headerLink">
+    <a href="#37-%e8%bf%9e%e7%bb%ad%e4%b8%8e%e7%bc%ba%e5%a4%b1%e5%80%bc" class="header-mark"></a>3.7 连续与缺失值</h3><p>连续值处理：</p>
+<p>由于连续值的数目不是有限的，所以不能按照离散属性生成决策树那样处理连续值</p>
+<ul>
+<li>通过连续属性离散化来处理
+<ul>
+<li>比如最简单的策略：二分法（bi-partition)'</li>
+</ul>
+</li>
+</ul>
+<p>$$T_a = (\frac{a^i+a^{i+1}}{2} | 1&lt;= i &lt;= n-1)$$</p>
+<h2 id="4-神经网络" class="headerLink">
+    <a href="#4-%e7%a5%9e%e7%bb%8f%e7%bd%91%e7%bb%9c" class="header-mark"></a>4 神经网络</h2><p>神经元模型</p>
+<h3 id="41-激活函数-activation-function" class="headerLink">
+    <a href="#41-%e6%bf%80%e6%b4%bb%e5%87%bd%e6%95%b0-activation-function" class="header-mark"></a>4.1 激活函数 activation function</h3><p>把值范围压缩到 (0,1)之间，典型的Sigmoid函数</p>
+<h2 id="42-感知机perceptron与多层网络" class="headerLink">
+    <a href="#42-%e6%84%9f%e7%9f%a5%e6%9c%baperceptron%e4%b8%8e%e5%a4%9a%e5%b1%82%e7%bd%91%e7%bb%9c" class="header-mark"></a>4.2 感知机（Perceptron）与多层网络</h2><p>M-P神经元：</p>
+<ul>
+<li>单个M-P神经元：感知机（sgn激活函数），对数几率回归（sigmoid激活函数）</li>
+<li>多个M-P神经元：神经网络</li>
+</ul>
+<p>激活函数：模拟抑制和激活，对值做一个压缩处理</p>
+<p>感知机：</p>
+<ul>
+<li>两层神经元，输入层 + 输出层，其中输出层是M-P神经元，称为threhold logic unit</li>
+<li>把激活函数替换成阶跃函数（符号）的神经元</li>
+<li>分类模型</li>
+</ul>
+<p>感知机公式：</p>
+<p>$$y = f(\sum_{i=1}^n w_i x_i - \theta) = f(w^t x - \theta)$$</p>
+<p>其中，theta是阈值，f是符号函数</p>
+<h3 id="43-感知机的学习策略" class="headerLink">
+    <a href="#43-%e6%84%9f%e7%9f%a5%e6%9c%ba%e7%9a%84%e5%ad%a6%e4%b9%a0%e7%ad%96%e7%95%a5" class="header-mark"></a>4.3 感知机的学习策略</h3><p>对于权重w和阈值theta可以通过学习得到，</p>
+<p>Processing:</p>
+<ul>
+<li>step 1: 假设，有一个误分类样本集合M，找到所有的误分类样本（x,y）（分错类的），对于误分类样本来说
+<ul>
+<li>当$w^Tx- \theta &gt;= 0$时，它的分类结果是 y&rsquo; = 1，然后真实值 y=0；反之，$w^Tx- \theta &lt; 0$时，y&rsquo;= 0, y = 1；结合两种情形，可得：
+$$(\hat{y} - y) (w^t x - \theta) &gt;= 0$$</li>
+<li>所以，对于给定数据集，其损失函数为：
+$$L(w,\theta) = \sum_{x \in M} (\hat{y} - y) (w^t x - \theta)$$</li>
+<li>显然，L始终是非负的，且：
+<ul>
+<li>无误分类点，损失函数为0</li>
+<li>误分类点越少，L就越小</li>
+<li>误分类点离超平面越近，L也越小</li>
+</ul>
+</li>
+<li>因此，L是一个关于w、theta连续可导的函数</li>
+</ul>
+</li>
+<li>step 2: 将感知机模型的学习问题转化为求解损失函数的最优化问题
+<ul>
+<li>求解 w、theta:
+$$min_{w,\theta} L(w,\theta) = min_{w,\theta} \sum_{x_i \in{M}} (\hat{y_i}-{y_i})(w^T x_i - \theta)$$</li>
+<li>将阈值 theta看作一个固定输入为-1的&quot;哑节点&quot;，所以有:
+$$-\theta = -1*w_{n+1}=x_{n+1}*w_{n+1}$$</li>
+<li>解释，把损失函数中的 -theta整体看作是 -1 * theta，把theta看作 w_n+1，本身w只能取到n，人为的在扩充了一个；n被+1，x也受到n的影响，x也被扩充到n+1，而x_n+1恒等于-1，此时，函数变为:
+$$min_{w,\theta} L(w,\theta) = min_{w,\theta} \sum_{x_i \in{M}} (\hat{y_i}-{y_i})(w^T x_i)$$</li>
+<li>注，此式的w和x的维度是n+1维，原式子的维度是n维</li>
+<li>求新损失函数L(w)的梯度:
+$$\bigtriangledown_wL(w)=\sum_{x_i \in M} (\hat{y_i} - y_i)x_i$$</li>
+<li>感知机使用的是随机梯度下降，普通的梯度下降是一次使M中所有的误分类点梯度下降，而随机梯度是一次取某一个误分类点使其梯度下降，然后更新权重w，而w的更新公式:
+$$w \leftarrow w + \triangle w$$
+$$\triangle w = - \eta(\hat{y_i} - y_i)x_i =  \eta( y_i - \hat{y_i})x_i$$</li>
+<li>其中 eta是学习率 learning rate；</li>
+<li>迭代n多次后求出w（梯度=0），最后求解出来的w通常不唯一，就是会有1&lt;个梯度为0的点（很多局部最优）</li>
+</ul>
+</li>
+</ul>
+<h3 id="44-多层网络" class="headerLink">
+    <a href="#44-%e5%a4%9a%e5%b1%82%e7%bd%91%e7%bb%9c" class="header-mark"></a>4.4 多层网络</h3><ul>
+<li>定义：在输入输出中加入 hidden layer</li>
+<li>多层前馈神经网络（multi-layer feedforward neural networks)：每层神经元与下一层神经元全互连，神经元之间不存在同层连接，也不存在跨层连接</li>
+</ul>
+<p>通用近似定理：只需要一个包含足够多神经元的隐层，多层前馈网络就可以以任意精度逼近任意复杂度的连续函数。因此，神经网络即可以做分类又可以做回归任务。</p>
+<h2 id="45-误差逆传播算法-error-backpropagation-bp" class="headerLink">
+    <a href="#45-%e8%af%af%e5%b7%ae%e9%80%86%e4%bc%a0%e6%92%ad%e7%ae%97%e6%b3%95-error-backpropagation-bp" class="header-mark"></a>4.5 误差逆传播算法 error BackPropagation BP</h2><p>该算法用来训练多层神经网络，是一个迭代学习算法，每一轮迭代都采用广义的感知机学习规则对参数估计。</p>
+<h2 id="5-数据处理" class="headerLink">
+    <a href="#5-%e6%95%b0%e6%8d%ae%e5%a4%84%e7%90%86" class="header-mark"></a>5 数据处理</h2><h3 id="51-数据预处理-简介" class="headerLink">
+    <a href="#51-%e6%95%b0%e6%8d%ae%e9%a2%84%e5%a4%84%e7%90%86-%e7%ae%80%e4%bb%8b" class="header-mark"></a>5.1 数据预处理-简介</h3><h3 id="52-数据无量纲化" class="headerLink">
+    <a href="#52-%e6%95%b0%e6%8d%ae%e6%97%a0%e9%87%8f%e7%ba%b2%e5%8c%96" class="header-mark"></a>5.2 数据无量纲化</h3><ul>
+<li>概念：将不同规格的数据转换成同一个规格，或不同分布的数据转成特定分布。</li>
+<li>优点：
+<ul>
+<li>加快求解速度：在核心为梯度或矩阵的算法中，比如逻辑回归、支持向量机、神经网络</li>
+<li>提升模型精度：在距离类模型中，比如K近邻、K-Means聚类中；避免某一取值范围特别大的特征对距离计算造成影响</li>
+<li>特例：决策树不需要无量纲化，决策树本身就可以把任意数据处理得很好</li>
+</ul>
+</li>
+<li>类型：
+<ul>
+<li>线性无量纲化：中心化处理（Zero-centered / Mean-subtraction）和 缩放处理（Scale）
+<ul>
+<li>中心化本质：让所有记录减去一个固定值，即让样本数据平移到某个位置</li>
+<li>缩放本质：通过除以一个固定值，将数据固定在某个范围内（比如，取对数）</li>
+</ul>
+</li>
+<li>非线性无量纲化</li>
+</ul>
+</li>
+<li>数据归一化（Normalization 、 min-max scaling）：数据按照最小值中心化后，再按极差（最大-最小）缩放，数据移动了最小值个单位，并会收敛到 [0,1]之间
+<ul>
+<li>归一化后的数据服从正态分布</li>
+<li>feature_range：MinMaxScaler的重要参数，控制数据压缩到的范围，默认[0,1]</li>
+<li>公式：$x^*=\frac{x-min(x)}{max(x)-min(x)}$，就是 中心化 / 极差</li>
+<li>.fit()本质是生成最大值和最小值</li>
+</ul>
+</li>
+<li>数据标准化（Standardization、Z-score normalization）：数据按均值中心化后，再按标准化缩放，数据就会服从期望为0，方差为1的正态分布
+<ul>
+<li>公式：$x^*=\frac{x-\mu}{\sigma}$</li>
+<li>.fit()本质是生成均值和方差</li>
+</ul>
+</li>
+</ul>
+<h3 id="53-数据预处理---处理缺失值" class="headerLink">
+    <a href="#53-%e6%95%b0%e6%8d%ae%e9%a2%84%e5%a4%84%e7%90%86---%e5%a4%84%e7%90%86%e7%bc%ba%e5%a4%b1%e5%80%bc" class="header-mark"></a>5.3 数据预处理 - 处理缺失值</h3><h4 id="531-数据清洗" class="headerLink">
+    <a href="#531-%e6%95%b0%e6%8d%ae%e6%b8%85%e6%b4%97" class="header-mark"></a>5.3.1 数据清洗</h4><p>从数据集中纠正或消除不准确、损坏、格式错误、重复或不完整的数据的做法称为数据清理。</p>
+<h4 id="532-填补缺失值的重要性" class="headerLink">
+    <a href="#532-%e5%a1%ab%e8%a1%a5%e7%bc%ba%e5%a4%b1%e5%80%bc%e7%9a%84%e9%87%8d%e8%a6%81%e6%80%a7" class="header-mark"></a>5.3.2 填补缺失值的重要性</h4><p>如果没有正确处理缺失的数值，可能会对数据得出错误的结论，这将对建模阶段产生重大影响，会影响最后的结果。</p>
+<h4 id="533-缺失值导致的问题" class="headerLink">
+    <a href="#533-%e7%bc%ba%e5%a4%b1%e5%80%bc%e5%af%bc%e8%87%b4%e7%9a%84%e9%97%ae%e9%a2%98" class="header-mark"></a>5.3.3 缺失值导致的问题</h4><ol>
+<li>在缺乏证据的情况下，统计能力，即检验在零假设错误时拒绝该零假设的几率会降低。</li>
+<li>数据的丢失可能导致参数估计出现偏差。</li>
+<li>具有降低样本代表性的能力。</li>
+</ol>
+<h4 id="534-缺失数据类型" class="headerLink">
+    <a href="#534-%e7%bc%ba%e5%a4%b1%e6%95%b0%e6%8d%ae%e7%b1%bb%e5%9e%8b" class="header-mark"></a>5.3.4 缺失数据类型</h4><p>根据数据集或数据中不存在的模式或数据，可以将其分类。</p>
+<ul>
+<li><strong>完全随机缺失(MCAR)</strong>：
+<ul>
+<li>当丢失数据的概率与要获得的精确值或观察到的答案的集合无关时</li>
+<li>solution: deleting rows or columns</li>
+</ul>
+</li>
+<li><strong>随机缺失(MAR)</strong>：
+<ul>
+<li>当丢失响应的概率由观察到的响应的集合而不是预期达到的精确缺失值决定时。</li>
+<li>solution: imputation of data</li>
+</ul>
+</li>
+<li>非随机缺失(MNAR)：
+<ul>
+<li>MNAR 是缺失数据，这类数据案例很难处理，可以对缺失数据进行建模是获得参数的公平近似值的唯一方法</li>
+<li>solution improve dataset find data</li>
+</ul>
+</li>
+</ul>
+<h4 id="535-缺失值的类别" class="headerLink">
+    <a href="#535-%e7%bc%ba%e5%a4%b1%e5%80%bc%e7%9a%84%e7%b1%bb%e5%88%ab" class="header-mark"></a>5.3.5 缺失值的类别</h4><ul>
+<li><strong>连续变量或特征</strong> — — 数值数据集，即数字可以是任何类型</li>
+<li><strong>分类变量或特征</strong> — — 它可以是数值的或客观的类型</li>
+</ul>
+<h4 id="536-缺失值插补类型" class="headerLink">
+    <a href="#536-%e7%bc%ba%e5%a4%b1%e5%80%bc%e6%8f%92%e8%a1%a5%e7%b1%bb%e5%9e%8b" class="header-mark"></a>5.3.6 缺失值插补类型</h4><p>插补有多种大小和形式。这是在为我们的应用程序建模以提高精度之前解决数据集中缺失数据问题的方法之一。</p>
+<ol>
+<li><strong>单变量插补</strong>或<strong>均值插补</strong>是指仅使用目标变量对值进行插补。</li>
+<li><strong>多元插补</strong>： 根据其他因素插补值，例如使用线性回归根据其他变量估计缺失值。</li>
+<li><strong>单一插补</strong>： 要构建单个插补数据集，只需在数据集中插补一次缺失值。</li>
+<li><strong>大量插补</strong>： 在数据集中多次插补相同的缺失值。这本质上需要重复单个插补以获得大量插补数据集。</li>
+</ol>
+</div>
+
+        
+
+
+<h2>Related Content</h2>
+<div class="related-container">
+    <div class="related-item-container">
+            <div class="related-image">
+                <a href="/pumpkin-book-notes05/"><img
+        
+        loading="lazy"
+        src="/posts/pumpkin-book-notes/xigua.png"
+        srcset="/posts/pumpkin-book-notes/xigua.png, /posts/pumpkin-book-notes/xigua.png 1.5x, /posts/pumpkin-book-notes/xigua.png 2x"
+        sizes="auto"
+        alt="/posts/pumpkin-book-notes/xigua.png"
+        title="/posts/pumpkin-book-notes/xigua.png" height="200"   width="400" ></a>
+            </div><h2 class="related-title">
+                <a href="/pumpkin-book-notes05/">Machine Learning Notes 05</a>
+            </h2>
+        </div>
+    <div class="related-item-container">
+            <div class="related-image">
+                <a href="/pumpkin-book-notes04/"><img
+        
+        loading="lazy"
+        src="/posts/pumpkin-book-notes/xigua.png"
+        srcset="/posts/pumpkin-book-notes/xigua.png, /posts/pumpkin-book-notes/xigua.png 1.5x, /posts/pumpkin-book-notes/xigua.png 2x"
+        sizes="auto"
+        alt="/posts/pumpkin-book-notes/xigua.png"
+        title="/posts/pumpkin-book-notes/xigua.png" height="200"   width="400" ></a>
+            </div><h2 class="related-title">
+                <a href="/pumpkin-book-notes04/">Machine Learning Notes 04</a>
+            </h2>
+        </div>
+    <div class="related-item-container">
+            <div class="related-image">
+                <a href="/pumpkin-book-notes03/"><img
+        
+        loading="lazy"
+        src="/posts/pumpkin-book-notes/xigua.png"
+        srcset="/posts/pumpkin-book-notes/xigua.png, /posts/pumpkin-book-notes/xigua.png 1.5x, /posts/pumpkin-book-notes/xigua.png 2x"
+        sizes="auto"
+        alt="/posts/pumpkin-book-notes/xigua.png"
+        title="/posts/pumpkin-book-notes/xigua.png" height="200"   width="400" ></a>
+            </div><h2 class="related-title">
+                <a href="/pumpkin-book-notes03/">Machine Learning Notes 03</a>
+            </h2>
+        </div>
+    <div class="related-item-container">
+            <div class="related-image">
+                <a href="/pumpkin-book-notes02/"><img
+        
+        loading="lazy"
+        src="/posts/pumpkin-book-notes/xigua.png"
+        srcset="/posts/pumpkin-book-notes/xigua.png, /posts/pumpkin-book-notes/xigua.png 1.5x, /posts/pumpkin-book-notes/xigua.png 2x"
+        sizes="auto"
+        alt="/posts/pumpkin-book-notes/xigua.png"
+        title="/posts/pumpkin-book-notes/xigua.png" height="200"   width="400" ></a>
+            </div><h2 class="related-title">
+                <a href="/pumpkin-book-notes02/">Machine Learning Notes 02</a>
+            </h2>
+        </div>
+    <div class="related-item-container">
+            <div class="related-image">
+                <a href="/pumpkin-book-notes01/"><img
+        
+        loading="lazy"
+        src="/posts/pumpkin-book-notes/xigua.png"
+        srcset="/posts/pumpkin-book-notes/xigua.png, /posts/pumpkin-book-notes/xigua.png 1.5x, /posts/pumpkin-book-notes/xigua.png 2x"
+        sizes="auto"
+        alt="/posts/pumpkin-book-notes/xigua.png"
+        title="/posts/pumpkin-book-notes/xigua.png" height="200"   width="400" ></a>
+            </div><h2 class="related-title">
+                <a href="/pumpkin-book-notes01/">Machine Learning Notes 01</a>
+            </h2>
+        </div>
+    
+
+</div>
+
+<div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2021-10-29</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span><a class="link-to-mardown" href=/pumpkin-book-notes06/index.md target="_blank" rel="noopener noreferrer">Read markdown</a>
+                    </span></div>
+            <div class="post-info-share"><button title="Share on Twitter" data-sharer="twitter" data-url="https://hongspell.site/pumpkin-book-notes06/" data-title="Machine Learning Notes 06" data-via="ssdlaohu9527" data-hashtags="machine learning,西瓜书,南瓜书"><span class="fab fa-twitter fa-fw"></span></button><button title="Share on Facebook" data-sharer="facebook" data-url="https://hongspell.site/pumpkin-book-notes06/" data-hashtag="machine learning"><span class="fab fa-facebook-square fa-fw"></span></button><button title="Share on WhatsApp" data-sharer="whatsapp" data-url="https://hongspell.site/pumpkin-book-notes06/" data-title="Machine Learning Notes 06" data-web><span class="fab fa-whatsapp fa-fw"></span></button><button title="Share on Line" data-sharer="line" data-url="https://hongspell.site/pumpkin-book-notes06/" data-title="Machine Learning Notes 06"><span data-svg-src="/lib/simple-icons/icons/line.min.svg"></span></button><button title="Share on 微博" data-sharer="weibo" data-url="https://hongspell.site/pumpkin-book-notes06/" data-title="Machine Learning Notes 06" data-image="/posts/pumpkin-book-notes/xigua.png"><span class="fab fa-weibo fa-fw"></span></button><button title="Share on Myspace" data-sharer="myspace" data-url="https://hongspell.site/pumpkin-book-notes06/" data-title="Machine Learning Notes 06" data-description=""><span data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></span></button><button title="Share on Blogger" data-sharer="blogger" data-url="https://hongspell.site/pumpkin-book-notes06/" data-title="Machine Learning Notes 06" data-description=""><span class="fab fa-blogger fa-fw"></span></button><button title="Share on Evernote" data-sharer="evernote" data-url="https://hongspell.site/pumpkin-book-notes06/" data-title="Machine Learning Notes 06"><span class="fab fa-evernote fa-fw"></span></button></div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/machine-learning/">machine learning</a>,&nbsp;<a href="/tags/%E8%A5%BF%E7%93%9C%E4%B9%A6/">西瓜书</a>,&nbsp;<a href="/tags/%E5%8D%97%E7%93%9C%E4%B9%A6/">南瓜书</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/pumpkin-book-notes05/" class="prev" rel="prev" title="Machine Learning Notes 05"><i class="fas fa-angle-left fa-fw"></i>Machine Learning Notes 05</a>
+            <a href="/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3jvm/" class="next" rel="next" title="深入理解JVM">深入理解JVM<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2023 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer">Hong</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a href="http://beian.miit.gov.cn/" target="_blank">黑ICP备2023016241号</a></span></div>
+            <div class="footer-line"></div>
+            <div class="footer-line">
+            </div>
+        </div></footer></div>
+
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="Back to Top">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div id="cookieconsent-container"></div><div class="assets"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/katex/copy-tex.min.css">
+        <noscript><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"></noscript><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"data":{"desktop-header-typeit":"HongSpell","mobile-header-typeit":"HongSpell"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":false,"fuseIndexURL":"/index.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":2,"noResultsFound":"No results found","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"sharerjs":true,"table":{"sort":true},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/lib/tablesort/tablesort.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js" defer></script><script type="text/javascript" src="/lib/katex/auto-render.min.js" defer></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js" defer></script><script type="text/javascript" src="/lib/katex/mhchem.min.js" defer></script><script type="text/javascript" src="/js/katex.min.js" defer></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script type="text/javascript" src="/js/cookieconsent.min.js" defer></script><script type="text/javascript" src="/js/theme.min.js" defer></script></div>
+</body>
+
+</html>
