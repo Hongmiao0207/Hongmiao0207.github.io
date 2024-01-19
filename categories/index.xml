@@ -4,7 +4,21 @@
         <link>https://hongspell.site/categories/</link>
         <description>Categories - Category - HongSpell</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>threewater027@gmail.com (Hong)</managingEditor>
-            <webMaster>threewater027@gmail.com (Hong)</webMaster><lastBuildDate>Sun, 12 Nov 2023 16:19:14 &#43;0800</lastBuildDate><atom:link href="https://hongspell.site/categories/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>threewater027@gmail.com (Hong)</webMaster><lastBuildDate>Sat, 06 Jan 2024 16:19:14 &#43;0800</lastBuildDate><atom:link href="https://hongspell.site/categories/" rel="self" type="application/rss+xml" /><item>
+    <title>kubernetes</title>
+    <link>https://hongspell.site/categories/kubernetes/</link>
+    <pubDate>Sat, 06 Jan 2024 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/categories/kubernetes/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>dubbo</title>
+    <link>https://hongspell.site/categories/dubbo/</link>
+    <pubDate>Thu, 21 Dec 2023 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/categories/dubbo/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
     <title>database</title>
     <link>https://hongspell.site/categories/database/</link>
     <pubDate>Sun, 12 Nov 2023 16:19:14 &#43;0800</pubDate><author>

@@ -1,0 +1,274 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title>kubernetes入门 - HongSpell</title><meta name="Description" content=""><meta property="og:title" content="kubernetes入门" />
+<meta property="og:description" content="1 核心组件 1.1 什么是 Node？一个节点就是一个服务器或虚拟机。它会运行容器化应用程序。每个集群至少有一个工作节点。 一个集群通常运行多个节点，提" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hongspell.site/kubernetes%E8%BD%BB%E6%9D%BE%E5%85%A5%E9%97%A8/" /><meta property="og:image" content="https://hongspell.site/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-01-06T16:19:14+08:00" />
+<meta property="article:modified_time" content="2024-01-06T16:19:14+08:00" /><meta property="og:site_name" content="HongSpell" />
+
+
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://hongspell.site/" /><meta name="twitter:title" content="kubernetes入门"/>
+<meta name="twitter:description" content="1 核心组件 1.1 什么是 Node？一个节点就是一个服务器或虚拟机。它会运行容器化应用程序。每个集群至少有一个工作节点。 一个集群通常运行多个节点，提"/>
+<meta name="twitter:site" content="@ssdlaohu9527"/>
+<meta name="application-name" content="HongSpell">
+<meta name="apple-mobile-web-app-title" content="HongSpell">
+
+<meta name="theme-color" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><meta name="twitter:creator" content="@ssdlaohu9527" /><link rel="icon" href="/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://hongspell.site/kubernetes%E8%BD%BB%E6%9D%BE%E5%85%A5%E9%97%A8/" /><link rel="prev" href="https://hongspell.site/1-dubbo%E4%BB%8B%E7%BB%8D/" /><link rel="next" href="https://hongspell.site/feedback-prize/" />
+<link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/color.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "kubernetes入门",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://hongspell.site/kubernetes%E8%BD%BB%E6%9D%BE%E5%85%A5%E9%97%A8/"
+        },"genre": "posts","keywords": "k8s, kubernetes","wordcount":  3192 ,
+        "url": "https://hongspell.site/kubernetes%E8%BD%BB%E6%9D%BE%E5%85%A5%E9%97%A8/","datePublished": "2024-01-06T16:19:14+08:00","dateModified": "2024-01-06T16:19:14+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Hong"
+            },"description": ""
+    }
+    </script></head>
+
+<body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme); document.documentElement.style.setProperty('color-scheme', theme === 'light' ? 'light' : 'dark'); window.theme = theme;   window.isDark = window.theme !== 'light' }
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('auto' === 'light' || 'auto' === 'dark' || 'auto' === 'black') setTheme('auto'), saveTheme('auto'); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+        window.switchThemeEventSet = new Set()
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="HongSpell"><span id="desktop-header-typeit" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/projects/"> 项目 </a><a class="menu-item" href="/sketch/"> 手绘 </a><a class="menu-item" href="/learning/"> 学习 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/Hongmiao0207" title="GitHub" rel="noopener noreferrer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-select" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw"></i>
+                    <select class="color-theme-select" id="theme-select-desktop" title="Switch Theme">
+                        <option value="light">Light</option>
+                        <option value="dark">Dark</option>
+                        <option value="black">Black</option>
+                        <option value="auto">Auto</option>
+                    </select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="HongSpell"><span id="mobile-header-typeit" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/projects/" title="">项目</a><a class="menu-item" href="/sketch/" title="">手绘</a><a class="menu-item" href="/learning/" title="">学习</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/Hongmiao0207" title="GitHub" rel="noopener noreferrer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-select" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw"></i>
+                <select class="color-theme-select" id="theme-select-mobile" title="Switch Theme">
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                    <option value="black">Black</option>
+                    <option value="auto">Auto</option>
+                </select>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "false")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">kubernetes入门</h1><div class="post-meta">
+            <div class="post-meta-line">
+                <span class="post-author"><span class="author fas fa-user-circle fa-fw"></span><a href="/" title="Author" rel=" author" class="author">Hong</a>
+                </span>&nbsp;<span class="post-category">included in </span>&nbsp;<span class="post-category">category <a href="/categories/kubernetes/"><i class="far fa-folder fa-fw"></i>kubernetes</a></span>&nbsp;<span class="post-category">and</span>&nbsp;<span class="post-series">series <a href="/series/k8s-learning/"><i class="far fa-list-alt fa-fw"></i>k8s-learning</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2024-01-06">2024-01-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;3192 words&nbsp;<i class="far fa-clock fa-fw"></i>&nbsp;7 minutes&nbsp;</div>
+        </div><div class="featured-image"><img
+        
+        loading="eager"
+        src="/posts/k8s/kubernetes.png"
+        srcset="/posts/k8s/kubernetes.png, /posts/k8s/kubernetes.png 1.5x, /posts/k8s/kubernetes.png 2x"
+        sizes="auto"
+        alt="/posts/k8s/kubernetes.png"
+        title="/posts/k8s/kubernetes.png" height="auto"   width="auto" ></div><div class="details series-nav open">
+                                <div class="details-summary series-title">
+                                    <span>Series - k8s-learning</span>
+                                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                                </div>
+                                <div class="details-content series-content">
+                                    <nav>
+                                        <ul><li><span class="active">kubernetes入门</span></li></ul>
+                                    </nav>
+                                </div>
+                            </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-核心组件">1 核心组件</a>
+      <ul>
+        <li><a href="#11-什么是-node">1.1 什么是 Node？</a></li>
+        <li><a href="#12-什么是pod">1.2 什么是Pod？</a></li>
+        <li><a href="#13-什么是service">1.3 什么是Service？</a></li>
+        <li><a href="#14-什么是-ingress">1.4 什么是 Ingress？</a></li>
+        <li><a href="#15-什么是-configmaps">1.5 什么是 ConfigMaps？</a></li>
+        <li><a href="#16-什么是-volumes">1.6 什么是 Volumes？</a></li>
+        <li><a href="#17-什么是-deployments">1.7 什么是 Deployments？</a></li>
+        <li><a href="#18-什么是-statefulset">1.8 什么是 StatefulSet？</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-kubernetes架构">2 Kubernetes架构</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="1-核心组件" class="headerLink">
+    <a href="#1-%e6%a0%b8%e5%bf%83%e7%bb%84%e4%bb%b6" class="header-mark"></a>1 核心组件</h2><h3 id="11-什么是-node" class="headerLink">
+    <a href="#11-%e4%bb%80%e4%b9%88%e6%98%af-node" class="header-mark"></a>1.1 什么是 Node？</h3><p>一个节点就是一个服务器或虚拟机。它会运行容器化应用程序。每个集群至少有一个工作节点。 一个集群通常运行多个节点，提供容错性和高可用性。</p>
+<pre class="mermaid">graph LR;
+    A{Node}
+    A -->|as| D[Server]
+    A -->|as| E[VM]
+
+</pre>
+<p>在一个节点中可以运行一个或多个pod。</p>
+<h3 id="12-什么是pod" class="headerLink">
+    <a href="#12-%e4%bb%80%e4%b9%88%e6%98%afpod" class="header-mark"></a>1.2 什么是Pod？</h3><p>Pods are <strong>the smallest deployable units</strong> of computing that you can <strong>create and manage</strong> in Kubernetes. &mdash; <a href="https://kubernetes.io/docs/concepts/workloads/pods/" target="_blank" rel="noopener noreferrer">Pod-官方文档</a></p>
+<p>Pod 是Kubernetes的最小调度单元。它是一个或者多个容器的组合，由它来创建容器的运行环境。在这个环境中，容器会共享一些资源，比如存储、网络以及运行时的一些配置等。</p>
+<p>假如，我们的系统包括一个应用程序和数据库，就可以把它们分别放到两个pod中。</p>
+<p>注：一般建议一个pod中只运行一个容器，但pod本身并不是只能运行一个容器。目的是为了实现应用的解耦和扩展。高度耦合的容器除外，比如 边车模式（<a href="https://learn.microsoft.com/en-us/azure/architecture/patterns/sidecar" target="_blank" rel="noopener noreferrer">Sidecar pattern</a>）。</p>
+<p>再回到我们的假设中，应用程序要访问数据库的话就需要知道数据库的IP地址，而这个IP地址会在pod创建的时候自动分配，它是一个集群内部的IP地址，在node中pods可以通过IP地址来完成通信。请注意，pod本身是一个不稳定实体，这意味它更容易被创建和销毁。当某个pod故障时，kubernetes会自动将该pod销毁，并创建个新pod来替代它。此时它的IP地址发生变化，其他服务该如何访问它？通过一个叫 Service的资源对象来实现。</p>
+<h3 id="13-什么是service" class="headerLink">
+    <a href="#13-%e4%bb%80%e4%b9%88%e6%98%afservice" class="header-mark"></a>1.3 什么是Service？</h3><p>In Kubernetes, a Service is a method for exposing a network application that is running as one or more Pods in your cluster. &mdash; <a href="https://kubernetes.io/docs/concepts/services-networking/service/" target="_blank" rel="noopener noreferrer">Service-官方文档</a></p>
+<p>Service可以将一组Pod可在网络上访问，客服端就能与之交互。比如，我们可以将之前的应用程序和数据库的Pods分别封装成两个Service，这样应用程序就可以用过Service提供的IP地址来访问数据库。它通过客户端只需要请求Service，通过Service转发请求到健康的数据库Pod上。这样就解决的PodIP地址不稳定的问题。</p>
+<p>服务也分为内部服务和外部服务，内部服务是不想或者没有必要暴露给外部的服务，比如数据库、缓存、消息队列等。外部服务包括，API接口、前端界面等。</p>
+<p>外都服务有几种常用类型，比如 NodePort，它会在节点上开放一个端口，将这个端口映射到 Service的IP地址和端口上，这样就可以用过节点的IP地址和端口来访问Service。但是在生产环境中，我们通常使用域名来访问服务，这个时候就会用到另一个资源对象 Ingress。</p>
+<h3 id="14-什么是-ingress" class="headerLink">
+    <a href="#14-%e4%bb%80%e4%b9%88%e6%98%af-ingress" class="header-mark"></a>1.4 什么是 Ingress？</h3><p>An API object that manages external access to the services in a cluster, typically HTTP. &mdash; <a href="https://kubernetes.io/docs/concepts/services-networking/ingress/" target="_blank" rel="noopener noreferrer">Ingress</a></p>
+<p>Ingress 是用来管理集群外部访问集群内部服务的入口和方式，比如HTTP、HTTPS路由。可以通过Ingress来配置不同的转发规则，从而根据不同的规则来访问集群内部不同的Service以及Service对应的后端Pods，或者通过Ingress来配置域名。另外它还提供了负载均衡（load balancing）、SSL终结（SSL termination）和基于名称的虚拟托管（name-based virtual hosting）等功能。</p>
+<p>值得一提的是，Ingress目前已经停止更新，新的功能都集成到了 <a href="https://kubernetes.io/docs/concepts/services-networking/gateway/" target="_blank" rel="noopener noreferrer">Gateway API</a> 中。</p>
+<h3 id="15-什么是-configmaps" class="headerLink">
+    <a href="#15-%e4%bb%80%e4%b9%88%e6%98%af-configmaps" class="header-mark"></a>1.5 什么是 ConfigMaps？</h3><p>虽然我们的应用程序和数据库已经可以在Kubernetes中运行并对外提供服务，但是这时还有一个问题，就是二者的耦合问题。比如，应用程序访问数据库的通常做法是将数据库地址、用户名和密码等连接信息写到配置文件或环境变量中。这样的弊端就是应用程序和这些配置信息耦合了，一旦数据库地址发生变化，我们就要重新编译应用程序再部署到集群中。而 ConfigMaps 可以将配置信息封装并提供给应用程序读取和使用，也就是说，它会将配置信息和应用程序的镜像内容解耦。</p>
+<p>A ConfigMap is an API object used to store non-confidential data in key-value pairs. Pods can consume ConfigMaps as environment variables, command-line arguments, or as configuration files in a volume. &mdash; <a href="https://kubernetes.io/docs/concepts/configuration/configmap/" target="_blank" rel="noopener noreferrer">ConfigMaps-官方文档</a></p>
+<p>ConfigMap 保证了应用程序的可移植性，我们只需要修改ConfigMap对象中的配置信息，然后重新加载Pod就可以了，避免了重新编译和部署应用程序。</p>
+<p>注意，ConfigMap 中的配置信息都是明文的，它并不提供保密或者加密功能。如果想要存储的数据的敏感的，请用 <a href="https://kubernetes.io/docs/concepts/configuration/secret/" target="_blank" rel="noopener noreferrer">Secret</a> （仅做了一层base64编码而非加密）或者第三方工具来加密。</p>
+<h3 id="16-什么是-volumes" class="headerLink">
+    <a href="#16-%e4%bb%80%e4%b9%88%e6%98%af-volumes" class="header-mark"></a>1.6 什么是 Volumes？</h3><p>当容器重启或被销毁的时候，容器中的数据也会跟着消失，这对于数据库这种需要数据持久化的应用程序来说是不可接受的。而 Volumes 就是用来支持消息持久化的。它支持将资源持久化挂载到集群本地磁盘或集群外部远程存储上。</p>
+<p>On-disk files in a container are ephemeral, which presents some problems for non-trivial applications when running in containers. One problem occurs when a container crashes or is stopped. Container state is not saved so all of the files that were created or modified during the lifetime of the container are lost. During a crash, kubelet restarts the container with a clean state. Another problem occurs when multiple containers are running in a <code>Pod</code> and need to share files. It can be challenging to setup and access a shared filesystem across all of the containers. The Kubernetes volume abstraction solves both of these problems. &mdash; <a href="https://kubernetes.io/docs/concepts/storage/volumes/" target="_blank" rel="noopener noreferrer">Volumes-官方文档</a></p>
+<h3 id="17-什么是-deployments" class="headerLink">
+    <a href="#17-%e4%bb%80%e4%b9%88%e6%98%af-deployments" class="header-mark"></a>1.7 什么是 Deployments？</h3><p>Deployments保证了应用程序的高可用性，比如，应用程序的节点发生了故障或者需要对节点进行升级或更新维护需要暂停服务。Deployment的解决方案就是创建多个节点，当一个节点无法请求的时候，Service就会转发到另一个节点来继续提供服务。</p>
+<p>A Deployment provides declarative updates for Pods and ReplicaSets. &mdash; <a href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/" target="_blank" rel="noopener noreferrer">Deployments-官方文档</a></p>
+<p>Deployments可以定义和管理应用程序的副本数量以及应用程序的更新策略，旨在简化应用程序的部署和更新操作。</p>
+<p>之前我们有提到 Pods 可以理解为在容器上加了一层抽象，这样就可以将一个或多个容器组合在一起。而 Deployments 就可以理解为在 Pods 上面再加一层抽象，这样就可以将一个或多个 Pods 组合在一起。并且它还具有副本控制、滚动更新、自动扩缩容等高级特性和功能。</p>
+<ul>
+<li>副本控制：定义和管理应用程序的副本数量。比如定义一个应用程序的副本数量为3，那么有副本发生故障时，Deployments 会自动创建一个新的副本来替代它，始终保持有3个副本在集群中运行。</li>
+<li>滚动更新：定义和管理应用程序的更新策略，更轻松地升级应用程序的版本，保证程序的平滑升级。</li>
+</ul>
+<p>数据库也会有类似的问题，比如，数据库的节点发生了故障、升级和更新维护时，也需要停止服务。所以数据库也会采取类似的多副本的方式来保证它的高可用性。但和应用程序不同的是，一般不会使用  Deployments 来实现数据库的多副本。因为数据库的多副本之间是有状态的。简单来说就是每个副本都有自己的状态（也就是数据），这些数据都需要持久化存储，同时也要保证多个副本之间的数据是一致的，这就需要一些额外的机制，比如把数据写入到一个共享存储中或者把数据同步到其他副本中。对于这种有状态的应用程序管理，需要用到Kubernetes中的 StatefulSet。</p>
+<h3 id="18-什么是-statefulset" class="headerLink">
+    <a href="#18-%e4%bb%80%e4%b9%88%e6%98%af-statefulset" class="header-mark"></a>1.8 什么是 StatefulSet？</h3><p>StatefulSet is the workload API object used to manage stateful applications.Manages the deployment and scaling of a set of Pods, and provides guarantees about the ordering and uniqueness of these Pods. &mdash; <a href="https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/" target="_blank" rel="noopener noreferrer">StatefulSet-官方文档</a></p>
+<p>和 Deployment 类似， StatefulSet 管理也提供了副本控制、滚动更新、自动扩缩容等高级特性和功能。但和 Deployment 不同的是， StatefulSet 为它们的每个 Pod 维护了一个稳定的、唯一的网络标识符。这些 Pod 是基于相同的规约来创建的， 但是不能相互替换：无论怎么调度，每个 Pod 都有一个永久不变的 ID。它还提供了稳定的、持久化的存储。因此像数据库、缓存、消息队列等有状态的应用以及保留了会话状态的应用程序一般都需要使用 StatefulSet来部署。</p>
+<p>其弊端就是部署的过程相对复杂和繁琐。并且不是所有的有状态的应用程序都是用于 StatefulSet类部署。一种更加通用和简单的方式是把数据库这种有状态的应用程序从Kubernetes集群中剥离出来，在集群外单独部署，从而避免不必要的麻烦和问题，并且可以简化集群的架构和管理。</p>
+<h2 id="2-kubernetes架构" class="headerLink">
+    <a href="#2-kubernetes%e6%9e%b6%e6%9e%84" class="header-mark"></a>2 Kubernetes架构</h2><p>Kubernetes是一个典型的 <a href="https://zhuanlan.zhihu.com/p/386360903" target="_blank" rel="noopener noreferrer">Master-Worker架构</a>，Master-Node负责管理整个集群，Worker-Node负责运行应用程序和服务。</p>
+<p>Kubernetes runs your workload by placing containers into Pods to run on Nodes. A node may be a virtual or physical machine, depending on the cluster. Each node is managed by the control plane and contains the services necessary to run Pods. &mdash; <a href="https://kubernetes.io/docs/concepts/architecture/nodes/" target="_blank" rel="noopener noreferrer">Kubernetes-官方节点</a></p>
+</div>
+
+        
+
+<div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-01-06</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span><a class="link-to-mardown" href=/kubernetes%E8%BD%BB%E6%9D%BE%E5%85%A5%E9%97%A8/index.md target="_blank" rel="noopener noreferrer">Read markdown</a>
+                    </span></div>
+            <div class="post-info-share"><button title="Share on Twitter" data-sharer="twitter" data-url="https://hongspell.site/kubernetes%E8%BD%BB%E6%9D%BE%E5%85%A5%E9%97%A8/" data-title="kubernetes入门" data-via="ssdlaohu9527" data-hashtags="k8s,kubernetes"><span class="fab fa-twitter fa-fw"></span></button><button title="Share on Facebook" data-sharer="facebook" data-url="https://hongspell.site/kubernetes%E8%BD%BB%E6%9D%BE%E5%85%A5%E9%97%A8/" data-hashtag="k8s"><span class="fab fa-facebook-square fa-fw"></span></button><button title="Share on WhatsApp" data-sharer="whatsapp" data-url="https://hongspell.site/kubernetes%E8%BD%BB%E6%9D%BE%E5%85%A5%E9%97%A8/" data-title="kubernetes入门" data-web><span class="fab fa-whatsapp fa-fw"></span></button><button title="Share on Line" data-sharer="line" data-url="https://hongspell.site/kubernetes%E8%BD%BB%E6%9D%BE%E5%85%A5%E9%97%A8/" data-title="kubernetes入门"><span data-svg-src="/lib/simple-icons/icons/line.min.svg"></span></button><button title="Share on 微博" data-sharer="weibo" data-url="https://hongspell.site/kubernetes%E8%BD%BB%E6%9D%BE%E5%85%A5%E9%97%A8/" data-title="kubernetes入门" data-image="/posts/k8s/kubernetes.png"><span class="fab fa-weibo fa-fw"></span></button><button title="Share on Myspace" data-sharer="myspace" data-url="https://hongspell.site/kubernetes%E8%BD%BB%E6%9D%BE%E5%85%A5%E9%97%A8/" data-title="kubernetes入门" data-description=""><span data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></span></button><button title="Share on Blogger" data-sharer="blogger" data-url="https://hongspell.site/kubernetes%E8%BD%BB%E6%9D%BE%E5%85%A5%E9%97%A8/" data-title="kubernetes入门" data-description=""><span class="fab fa-blogger fa-fw"></span></button><button title="Share on Evernote" data-sharer="evernote" data-url="https://hongspell.site/kubernetes%E8%BD%BB%E6%9D%BE%E5%85%A5%E9%97%A8/" data-title="kubernetes入门"><span class="fab fa-evernote fa-fw"></span></button></div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/k8s/">k8s</a>,&nbsp;<a href="/tags/kubernetes/">kubernetes</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/1-dubbo%E4%BB%8B%E7%BB%8D/" class="prev" rel="prev" title="Dubbo介绍"><i class="fas fa-angle-left fa-fw"></i>Dubbo介绍</a>
+            <a href="/feedback-prize/" class="next" rel="next" title="Feedback Prize - Evaluating Student Writing | Kaggle">Feedback Prize - Evaluating Student Writing | Kaggle<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2023 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer">Hong</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a href="http://beian.miit.gov.cn/" target="_blank">黑ICP备2023016241号</a></span></div>
+            <div class="footer-line"></div>
+            <div class="footer-line">
+            </div>
+        </div></footer></div>
+
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="Back to Top">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: (window.theme === 'dark' ? 'dark' : 'default') });
+</script><div id="cookieconsent-container"></div><div class="assets"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/katex/copy-tex.min.css">
+        <noscript><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"></noscript><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"data":{"desktop-header-typeit":"HongSpell","mobile-header-typeit":"HongSpell"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":false,"fuseIndexURL":"/index.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":2,"noResultsFound":"No results found","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"sharerjs":true,"table":{"sort":true},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/lib/tablesort/tablesort.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js" defer></script><script type="text/javascript" src="/lib/katex/auto-render.min.js" defer></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js" defer></script><script type="text/javascript" src="/lib/katex/mhchem.min.js" defer></script><script type="text/javascript" src="/js/katex.min.js" defer></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script type="text/javascript" src="/js/cookieconsent.min.js" defer></script><script type="text/javascript" src="/js/theme.min.js" defer></script></div>
+</body>
+
+</html>

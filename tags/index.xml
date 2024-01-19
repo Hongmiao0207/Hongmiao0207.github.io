@@ -4,7 +4,35 @@
         <link>https://hongspell.site/tags/</link>
         <description>Tags - Tag - HongSpell</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>threewater027@gmail.com (Hong)</managingEditor>
-            <webMaster>threewater027@gmail.com (Hong)</webMaster><lastBuildDate>Sun, 12 Nov 2023 16:19:14 &#43;0800</lastBuildDate><atom:link href="https://hongspell.site/tags/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>threewater027@gmail.com (Hong)</webMaster><lastBuildDate>Sat, 06 Jan 2024 16:19:14 &#43;0800</lastBuildDate><atom:link href="https://hongspell.site/tags/" rel="self" type="application/rss+xml" /><item>
+    <title>k8s</title>
+    <link>https://hongspell.site/tags/k8s/</link>
+    <pubDate>Sat, 06 Jan 2024 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/tags/k8s/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>kubernetes</title>
+    <link>https://hongspell.site/tags/kubernetes/</link>
+    <pubDate>Sat, 06 Jan 2024 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/tags/kubernetes/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>dubbo</title>
+    <link>https://hongspell.site/tags/dubbo/</link>
+    <pubDate>Thu, 21 Dec 2023 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/tags/dubbo/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>microservices</title>
+    <link>https://hongspell.site/tags/microservices/</link>
+    <pubDate>Thu, 21 Dec 2023 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/tags/microservices/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
     <title>database</title>
     <link>https://hongspell.site/tags/database/</link>
     <pubDate>Sun, 12 Nov 2023 16:19:14 &#43;0800</pubDate><author>
@@ -45,34 +73,6 @@
     <pubDate>Thu, 21 Sep 2023 16:19:14 &#43;0800</pubDate><author>
         <name>Hong</name>
     </author><guid>https://hongspell.site/tags/stream/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>design-patterns</title>
-    <link>https://hongspell.site/tags/design-patterns/</link>
-    <pubDate>Mon, 07 Aug 2023 16:19:14 &#43;0800</pubDate><author>
-        <name>Hong</name>
-    </author><guid>https://hongspell.site/tags/design-patterns/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>kafka</title>
-    <link>https://hongspell.site/tags/kafka/</link>
-    <pubDate>Tue, 14 Mar 2023 16:19:14 &#43;0800</pubDate><author>
-        <name>Hong</name>
-    </author><guid>https://hongspell.site/tags/kafka/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>mq</title>
-    <link>https://hongspell.site/tags/mq/</link>
-    <pubDate>Tue, 14 Mar 2023 16:19:14 &#43;0800</pubDate><author>
-        <name>Hong</name>
-    </author><guid>https://hongspell.site/tags/mq/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>jvm</title>
-    <link>https://hongspell.site/tags/jvm/</link>
-    <pubDate>Wed, 21 Dec 2022 16:19:14 &#43;0800</pubDate><author>
-        <name>Hong</name>
-    </author><guid>https://hongspell.site/tags/jvm/</guid>
     <description><![CDATA[]]></description>
 </item></channel>
 </rss>

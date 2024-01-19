@@ -3,19 +3,30 @@
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
             <loc>https://hongspell.site/feedback-prize/</loc><lastmod>2022-03-24T16:19:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://hongspell.site/</loc><lastmod>2024-01-03T16:19:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://hongspell.site/learning/</loc><lastmod>2024-01-03T16:19:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://hongspell.site/learning/should-i-have-children/</loc><lastmod>2024-01-03T16:19:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://hongspell.site/categories/</loc><lastmod>2023-11-12T16:19:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://hongspell.site/learning/bad-science-ai-used-to-target-kids-with-disinformation/</loc><lastmod>2024-01-06T16:19:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
+            <loc>https://hongspell.site/categories/</loc><lastmod>2024-01-06T16:19:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
+            <loc>https://hongspell.site/</loc><lastmod>2024-01-06T16:19:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
+            <loc>https://hongspell.site/tags/k8s/</loc><lastmod>2024-01-06T16:19:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
+            <loc>https://hongspell.site/series/k8s-learning/</loc><lastmod>2024-01-06T16:19:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
+            <loc>https://hongspell.site/tags/kubernetes/</loc><lastmod>2024-01-06T16:19:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
+            <loc>https://hongspell.site/categories/kubernetes/</loc><lastmod>2024-01-06T16:19:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
+            <loc>https://hongspell.site/kubernetes%E8%BD%BB%E6%9D%BE%E5%85%A5%E9%97%A8/</loc><lastmod>2024-01-06T16:19:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
+            <loc>https://hongspell.site/learning/</loc><lastmod>2024-01-06T16:19:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
+            <loc>https://hongspell.site/posts/</loc><lastmod>2024-01-06T16:19:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
+            <loc>https://hongspell.site/series/</loc><lastmod>2024-01-06T16:19:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
+            <loc>https://hongspell.site/tags/</loc><lastmod>2024-01-06T16:19:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
+            <loc>https://hongspell.site/learning/should-i-have-children/</loc><lastmod>2024-01-03T16:19:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
+            <loc>https://hongspell.site/tags/dubbo/</loc><lastmod>2023-12-21T16:19:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url><url>
+            <loc>https://hongspell.site/categories/dubbo/</loc><lastmod>2023-12-21T16:19:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url><url>
+            <loc>https://hongspell.site/series/dubbo-notes/</loc><lastmod>2023-12-21T16:19:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url><url>
+            <loc>https://hongspell.site/1-dubbo%E4%BB%8B%E7%BB%8D/</loc><lastmod>2023-12-21T16:19:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url><url>
+            <loc>https://hongspell.site/tags/microservices/</loc><lastmod>2023-12-21T16:19:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url><url>
             <loc>https://hongspell.site/tags/database/</loc><lastmod>2023-11-12T16:19:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://hongspell.site/categories/database/</loc><lastmod>2023-11-12T16:19:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://hongspell.site/series/db-mysql/</loc><lastmod>2023-11-12T16:19:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://hongspell.site/tags/innodb/</loc><lastmod>2023-11-12T16:19:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://hongspell.site/innodb-page/</loc><lastmod>2023-11-12T16:19:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://hongspell.site/tags/mysql/</loc><lastmod>2023-11-12T16:19:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://hongspell.site/posts/</loc><lastmod>2023-11-12T16:19:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://hongspell.site/series/</loc><lastmod>2023-11-12T16:19:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://hongspell.site/tags/</loc><lastmod>2023-11-12T16:19:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://hongspell.site/tags/java/</loc><lastmod>2023-09-21T16:19:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://hongspell.site/categories/java/</loc><lastmod>2023-09-21T16:19:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://hongspell.site/series/java-stream/</loc><lastmod>2023-09-21T16:19:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>

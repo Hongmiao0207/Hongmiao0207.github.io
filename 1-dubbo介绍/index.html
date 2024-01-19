@@ -1,0 +1,433 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title>Dubbo介绍 - HongSpell</title><meta name="Description" content=""><meta property="og:title" content="Dubbo介绍" />
+<meta property="og:description" content="了解一个服务框架最好的办法就是去看它的官方文档，因为我们所有的知识点都是来源于官方文档 1 什么是Dubbo？ 从抽象架构来看，可以将 Dubbo 分为两层：" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hongspell.site/1-dubbo%E4%BB%8B%E7%BB%8D/" /><meta property="og:image" content="https://hongspell.site/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-12-21T16:19:14+08:00" />
+<meta property="article:modified_time" content="2023-12-21T16:19:14+08:00" /><meta property="og:site_name" content="HongSpell" />
+
+
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://hongspell.site/" /><meta name="twitter:title" content="Dubbo介绍"/>
+<meta name="twitter:description" content="了解一个服务框架最好的办法就是去看它的官方文档，因为我们所有的知识点都是来源于官方文档 1 什么是Dubbo？ 从抽象架构来看，可以将 Dubbo 分为两层："/>
+<meta name="twitter:site" content="@ssdlaohu9527"/>
+<meta name="application-name" content="HongSpell">
+<meta name="apple-mobile-web-app-title" content="HongSpell">
+
+<meta name="theme-color" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><meta name="twitter:creator" content="@ssdlaohu9527" /><link rel="icon" href="/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://hongspell.site/1-dubbo%E4%BB%8B%E7%BB%8D/" /><link rel="prev" href="https://hongspell.site/innodb-page/" /><link rel="next" href="https://hongspell.site/kubernetes%E8%BD%BB%E6%9D%BE%E5%85%A5%E9%97%A8/" />
+<link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/color.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Dubbo介绍",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://hongspell.site/1-dubbo%E4%BB%8B%E7%BB%8D/"
+        },"genre": "posts","keywords": "dubbo, microservices","wordcount":  3231 ,
+        "url": "https://hongspell.site/1-dubbo%E4%BB%8B%E7%BB%8D/","datePublished": "2023-12-21T16:19:14+08:00","dateModified": "2023-12-21T16:19:14+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Hong"
+            },"description": ""
+    }
+    </script></head>
+
+<body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme); document.documentElement.style.setProperty('color-scheme', theme === 'light' ? 'light' : 'dark'); window.theme = theme;   window.isDark = window.theme !== 'light' }
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('auto' === 'light' || 'auto' === 'dark' || 'auto' === 'black') setTheme('auto'), saveTheme('auto'); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+        window.switchThemeEventSet = new Set()
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="HongSpell"><span id="desktop-header-typeit" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/projects/"> 项目 </a><a class="menu-item" href="/sketch/"> 手绘 </a><a class="menu-item" href="/learning/"> 学习 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/Hongmiao0207" title="GitHub" rel="noopener noreferrer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-select" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw"></i>
+                    <select class="color-theme-select" id="theme-select-desktop" title="Switch Theme">
+                        <option value="light">Light</option>
+                        <option value="dark">Dark</option>
+                        <option value="black">Black</option>
+                        <option value="auto">Auto</option>
+                    </select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="HongSpell"><span id="mobile-header-typeit" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/projects/" title="">项目</a><a class="menu-item" href="/sketch/" title="">手绘</a><a class="menu-item" href="/learning/" title="">学习</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/Hongmiao0207" title="GitHub" rel="noopener noreferrer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-select" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw"></i>
+                <select class="color-theme-select" id="theme-select-mobile" title="Switch Theme">
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                    <option value="black">Black</option>
+                    <option value="auto">Auto</option>
+                </select>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "false")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Dubbo介绍</h1><div class="post-meta">
+            <div class="post-meta-line">
+                <span class="post-author"><span class="author fas fa-user-circle fa-fw"></span><a href="/" title="Author" rel=" author" class="author">Hong</a>
+                </span>&nbsp;<span class="post-category">included in </span>&nbsp;<span class="post-category">category <a href="/categories/dubbo/"><i class="far fa-folder fa-fw"></i>dubbo</a></span>&nbsp;<span class="post-category">and</span>&nbsp;<span class="post-series">series <a href="/series/dubbo-notes/"><i class="far fa-list-alt fa-fw"></i>dubbo-notes</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2023-12-21">2023-12-21</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;3231 words&nbsp;<i class="far fa-clock fa-fw"></i>&nbsp;7 minutes&nbsp;</div>
+        </div><div class="featured-image"><img
+        
+        loading="eager"
+        src="/posts/dubbo/dubbo.png"
+        srcset="/posts/dubbo/dubbo.png, /posts/dubbo/dubbo.png 1.5x, /posts/dubbo/dubbo.png 2x"
+        sizes="auto"
+        alt="/posts/dubbo/dubbo.png"
+        title="/posts/dubbo/dubbo.png" height="auto"   width="auto" ></div><div class="details series-nav open">
+                                <div class="details-summary series-title">
+                                    <span>Series - dubbo-notes</span>
+                                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                                </div>
+                                <div class="details-content series-content">
+                                    <nav>
+                                        <ul><li><span class="active">Dubbo介绍</span></li></ul>
+                                    </nav>
+                                </div>
+                            </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-什么是dubbo">1 什么是Dubbo？</a>
+      <ul>
+        <li><a href="#11-dubbo服务治理">1.1 Dubbo服务治理</a>
+          <ul>
+            <li><a href="#111-什么是服务治理">1.1.1 什么是服务治理？</a></li>
+            <li><a href="#112-核心服务治理功能">1.1.2 核心服务治理功能</a></li>
+          </ul>
+        </li>
+        <li><a href="#12-dubbo数据面">1.2 Dubbo数据面</a>
+          <ul>
+            <li><a href="#121-服务开发框架">1.2.1 服务开发框架</a></li>
+            <li><a href="#122-rpc-通信协议实现">1.2.2 RPC 通信协议实现</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#2-dubbo的优势有哪些">2 Dubbo的优势有哪些？</a>
+      <ul>
+        <li><a href="#21-快速易用">2.1 快速易用</a></li>
+        <li><a href="#22-超高性能">2.2 超高性能</a></li>
+        <li><a href="#23-服务治理">2.3 服务治理</a>
+          <ul>
+            <li><a href="#231-流量管控">2.3.1 流量管控</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#3-认清-dubbo">3 认清 Dubbo</a>
+      <ul>
+        <li><a href="#31-dubbo-与-spring-cloud">3.1 Dubbo 与 Spring Cloud</a></li>
+        <li><a href="#32-dubbo-与-grpc">3.2 Dubbo 与 gRPC</a></li>
+        <li><a href="#33-dubbo-与-istio">3.3 Dubbo 与 Istio</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>了解一个服务框架最好的办法就是去看它的官方文档，因为我们所有的知识点都是来源于<a href="https://cn.dubbo.apache.org/zh-cn/overview/home/" target="_blank" rel="noopener noreferrer">官方文档</a></p>
+<h2 id="1-什么是dubbo" class="headerLink">
+    <a href="#1-%e4%bb%80%e4%b9%88%e6%98%afdubbo" class="header-mark"></a>1 什么是Dubbo？</h2><p><figure><a class="lightgallery" href="/posts/dubbo/architecture.png" title="工作原理图" data-thumbnail="/posts/dubbo/architecture.png">
+        <img
+            
+            loading="lazy"
+            src="/posts/dubbo/architecture.png"
+            srcset="/posts/dubbo/architecture.png, /posts/dubbo/architecture.png 1.5x, /posts/dubbo/architecture.png 2x"
+            sizes="auto"
+            alt="工作原理图">
+    </a></figure></p>
+<p>从抽象架构来看，可以将 Dubbo 分为两层：</p>
+<ul>
+<li><strong>服务治理抽象控制面</strong></li>
+<li><strong>Dubbo数据面</strong></li>
+</ul>
+<p><strong>服务治理抽象控制面</strong>，不是特指具体某个组件，而是对 Dubbo治理体系的一种抽象表达。它包括如注册中心、admin控制台、流量管控策略等服务。</p>
+<p><strong>Dubbo数据面</strong>，代表集群部署的所有 Dubbo 进程，进程之间通过 RPC协议实现数据交换，Dubbo定义了微服务中应用的开发与调用的规范，并负责完成数据传输的编解码工作（如，服务消费者和提供者，用来发起和接收业务调用）。</p>
+<h3 id="11-dubbo服务治理" class="headerLink">
+    <a href="#11-dubbo%e6%9c%8d%e5%8a%a1%e6%b2%bb%e7%90%86" class="header-mark"></a>1.1 Dubbo服务治理</h3><p><figure><a class="lightgallery" href="/posts/dubbo/governance.png" title="服务治理" data-thumbnail="/posts/dubbo/governance.png">
+        <img
+            
+            loading="lazy"
+            src="/posts/dubbo/governance.png"
+            srcset="/posts/dubbo/governance.png, /posts/dubbo/governance.png 1.5x, /posts/dubbo/governance.png 2x"
+            sizes="auto"
+            alt="服务治理">
+    </a></figure></p>
+<h4 id="111-什么是服务治理" class="headerLink">
+    <a href="#111-%e4%bb%80%e4%b9%88%e6%98%af%e6%9c%8d%e5%8a%a1%e6%b2%bb%e7%90%86" class="header-mark"></a>1.1.1 什么是服务治理？</h4><p>服务治理就是，在微服务集群环境下，解决 无状态服务节点动态变化、外部化配置、日志跟踪、可观测性、流量管理、高可用性、数据一致性等一系列问题。</p>
+<h4 id="112-核心服务治理功能" class="headerLink">
+    <a href="#112-%e6%a0%b8%e5%bf%83%e6%9c%8d%e5%8a%a1%e6%b2%bb%e7%90%86%e5%8a%9f%e8%83%bd" class="header-mark"></a>1.1.2 核心服务治理功能</h4><ul>
+<li><strong>地址发现</strong></li>
+</ul>
+<p>Dubbo服务发现，默认提供 Nacos、Zookeeper、Consul等注册中心适配，与 Spring Cloud、Kubernetes Service模型打通，并支持自定义扩展。</p>
+<ul>
+<li><strong>负载均衡</strong></li>
+</ul>
+<p>Dubbo默认提供 加权随机、加权轮询、最少活跃请求数优先、最短响应时间优先、一致性哈希和自适应负载等策略。</p>
+<ul>
+<li><strong>流量路由</strong></li>
+</ul>
+<p>Dubbo支持通过一系列流量规则控制服务调用的流量分布和行为。</p>
+<p>基于这些规则可以实现基于权重的比例流量分发、灰度验证、金丝雀发布、按请求参数的路由、同区域优先、超时配置、重试和限流降级等能力。</p>
+<ul>
+<li><strong>链路追踪</strong></li>
+</ul>
+<p>Dubbo通过适配 OpenTelemety 提供了对 Tracing 全链路追踪支持，也有社区提供对Dubbo的适配，比如Skywalking、Zipkin。</p>
+<ul>
+<li><strong>可观测性</strong></li>
+</ul>
+<p>Dubbo实例通过 Prometheus等上报 QPS、RT、请求次数、成功率、异常次数等可观测指标帮助用户了解服务运行状态，通过接入 Grafana、Admin控制台帮助实现指标可视化展示。</p>
+<p>Admin控制台完成集群的几乎所有的管控工作。</p>
+<ul>
+<li>查询服务、应用或机器状态</li>
+<li>创建项目、服务测试、文档管理等</li>
+<li>查看集群实时流量、定位异常问题等</li>
+<li>流量比例分发、参数路由等流量管控规则下发</li>
+</ul>
+<p>另外，Dubbo服务治理生态还提供了对 <strong>API网关</strong>、<strong>限流降级</strong>、<strong>数据一致性</strong>、<strong>认证鉴权</strong>等场景的适配支持。</p>
+<h3 id="12-dubbo数据面" class="headerLink">
+    <a href="#12-dubbo%e6%95%b0%e6%8d%ae%e9%9d%a2" class="header-mark"></a>1.2 Dubbo数据面</h3><p>从数据面角度来看，</p>
+<ul>
+<li>Dubbo作为 服务开发框架，它约束了微服务的定义、开发与调用的规范，并且定义了服务治理的流程和适配模式。</li>
+<li>Dubbo作为 RPC通信协议实现，它解决了服务间数据传输的编解码问题。</li>
+</ul>
+<p><figure><a class="lightgallery" href="/posts/dubbo/framework1.png" title="数据面" data-thumbnail="/posts/dubbo/framework1.png">
+        <img
+            
+            loading="lazy"
+            src="/posts/dubbo/framework1.png"
+            srcset="/posts/dubbo/framework1.png, /posts/dubbo/framework1.png 1.5x, /posts/dubbo/framework1.png 2x"
+            sizes="auto"
+            alt="数据面">
+    </a></figure></p>
+<h4 id="121-服务开发框架" class="headerLink">
+    <a href="#121-%e6%9c%8d%e5%8a%a1%e5%bc%80%e5%8f%91%e6%a1%86%e6%9e%b6" class="header-mark"></a>1.2.1 服务开发框架</h4><p>微服务的目标：构建足够小、自包含、独立演进、可随时部署运行的分布式应用程序。</p>
+<p>微服务的分布式特性，使得应用间的依赖、网络交互、数据传输变得更频繁。这就会衍生出一些问题，比如，应用需要定义、暴露或调用RPC服务，那么这些服务如何定义？如何与应用的开发框架结合？服务的调用行文如何控制？</p>
+<p>Dubbo服务开发框架的含义，它在微服务应用开发框架之上抽象了一套RPC服务定义、暴露、调用和治理的编程范式。</p>
+<p><figure><a class="lightgallery" href="/posts/dubbo/framework2.png" title="Dubbo服务开发框架" data-thumbnail="/posts/dubbo/framework2.png">
+        <img
+            
+            loading="lazy"
+            src="/posts/dubbo/framework2.png"
+            srcset="/posts/dubbo/framework2.png, /posts/dubbo/framework2.png 1.5x, /posts/dubbo/framework2.png 2x"
+            sizes="auto"
+            alt="Dubbo服务开发框架">
+    </a></figure></p>
+<p>Dubbo作为服务开发框架包含的具体内容：</p>
+<ul>
+<li><strong>RPC 服务定义、开发范式</strong>，比如支持IDL定义服务或Java Interface定义服务。</li>
+<li><strong>RPC 服务发布与调用 API</strong>，支持 同步、异步、Reactive Streaming等服务调用编程模式，还支持请求上下文API、设置超时时间等。</li>
+<li><strong>服务治理策略、流程与适配方式等</strong></li>
+</ul>
+<h4 id="122-rpc-通信协议实现" class="headerLink">
+    <a href="#122-rpc-%e9%80%9a%e4%bf%a1%e5%8d%8f%e8%ae%ae%e5%ae%9e%e7%8e%b0" class="header-mark"></a>1.2.2 RPC 通信协议实现</h4><p>Dubbo从设计上不绑定任何一款特定通信协议，几乎所有主流通信协议都支持（HTTP/2、REST、gRPC、JsonRPC、Thrift、Hessian2）。这种Protocol设计模式给构建微服务带来最大的灵活性。</p>
+<p>另外，Dubbo Protocol支持扩展，可以将内部私有协议适配到Dubbo上。</p>
+<p>Dubbo还支持多协议暴露，即单个端口上暴露多个协议，Dubbo Server能够自动识别并确保请求被正确处理。也可以将同一个RPC服务发布到不同端口（协议），为不同技术栈的调用方服务。</p>
+<p>Dubbo2 和 Triple（兼容 gRPC）两个协议，可以满足对高性能通信的要求。</p>
+<ul>
+<li>Dubbo2协议，在TCP传输层协议之上设计的二进制通信协议。</li>
+<li>Triple协议，基于HTTP/2之上构建的支持流模式的通信协议，并且支持 gRPC。</li>
+</ul>
+<p><figure><a class="lightgallery" href="/posts/dubbo/protocol.png" title="protocol设计模式" data-thumbnail="/posts/dubbo/protocol.png">
+        <img
+            
+            loading="lazy"
+            src="/posts/dubbo/protocol.png"
+            srcset="/posts/dubbo/protocol.png, /posts/dubbo/protocol.png 1.5x, /posts/dubbo/protocol.png 2x"
+            sizes="auto"
+            alt="protocol设计模式">
+    </a></figure></p>
+<h2 id="2-dubbo的优势有哪些" class="headerLink">
+    <a href="#2-dubbo%e7%9a%84%e4%bc%98%e5%8a%bf%e6%9c%89%e5%93%aa%e4%ba%9b" class="header-mark"></a>2 Dubbo的优势有哪些？</h2><h3 id="21-快速易用" class="headerLink">
+    <a href="#21-%e5%bf%ab%e9%80%9f%e6%98%93%e7%94%a8" class="header-mark"></a>2.1 快速易用</h3><ul>
+<li>多语言SDK，比如，<code>dubbo-spring-boot-starter</code>。</li>
+<li>任意通信协议，多协议支持让用户选型。</li>
+<li>项目脚手架加速微服务开发</li>
+</ul>
+<h3 id="22-超高性能" class="headerLink">
+    <a href="#22-%e8%b6%85%e9%ab%98%e6%80%a7%e8%83%bd" class="header-mark"></a>2.2 超高性能</h3><ul>
+<li>高性能数据传输，内置支持 Dubbo2、Triple 两款高性能通信协议。</li>
+<li>可构建伸缩的微服务集群。</li>
+<li>智能化流量调度，
+<ul>
+<li>自适应负载均衡，是从消费者视角考虑如何将请求分配到当前具有最优处理能力的机器实例。Dubbo3引入两种负载均衡算法，
+<ul>
+<li>一种是基于公平性的单纯<code>P2C</code>算法，</li>
+<li>另一种是基于自适应方法<code>adaptive</code>，其试图自适应的衡量 provider端机器的吞吐能力，然后将流量尽可能分配到吞吐能力高的机器上，以提升系统性能。</li>
+</ul>
+</li>
+<li>自适应限流，与负载均衡运行在消费者端不同的是，限流功能运行在提供者端。其作用是限制提供端实例处理并发任务时的最大数量。理论上，服务端机器的处理能力是存在上限的，因此当并发请求量达到或接近上限时，拒绝掉一部分请求反而是更好的选择。相比于人为提前设置静态最大并发值，自适应限流算法可以动态调整服务端机器的最大并发值，使其可以在保证机器不过载的前提下，尽可能多的处理接收到的请求。</li>
+</ul>
+</li>
+</ul>
+<h3 id="23-服务治理" class="headerLink">
+    <a href="#23-%e6%9c%8d%e5%8a%a1%e6%b2%bb%e7%90%86" class="header-mark"></a>2.3 服务治理</h3><p>像之前提到过的服务治理的功能就不多赘述，还有下面的作用。</p>
+<h4 id="231-流量管控" class="headerLink">
+    <a href="#231-%e6%b5%81%e9%87%8f%e7%ae%a1%e6%8e%a7" class="header-mark"></a>2.3.1 流量管控</h4><p>在地址发现和负载均衡机制之外，Dubbo 的流量管控规则可以控制服务间的流量走向和 API 调用，基于这些规则可以实现动态地调整服务行为，如超时时间、重试次数、限流参数等。通过控制流量分布可以实现 A/B 测试、金丝雀发布、多版本按比例流量分配、条件匹配路由、黑白名单等，提高系统稳定性。</p>
+<h2 id="3-认清-dubbo" class="headerLink">
+    <a href="#3-%e8%ae%a4%e6%b8%85-dubbo" class="header-mark"></a>3 认清 Dubbo</h2><p>在学一个新知识之前，一定要搞清楚它的定位，下面我们来了解下 Dubbo 与 gRPC、Spring Cloud、Istio的关系。</p>
+<h3 id="31-dubbo-与-spring-cloud" class="headerLink">
+    <a href="#31-dubbo-%e4%b8%8e-spring-cloud" class="header-mark"></a>3.1 Dubbo 与 Spring Cloud</h3><p><figure><a class="lightgallery" href="/posts/dubbo/dubbo-springcloud.png" title="dubbo-springcloud" data-thumbnail="/posts/dubbo/dubbo-springcloud.png">
+        <img
+            
+            loading="lazy"
+            src="/posts/dubbo/dubbo-springcloud.png"
+            srcset="/posts/dubbo/dubbo-springcloud.png, /posts/dubbo/dubbo-springcloud.png 1.5x, /posts/dubbo/dubbo-springcloud.png 2x"
+            sizes="auto"
+            alt="dubbo-springcloud">
+    </a></figure></p>
+<p>从图中我们可以看出，二者其实很相似，都是在整个架构中担任服务治理的角色。它们都侧重于在分布式系统中对问题模式的抽象（如服务发现、负载均衡、动态配置等）。</p>
+<p>Spring Cloud存在的问题：</p>
+<ul>
+<li>只提供抽象模式定义，不提供官方稳定实现。小体系开发团队只能寻求 Netflix、Alibaba、Azure等大厂商的实现套件，而不同厂商的实现的完善度、稳定性、活跃度都各异。</li>
+<li>在流量管控方面如负载均衡、流量路由等服务治理能力上欠缺。</li>
+<li>其编程模型和主要依赖于基于HTTP通信，当你的微服务体系结构深度依赖于HTTP和RESTful API时，与那些主要使用其他RPC协议（如 gRPC）的系统集成会有障碍。</li>
+</ul>
+<h3 id="32-dubbo-与-grpc" class="headerLink">
+    <a href="#32-dubbo-%e4%b8%8e-grpc" class="header-mark"></a>3.2 Dubbo 与 gRPC</h3><ul>
+<li>gRPC是一款RPC框架，Google推出它的核心目的是定义云原生时代的 rpc通信规范与标准实现。</li>
+<li>Dubbo则是一款微服务开发框架。</li>
+</ul>
+<p><figure><a class="lightgallery" href="/posts/dubbo/dubbo-grpc.png" title="dubbo-grpc" data-thumbnail="/posts/dubbo/dubbo-grpc.png">
+        <img
+            
+            loading="lazy"
+            src="/posts/dubbo/dubbo-grpc.png"
+            srcset="/posts/dubbo/dubbo-grpc.png, /posts/dubbo/dubbo-grpc.png 1.5x, /posts/dubbo/dubbo-grpc.png 2x"
+            sizes="auto"
+            alt="dubbo-grpc">
+    </a></figure></p>
+<p>Dubbo不绑定特定的通信协议，并且它支持在微服务中选用 gRPC 通信。</p>
+<h3 id="33-dubbo-与-istio" class="headerLink">
+    <a href="#33-dubbo-%e4%b8%8e-istio" class="header-mark"></a>3.3 Dubbo 与 Istio</h3><p>Istio 是 Service Mesh 的开源代表实现，而 Service Mesh 是 Kubernetes体系下的一种微服务架构。它从部署架构上分为数据面和控制面（和Dubbo类似），主要不同是，</p>
+<ul>
+<li>数据面，istio引入 Sidecar 实现了对服务流量的透明拦截。</li>
+<li>控制面，将抽象的服务治理中心聚合为一个具有统一实现的具体组件，并与Kubernetes无缝适配。</li>
+</ul>
+<p>Dubbo已经实现了对 istio 体系的全面接入，通过 istio控制面来治理 Dubbo服务。在数据面部署上，dubbo通过支持无代理的 Proxyless模式来解决 sidecar引入的复杂性和性能问题。</p>
+<p><figure><a class="lightgallery" href="/posts/dubbo/mix-mesh.png" title="mix-mesh" data-thumbnail="/posts/dubbo/mix-mesh.png">
+        <img
+            
+            loading="lazy"
+            src="/posts/dubbo/mix-mesh.png"
+            srcset="/posts/dubbo/mix-mesh.png, /posts/dubbo/mix-mesh.png 1.5x, /posts/dubbo/mix-mesh.png 2x"
+            sizes="auto"
+            alt="mix-mesh">
+    </a></figure></p>
+<p>从数据面角度，Dubbo支持 Proxy模式 和 Proxyless模式来进行开发和部署，前者 Dubbo 和 Envoy 一起部署，Dubbo作为框架&amp;协议通信组件存在，流量管控交由Envoy和istio控制面来实现。后者，Dubbo进程保持独立部署，通过标准 xDS协议 直接接入 istio等控制面组件。</p>
+<p>从控制面角度，Dubbo可接入原生 istio标准控制面和规则体系。</p>
+</div>
+
+        
+
+<div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-12-21</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span><a class="link-to-mardown" href=/1-dubbo%E4%BB%8B%E7%BB%8D/index.md target="_blank" rel="noopener noreferrer">Read markdown</a>
+                    </span></div>
+            <div class="post-info-share"><button title="Share on Twitter" data-sharer="twitter" data-url="https://hongspell.site/1-dubbo%E4%BB%8B%E7%BB%8D/" data-title="Dubbo介绍" data-via="ssdlaohu9527" data-hashtags="dubbo,microservices"><span class="fab fa-twitter fa-fw"></span></button><button title="Share on Facebook" data-sharer="facebook" data-url="https://hongspell.site/1-dubbo%E4%BB%8B%E7%BB%8D/" data-hashtag="dubbo"><span class="fab fa-facebook-square fa-fw"></span></button><button title="Share on WhatsApp" data-sharer="whatsapp" data-url="https://hongspell.site/1-dubbo%E4%BB%8B%E7%BB%8D/" data-title="Dubbo介绍" data-web><span class="fab fa-whatsapp fa-fw"></span></button><button title="Share on Line" data-sharer="line" data-url="https://hongspell.site/1-dubbo%E4%BB%8B%E7%BB%8D/" data-title="Dubbo介绍"><span data-svg-src="/lib/simple-icons/icons/line.min.svg"></span></button><button title="Share on 微博" data-sharer="weibo" data-url="https://hongspell.site/1-dubbo%E4%BB%8B%E7%BB%8D/" data-title="Dubbo介绍" data-image="/posts/dubbo/dubbo.png"><span class="fab fa-weibo fa-fw"></span></button><button title="Share on Myspace" data-sharer="myspace" data-url="https://hongspell.site/1-dubbo%E4%BB%8B%E7%BB%8D/" data-title="Dubbo介绍" data-description=""><span data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></span></button><button title="Share on Blogger" data-sharer="blogger" data-url="https://hongspell.site/1-dubbo%E4%BB%8B%E7%BB%8D/" data-title="Dubbo介绍" data-description=""><span class="fab fa-blogger fa-fw"></span></button><button title="Share on Evernote" data-sharer="evernote" data-url="https://hongspell.site/1-dubbo%E4%BB%8B%E7%BB%8D/" data-title="Dubbo介绍"><span class="fab fa-evernote fa-fw"></span></button></div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/dubbo/">dubbo</a>,&nbsp;<a href="/tags/microservices/">microservices</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/innodb-page/" class="prev" rel="prev" title="Innodb Page"><i class="fas fa-angle-left fa-fw"></i>Innodb Page</a>
+            <a href="/kubernetes%E8%BD%BB%E6%9D%BE%E5%85%A5%E9%97%A8/" class="next" rel="next" title="kubernetes入门">kubernetes入门<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2023 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer">Hong</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a href="http://beian.miit.gov.cn/" target="_blank">黑ICP备2023016241号</a></span></div>
+            <div class="footer-line"></div>
+            <div class="footer-line">
+            </div>
+        </div></footer></div>
+
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="Back to Top">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div id="cookieconsent-container"></div><div class="assets"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/katex/copy-tex.min.css">
+        <noscript><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"></noscript><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"data":{"desktop-header-typeit":"HongSpell","mobile-header-typeit":"HongSpell"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":false,"fuseIndexURL":"/index.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":2,"noResultsFound":"No results found","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"sharerjs":true,"table":{"sort":true},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/lib/tablesort/tablesort.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js" defer></script><script type="text/javascript" src="/lib/katex/auto-render.min.js" defer></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js" defer></script><script type="text/javascript" src="/lib/katex/mhchem.min.js" defer></script><script type="text/javascript" src="/js/katex.min.js" defer></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script type="text/javascript" src="/js/cookieconsent.min.js" defer></script><script type="text/javascript" src="/js/theme.min.js" defer></script></div>
+</body>
+
+</html>

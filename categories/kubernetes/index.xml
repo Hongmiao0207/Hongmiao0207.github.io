@@ -1,0 +1,17 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>kubernetes - Category - HongSpell</title>
+        <link>https://hongspell.site/categories/kubernetes/</link>
+        <description>kubernetes - Category - HongSpell</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>threewater027@gmail.com (Hong)</managingEditor>
+            <webMaster>threewater027@gmail.com (Hong)</webMaster><lastBuildDate>Sat, 06 Jan 2024 16:19:14 &#43;0800</lastBuildDate><atom:link href="https://hongspell.site/categories/kubernetes/" rel="self" type="application/rss+xml" /><item>
+    <title>kubernetes入门</title>
+    <link>https://hongspell.site/kubernetes%E8%BD%BB%E6%9D%BE%E5%85%A5%E9%97%A8/</link>
+    <pubDate>Sat, 06 Jan 2024 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/kubernetes%E8%BD%BB%E6%9D%BE%E5%85%A5%E9%97%A8/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/posts/k8s/kubernetes.png" referrerpolicy="no-referrer">
+            </div>1 核心组件 1.1 什么是 Node？一个节点就是一个服务器或虚拟机。它会运行容器化应用程序。每个集群至少有一个工作节点。 一个集群通常运行多个节点，提]]></description>
+</item></channel>
+</rss>

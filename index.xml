@@ -4,7 +4,7 @@
         <link>https://hongspell.site/</link>
         <description>HongSpell</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>threewater027@gmail.com (Hong)</managingEditor>
-            <webMaster>threewater027@gmail.com (Hong)</webMaster><lastBuildDate>Wed, 03 Jan 2024 16:19:14 &#43;0800</lastBuildDate>
+            <webMaster>threewater027@gmail.com (Hong)</webMaster><lastBuildDate>Sat, 06 Jan 2024 16:19:14 &#43;0800</lastBuildDate>
             <atom:link href="https://hongspell.site/index.xml" rel="self" type="application/rss+xml" />
         <item>
     <title>Feedback Prize - Evaluating Student Writing | Kaggle</title>
@@ -15,6 +15,24 @@
     <description><![CDATA[<div class="featured-image">
                 <img src="/posts/kaggle/feedback-prize/feedback-prize.png" referrerpolicy="no-referrer">
             </div>1 比赛介绍在这次竞赛中，将识别学生写作中的元素。更具体地说，将自动分割文本，并对6-12年级学生所写的文章中的论证和修辞元素进行分类。帮助学]]></description>
+</item><item>
+    <title>kubernetes入门</title>
+    <link>https://hongspell.site/kubernetes%E8%BD%BB%E6%9D%BE%E5%85%A5%E9%97%A8/</link>
+    <pubDate>Sat, 06 Jan 2024 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/kubernetes%E8%BD%BB%E6%9D%BE%E5%85%A5%E9%97%A8/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/posts/k8s/kubernetes.png" referrerpolicy="no-referrer">
+            </div>1 核心组件 1.1 什么是 Node？一个节点就是一个服务器或虚拟机。它会运行容器化应用程序。每个集群至少有一个工作节点。 一个集群通常运行多个节点，提]]></description>
+</item><item>
+    <title>Dubbo介绍</title>
+    <link>https://hongspell.site/1-dubbo%E4%BB%8B%E7%BB%8D/</link>
+    <pubDate>Thu, 21 Dec 2023 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/1-dubbo%E4%BB%8B%E7%BB%8D/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/posts/dubbo/dubbo.png" referrerpolicy="no-referrer">
+            </div>了解一个服务框架最好的办法就是去看它的官方文档，因为我们所有的知识点都是来源于官方文档 1 什么是Dubbo？ 从抽象架构来看，可以将 Dubbo 分为两层：]]></description>
 </item><item>
     <title>Innodb Page</title>
     <link>https://hongspell.site/innodb-page/</link>
@@ -78,23 +96,5 @@
     <description><![CDATA[<div class="featured-image">
                 <img src="/posts/pumpkin-book-notes/xigua.png" referrerpolicy="no-referrer">
             </div>6. 支持向量机它是一个几何角度建模模型，对于线性可分数据集，支持向量机就是找距离正负样本都最远的超平面。相比于感知机（它就是找到一个超平面能将]]></description>
-</item><item>
-    <title>Machine Learning Notes 04</title>
-    <link>https://hongspell.site/pumpkin-book-notes04/</link>
-    <pubDate>Fri, 15 Oct 2021 16:19:14 &#43;0800</pubDate><author>
-        <name>Hong</name>
-    </author><guid>https://hongspell.site/pumpkin-book-notes04/</guid>
-    <description><![CDATA[<div class="featured-image">
-                <img src="/posts/pumpkin-book-notes/xigua.png" referrerpolicy="no-referrer">
-            </div>5. 神经网络 neural networks 5.1 神经元模型神经元neuron是神经网络最基本的成分。 M-P神经元模型模仿生物神经网络，通过激活函数activation fun]]></description>
-</item><item>
-    <title>Machine Learning Notes 03</title>
-    <link>https://hongspell.site/pumpkin-book-notes03/</link>
-    <pubDate>Mon, 11 Oct 2021 16:19:14 &#43;0800</pubDate><author>
-        <name>Hong</name>
-    </author><guid>https://hongspell.site/pumpkin-book-notes03/</guid>
-    <description><![CDATA[<div class="featured-image">
-                <img src="/posts/pumpkin-book-notes/xigua.png" referrerpolicy="no-referrer">
-            </div>4. 决策树 decision tree主流应用在集成学习中多棵决策树构建森林。 4.1 基本流程又叫判定树，在分类问题中，它基于树结构来进行决策和判定，给出最终判定结果]]></description>
 </item></channel>
 </rss>
