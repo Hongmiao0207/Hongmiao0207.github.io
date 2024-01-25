@@ -51,7 +51,7 @@ ssh -T git@github.com
 
 如果配置成功则会显示 `Hi xxx! You've successfully authenticated, but GitHub does not provide shell access.`
 
-## 7 更好项目的通信方式
+## 7 更改项目的通信方式
 
 在项目目录中打开命令行，检查目前的通信方式：
 
@@ -78,4 +78,21 @@ origin  git@github.com:xxx/xxx.git (push)
 ```
 
 此时已经修改为SSH了。
+
+## 8 ssh -T git@github.com 超时的解决方案
+
+git bash 中vim ~/.ssh/config
+
+添加或修改内容如下：（重点第二行）
+
+```vim
+Host github.com
+HostName ssh.github.com
+User git
+Port 443
+PreferredAuthentications publickey
+IdentityFile ~/.ssh/id_rsa
+```
+
+保存后，重新执行 `ssh -T git@github.com`
 
