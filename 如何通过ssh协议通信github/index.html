@@ -1,0 +1,299 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title>如何通过SSH协议通信Github - HongSpell</title><meta name="Description" content=""><meta property="og:title" content="如何通过SSH协议通信Github" />
+<meta property="og:description" content="1 前置本地和服务器经常通过HTTP协议请求github失败，为了解决该问题，因此转成SSH协议。 2 生成SSH密钥对如果尚未生成SSH密钥对，" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hongspell.site/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87ssh%E5%8D%8F%E8%AE%AE%E9%80%9A%E4%BF%A1github/" /><meta property="og:image" content="https://hongspell.site/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-10-21T16:19:14+08:00" />
+<meta property="article:modified_time" content="2021-10-21T16:19:14+08:00" /><meta property="og:site_name" content="HongSpell" />
+
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://hongspell.site/" /><meta name="twitter:title" content="如何通过SSH协议通信Github"/>
+<meta name="twitter:description" content="1 前置本地和服务器经常通过HTTP协议请求github失败，为了解决该问题，因此转成SSH协议。 2 生成SSH密钥对如果尚未生成SSH密钥对，"/>
+<meta name="twitter:site" content="@ssdlaohu9527"/>
+<meta name="application-name" content="HongSpell">
+<meta name="apple-mobile-web-app-title" content="HongSpell">
+
+<meta name="theme-color" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><meta name="twitter:creator" content="@ssdlaohu9527" /><link rel="icon" href="/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://hongspell.site/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87ssh%E5%8D%8F%E8%AE%AE%E9%80%9A%E4%BF%A1github/" /><link rel="prev" href="https://hongspell.site/pumpkin-book-notes05/" /><link rel="next" href="https://hongspell.site/pumpkin-book-notes06/" />
+<link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/color.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "如何通过SSH协议通信Github",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://hongspell.site/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87ssh%E5%8D%8F%E8%AE%AE%E9%80%9A%E4%BF%A1github/"
+        },"genre": "posts","keywords": "github, SSH","wordcount":  602 ,
+        "url": "https://hongspell.site/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87ssh%E5%8D%8F%E8%AE%AE%E9%80%9A%E4%BF%A1github/","datePublished": "2021-10-21T16:19:14+08:00","dateModified": "2021-10-21T16:19:14+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Hong"
+            },"description": ""
+    }
+    </script></head>
+
+<body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme); document.documentElement.style.setProperty('color-scheme', theme === 'light' ? 'light' : 'dark'); window.theme = theme;   window.isDark = window.theme !== 'light' }
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('auto' === 'light' || 'auto' === 'dark' || 'auto' === 'black') setTheme('auto'), saveTheme('auto'); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+        window.switchThemeEventSet = new Set()
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="HongSpell"><span id="desktop-header-typeit" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/projects/"> 项目 </a><a class="menu-item" href="/sketch/"> 手绘 </a><a class="menu-item" href="/learning/"> 学习 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/Hongmiao0207" title="GitHub" rel="noopener noreferrer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-select" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw"></i>
+                    <select class="color-theme-select" id="theme-select-desktop" title="Switch Theme">
+                        <option value="light">Light</option>
+                        <option value="dark">Dark</option>
+                        <option value="black">Black</option>
+                        <option value="auto">Auto</option>
+                    </select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="HongSpell"><span id="mobile-header-typeit" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/projects/" title="">项目</a><a class="menu-item" href="/sketch/" title="">手绘</a><a class="menu-item" href="/learning/" title="">学习</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/Hongmiao0207" title="GitHub" rel="noopener noreferrer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-select" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw"></i>
+                <select class="color-theme-select" id="theme-select-mobile" title="Switch Theme">
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                    <option value="black">Black</option>
+                    <option value="auto">Auto</option>
+                </select>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "false")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">如何通过SSH协议通信Github</h1><div class="post-meta">
+            <div class="post-meta-line">
+                <span class="post-author"><span class="author fas fa-user-circle fa-fw"></span><a href="/" title="Author" rel=" author" class="author">Hong</a>
+                </span>&nbsp;<span class="post-category">included in </span>&nbsp;<span class="post-category">categories <a href="/categories/github/"><i class="far fa-folder fa-fw"></i>github</a>&nbsp;<a href="/categories/ssh/"><i class="far fa-folder fa-fw"></i>SSH</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-10-21">2021-10-21</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;602 words&nbsp;<i class="far fa-clock fa-fw"></i>&nbsp;2 minutes&nbsp;</div>
+        </div><div class="featured-image"><img
+        
+        loading="eager"
+        src="/posts/github/github-logo.png"
+        srcset="/posts/github/github-logo.png, /posts/github/github-logo.png 1.5x, /posts/github/github-logo.png 2x"
+        sizes="auto"
+        alt="/posts/github/github-logo.png"
+        title="/posts/github/github-logo.png" height="auto"   width="auto" ></div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-前置">1 前置</a></li>
+    <li><a href="#2-生成ssh密钥对">2 生成SSH密钥对</a></li>
+    <li><a href="#3-添加ssh密钥到ssh代理">3 添加SSH密钥到SSH代理</a></li>
+    <li><a href="#4-复制ssh公钥">4 复制SSH公钥</a></li>
+    <li><a href="#5-添加ssh公钥到github">5 添加SSH公钥到GitHub</a></li>
+    <li><a href="#6-验证ssh">6 验证SSH</a></li>
+    <li><a href="#7-更好项目的通信方式">7 更好项目的通信方式</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="1-前置" class="headerLink">
+    <a href="#1-%e5%89%8d%e7%bd%ae" class="header-mark"></a>1 前置</h2><p>本地和服务器经常通过HTTP协议请求github失败，为了解决该问题，因此转成SSH协议。</p>
+<h2 id="2-生成ssh密钥对" class="headerLink">
+    <a href="#2-%e7%94%9f%e6%88%90ssh%e5%af%86%e9%92%a5%e5%af%b9" class="header-mark"></a>2 生成SSH密钥对</h2><p>如果尚未生成SSH密钥对，可以使用以下命令在计算机上生成</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ssh-keygen -t ed25519 -C &#34;your_email@example.com&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>将<code>your_email@example.com</code>替换为在GitHub上注册的电子邮件地址。</p>
+<p>当提示选择密钥的保存位置时，可以选择默认位置（通常在~/.ssh目录下），也可以选择其他位置。如果选择其他位置，请记得后续步骤中引用正确的文件路径。</p>
+<h2 id="3-添加ssh密钥到ssh代理" class="headerLink">
+    <a href="#3-%e6%b7%bb%e5%8a%a0ssh%e5%af%86%e9%92%a5%e5%88%b0ssh%e4%bb%a3%e7%90%86" class="header-mark"></a>3 添加SSH密钥到SSH代理</h2><p>运行以下命令将SSH密钥添加到SSH代理，以便在GitHub上进行身份验证，替换<code>~/.ssh/id_ed25519</code>生成的密钥文件的路径</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">eval</span> <span class="s2">&#34;</span><span class="k">$(</span>ssh-agent -s<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">ssh-add ~/.ssh/id_ed25519
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="4-复制ssh公钥" class="headerLink">
+    <a href="#4-%e5%a4%8d%e5%88%b6ssh%e5%85%ac%e9%92%a5" class="header-mark"></a>4 复制SSH公钥</h2><p>使用以下命令来复制SSH公钥，以便将其添加到GitHub帐户中</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">cat ~/.ssh/id_ed25519.pub
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="5-添加ssh公钥到github" class="headerLink">
+    <a href="#5-%e6%b7%bb%e5%8a%a0ssh%e5%85%ac%e9%92%a5%e5%88%b0github" class="header-mark"></a>5 添加SSH公钥到GitHub</h2><ul>
+<li>登录到GitHub，然后依次转到 <code>Settings</code> &gt; <code>SSH and GPG keys</code> &gt; <code>New SSH key</code>。</li>
+<li>在 <code>Title</code> 中，为密钥提供一个描述性的名称，以便在以后识别。</li>
+<li>在 <code>Key</code> 中，粘贴您复制的SSH公钥。</li>
+<li>最后，单击 <code>Add SSH key</code>。</li>
+</ul>
+<h2 id="6-验证ssh" class="headerLink">
+    <a href="#6-%e9%aa%8c%e8%af%81ssh" class="header-mark"></a>6 验证SSH</h2><p>为了验证SSH是否正常工作，可以运行以下命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ssh -T git@github.com
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果配置成功则会显示 <code>Hi xxx! You've successfully authenticated, but GitHub does not provide shell access.</code></p>
+<h2 id="7-更好项目的通信方式" class="headerLink">
+    <a href="#7-%e6%9b%b4%e5%a5%bd%e9%a1%b9%e7%9b%ae%e7%9a%84%e9%80%9a%e4%bf%a1%e6%96%b9%e5%bc%8f" class="header-mark"></a>7 更好项目的通信方式</h2><p>在项目目录中打开命令行，检查目前的通信方式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">git remote -v
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">origin  https://github.com/xxx/xxx.git <span class="o">(</span>fetch<span class="o">)</span>
+</span></span><span class="line"><span class="cl">origin  https://github.com/xxx/xxx.git <span class="o">(</span>push<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这表示我们目前的请求方式还是基于HTTP，使用下面命令改 url 链接：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">git remote set-url origin  git@github.com:xxx/xxx.git   
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>验证：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">git remote -v
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">origin  git@github.com:xxx/xxx.git <span class="o">(</span>fetch<span class="o">)</span>
+</span></span><span class="line"><span class="cl">origin  git@github.com:xxx/xxx.git <span class="o">(</span>push<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>此时已经修改为SSH了。</p>
+</div>
+
+        
+
+<div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2021-10-21</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span><a class="link-to-mardown" href=/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87ssh%E5%8D%8F%E8%AE%AE%E9%80%9A%E4%BF%A1github/index.md target="_blank" rel="noopener noreferrer">Read markdown</a>
+                    </span></div>
+            <div class="post-info-share"><button title="Share on Twitter" data-sharer="twitter" data-url="https://hongspell.site/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87ssh%E5%8D%8F%E8%AE%AE%E9%80%9A%E4%BF%A1github/" data-title="如何通过SSH协议通信Github" data-via="ssdlaohu9527" data-hashtags="github,SSH"><span class="fab fa-twitter fa-fw"></span></button><button title="Share on Facebook" data-sharer="facebook" data-url="https://hongspell.site/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87ssh%E5%8D%8F%E8%AE%AE%E9%80%9A%E4%BF%A1github/" data-hashtag="github"><span class="fab fa-facebook-square fa-fw"></span></button><button title="Share on WhatsApp" data-sharer="whatsapp" data-url="https://hongspell.site/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87ssh%E5%8D%8F%E8%AE%AE%E9%80%9A%E4%BF%A1github/" data-title="如何通过SSH协议通信Github" data-web><span class="fab fa-whatsapp fa-fw"></span></button><button title="Share on Line" data-sharer="line" data-url="https://hongspell.site/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87ssh%E5%8D%8F%E8%AE%AE%E9%80%9A%E4%BF%A1github/" data-title="如何通过SSH协议通信Github"><span data-svg-src="/lib/simple-icons/icons/line.min.svg"></span></button><button title="Share on 微博" data-sharer="weibo" data-url="https://hongspell.site/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87ssh%E5%8D%8F%E8%AE%AE%E9%80%9A%E4%BF%A1github/" data-title="如何通过SSH协议通信Github" data-image="/posts/github/github-logo.png"><span class="fab fa-weibo fa-fw"></span></button><button title="Share on Myspace" data-sharer="myspace" data-url="https://hongspell.site/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87ssh%E5%8D%8F%E8%AE%AE%E9%80%9A%E4%BF%A1github/" data-title="如何通过SSH协议通信Github" data-description=""><span data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></span></button><button title="Share on Blogger" data-sharer="blogger" data-url="https://hongspell.site/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87ssh%E5%8D%8F%E8%AE%AE%E9%80%9A%E4%BF%A1github/" data-title="如何通过SSH协议通信Github" data-description=""><span class="fab fa-blogger fa-fw"></span></button><button title="Share on Evernote" data-sharer="evernote" data-url="https://hongspell.site/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87ssh%E5%8D%8F%E8%AE%AE%E9%80%9A%E4%BF%A1github/" data-title="如何通过SSH协议通信Github"><span class="fab fa-evernote fa-fw"></span></button></div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/github/">github</a>,&nbsp;<a href="/tags/ssh/">SSH</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/pumpkin-book-notes05/" class="prev" rel="prev" title="Machine Learning Notes 05"><i class="fas fa-angle-left fa-fw"></i>Machine Learning Notes 05</a>
+            <a href="/pumpkin-book-notes06/" class="next" rel="next" title="Machine Learning Notes 06">Machine Learning Notes 06<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2023 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer">Hong</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a href="http://beian.miit.gov.cn/" target="_blank">黑ICP备2023016241号</a></span></div>
+            <div class="footer-line"></div>
+            <div class="footer-line">
+            </div>
+        </div></footer></div>
+
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="Back to Top">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div id="cookieconsent-container"></div><div class="assets"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/katex/copy-tex.min.css">
+        <noscript><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"></noscript><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"data":{"desktop-header-typeit":"HongSpell","mobile-header-typeit":"HongSpell"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":false,"fuseIndexURL":"/index.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":2,"noResultsFound":"No results found","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"sharerjs":true,"table":{"sort":true},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/lib/tablesort/tablesort.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js" defer></script><script type="text/javascript" src="/lib/katex/auto-render.min.js" defer></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js" defer></script><script type="text/javascript" src="/lib/katex/mhchem.min.js" defer></script><script type="text/javascript" src="/js/katex.min.js" defer></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script type="text/javascript" src="/js/cookieconsent.min.js" defer></script><script type="text/javascript" src="/js/theme.min.js" defer></script></div>
+</body>
+
+</html>

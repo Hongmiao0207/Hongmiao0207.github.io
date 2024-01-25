@@ -86,13 +86,13 @@
                 <img src="/posts/pumpkin-book-notes/xigua.png" referrerpolicy="no-referrer">
             </div>1 模型评估与选择 过拟合：就是不具备普遍性，在训练集中表现好，测试集和实际使用中一般 欠拟合：模型对于训练集的表现都不好 评估方法：将数据集分为训]]></description>
 </item><item>
-    <title>Machine Learning Notes 05</title>
-    <link>https://hongspell.site/pumpkin-book-notes05/</link>
-    <pubDate>Wed, 20 Oct 2021 16:19:14 &#43;0800</pubDate><author>
+    <title>如何通过SSH协议通信Github</title>
+    <link>https://hongspell.site/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87ssh%E5%8D%8F%E8%AE%AE%E9%80%9A%E4%BF%A1github/</link>
+    <pubDate>Thu, 21 Oct 2021 16:19:14 &#43;0800</pubDate><author>
         <name>Hong</name>
-    </author><guid>https://hongspell.site/pumpkin-book-notes05/</guid>
+    </author><guid>https://hongspell.site/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87ssh%E5%8D%8F%E8%AE%AE%E9%80%9A%E4%BF%A1github/</guid>
     <description><![CDATA[<div class="featured-image">
-                <img src="/posts/pumpkin-book-notes/xigua.png" referrerpolicy="no-referrer">
-            </div>6. 支持向量机它是一个几何角度建模模型，对于线性可分数据集，支持向量机就是找距离正负样本都最远的超平面。相比于感知机（它就是找到一个超平面能将]]></description>
+                <img src="/posts/github/github-logo.png" referrerpolicy="no-referrer">
+            </div>1 前置本地和服务器经常通过HTTP协议请求github失败，为了解决该问题，因此转成SSH协议。 2 生成SSH密钥对如果尚未生成SSH密钥对，]]></description>
 </item></channel>
 </rss>

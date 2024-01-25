@@ -1,0 +1,17 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>SSH - Category - HongSpell</title>
+        <link>https://hongspell.site/categories/ssh/</link>
+        <description>SSH - Category - HongSpell</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>threewater027@gmail.com (Hong)</managingEditor>
+            <webMaster>threewater027@gmail.com (Hong)</webMaster><lastBuildDate>Thu, 21 Oct 2021 16:19:14 &#43;0800</lastBuildDate><atom:link href="https://hongspell.site/categories/ssh/" rel="self" type="application/rss+xml" /><item>
+    <title>如何通过SSH协议通信Github</title>
+    <link>https://hongspell.site/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87ssh%E5%8D%8F%E8%AE%AE%E9%80%9A%E4%BF%A1github/</link>
+    <pubDate>Thu, 21 Oct 2021 16:19:14 &#43;0800</pubDate><author>
+        <name>Hong</name>
+    </author><guid>https://hongspell.site/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87ssh%E5%8D%8F%E8%AE%AE%E9%80%9A%E4%BF%A1github/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/posts/github/github-logo.png" referrerpolicy="no-referrer">
+            </div>1 前置本地和服务器经常通过HTTP协议请求github失败，为了解决该问题，因此转成SSH协议。 2 生成SSH密钥对如果尚未生成SSH密钥对，]]></description>
+</item></channel>
+</rss>
